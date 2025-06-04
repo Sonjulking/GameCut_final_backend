@@ -35,3 +35,4 @@ build/
 ### properties ###
 **/application.properties
 **/application.yml
+src/main/resources/appilcation.properties
