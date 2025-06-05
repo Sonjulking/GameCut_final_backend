@@ -19,12 +19,12 @@ public class Video {
     private Integer videoNo;
 
     // 외래키 연관관계 매핑 - 첨부파일
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ATTACH_NO", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ATTACH_NO", nullable = false, unique = true)
     private File attachFile;
 
     // 외래키 연관관계 매핑 - 게시글 (ERD에서 추가 확인)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BOARD_NO", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BOARD_NO", nullable = false, unique = true)
     private Board board;
 }

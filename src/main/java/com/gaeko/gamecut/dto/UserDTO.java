@@ -1,53 +1,39 @@
 package com.gaeko.gamecut.dto;
 
 import lombok.*;
+
 import java.util.Date;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDTO {  // ← 클래스명 그대로 유지
+public class UserDTO {
     private Integer userNo;
+
     private String userId;
-    private String userPwd;     // ← 이 줄만 주석처리!
+
+    // 보안상 직접 노출을 원치 않는다면 제외해도 됩니다.
+    private String userPwd;
+
     private String userName;
     private String userNickname;
+
     private String phone;
     private String email;
+
     private Date userCreateDate;
     private Date userDeleteDate;
+
     private String isSocial;
     private String role;
-    private Integer userPoint;
-    private Integer itemNo;
-    private Integer photoNo;
+
+    @Builder.Default
+    private Integer userPoint = 1000;
+
+    // 연관된 Item 엔티티를 ItemDTO로 매핑
+    private ItemDTO item;
+
+    // 연관된 Photo 엔티티(프로필 사진)를 PhotoDTO로 매핑
+    private PhotoDTO photo;
 }
-
-// // 회원가입/로그인용 별도 DTO
-// @Getter
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// public class UserRegistrationDTO {
-//     private String userId;
-//     private String userPwd;      // 입력용에서만 사용
-//     private String userName;
-//     private String userNickname;
-//     private String phone;
-//     private String email;
-//     private String isSocial;
-// }
-
-// // 목록 조회용 간단 DTO  
-// @Getter
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// public class UserListDTO {
-//     private Integer userNo;
-//     private String userNickname;
-//     private String profileImageUrl;
-//     private Integer userPoint;
-//     private Date userCreateDate;
-// }

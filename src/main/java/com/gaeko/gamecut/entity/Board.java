@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "BOARD")
@@ -31,11 +32,6 @@ public class Board {
     @JoinColumn(name = "BOARD_TYPE_NO", nullable = false)
     private BoardType boardType;
 
-    // 외래키 연관관계 매핑 - 비디오 (선택적)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "VIDEO_NO")
-    private Video video;
-
     @Column(name = "BOARD_CONTENT", nullable = false, length = 200)
     private String boardContent;
 
@@ -57,4 +53,12 @@ public class Board {
     @Column(name = "BOARD_DELETE_DATE")
     private Date boardDeleteDate;
 
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comments;
+
+    @OneToOne(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Video video;
+
+    @OneToMany(mappedBy = "board")
+    private List<Photo> photos;
 }

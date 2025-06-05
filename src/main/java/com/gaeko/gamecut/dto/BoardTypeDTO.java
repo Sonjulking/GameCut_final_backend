@@ -2,7 +2,7 @@ package com.gaeko.gamecut.dto;
 
 import lombok.*;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
