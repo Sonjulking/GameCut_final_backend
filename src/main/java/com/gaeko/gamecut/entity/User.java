@@ -47,7 +47,7 @@ public class User {
     private Date userDeleteDate;
 
     @Column(name = "IS_SOCIAL", nullable = false, length = 20)
-    private String isSocial;
+    private String isSocial = "basic";
 
     @Column(name = "ROLE", nullable = false, length = 30)
     private String role;
