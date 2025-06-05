@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "COMMENT")
+@Table(name = "COMMENT_TB")
 @Getter
 @Setter
 @NoArgsConstructor
