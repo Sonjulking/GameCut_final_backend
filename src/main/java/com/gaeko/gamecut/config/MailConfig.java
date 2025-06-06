@@ -1,4 +1,4 @@
-package com.gaeko.gamecut;
+package com.gaeko.gamecut.config;
 
 import kr.co.youiwe.webservice.BitSms;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 
 @Configuration
-public class SpringConfig {
+public class MailConfig {
     @Bean
     public BitSms sms() {
         return new BitSms();
