@@ -13,6 +13,7 @@ public class FileDTO {
     private Integer attachNo;
 
     // File 업로드한 사용자(User) 식별자만 저장
+    //private UserDTO user;
     private Integer userNo;
 
     // 고유 식별자(UUID)
@@ -32,4 +33,5 @@ public class FileDTO {
 
     // 원본 파일 이름
     private String originalFileName;
+
 }

@@ -13,20 +13,16 @@ import java.util.List;
  */
 @Mapper(
         componentModel = "spring",
-        uses = {PhotoMapper.class}
+        uses = {
+                PhotoMapper.class,
+                ItemMapper.class
+        }
+        //ItemMapper.class도  필요함
 )
+//자바에서는 인터페이스는 인스턴스가 불가능함.
 public interface UserMapper {
-
-    @Mappings({
-            @Mapping(target = "item", ignore = true),     // Item 매핑은 추후 ItemMapper 작성 시 추가 가능
-            @Mapping(target = "photo", source = "photo")  // Photo → PhotoDTO (PhotoMapper)
-    })
     UserDTO toDTO(User user);
 
-    @Mappings({
-            @Mapping(target = "item", ignore = true),
-            @Mapping(target = "photo", ignore = true)     // DTO → 엔티티로 되돌릴 때는 photo 엔티티 처리는 별도 로직에서
-    })
     User toEntity(UserDTO dto);
 
     List<UserDTO> toDTOs(List<User> users);

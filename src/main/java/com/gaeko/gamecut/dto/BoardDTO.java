@@ -22,11 +22,9 @@ public class BoardDTO {
     private String boardTitle;
 
     // 조회수, 좋아요 수는 기본값이 0으로 세팅되므로, DTO 생성 시에도 기본값을 0으로 놓을 수 있습니다.
-    @Builder.Default
-    private Integer boardCount = 0;
+    private Integer boardCount;
 
-    @Builder.Default
-    private Integer boardLike = 0;
+    private Integer boardLike;
 
     private Date boardCreateDate;
     private Date boardDeleteDate;

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "USER_TB")
@@ -41,10 +41,10 @@ public class User {
 
     @CreationTimestamp
     @Column(name = "USER_CREATE_DATE", nullable = false)
-    private Date userCreateDate;
+    private LocalDateTime userCreateDate;
 
     @Column(name = "USER_DELETE_DATE")
-    private Date userDeleteDate;
+    private LocalDateTime userDeleteDate;
 
     @Column(name = "IS_SOCIAL", nullable = false, length = 20)
     private String isSocial = "basic";

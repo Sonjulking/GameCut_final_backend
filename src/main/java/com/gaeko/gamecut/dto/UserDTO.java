@@ -2,6 +2,8 @@ package com.gaeko.gamecut.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -22,14 +24,13 @@ public class UserDTO {
     private String phone;
     private String email;
 
-    private Date userCreateDate;
-    private Date userDeleteDate;
+    private LocalDateTime userCreateDate;
+    private LocalDateTime userDeleteDate;
 
     private String isSocial;
     private String role;
 
-    @Builder.Default
-    private Integer userPoint = 1000;
+    private Integer userPoint;
 
     // 연관된 Item 엔티티를 ItemDTO로 매핑
     private ItemDTO item;

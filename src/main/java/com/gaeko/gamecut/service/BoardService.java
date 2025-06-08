@@ -15,6 +15,12 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardMapper boardMapper;
 
+    public BoardDTO save(BoardDTO boardDTO) {
+        Board board = boardMapper.toEntity(boardDTO);
+        board = boardRepository.save(board);
+        return boardMapper.toDTO(board);
+    }
+
     public BoardDTO getBoard(Integer boardNo) {
         Board board = boardRepository.findById(boardNo)
                                      .orElseThrow(() -> new RuntimeException("게시글이 없습니다."));

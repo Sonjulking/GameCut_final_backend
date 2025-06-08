@@ -1,8 +1,10 @@
 package com.gaeko.gamecut.mapper;
 
-import com.gaeko.gamecut.dto.BoardDTO;
 import com.gaeko.gamecut.entity.Board;
+import com.gaeko.gamecut.dto.BoardDTO;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -10,20 +12,18 @@ import java.util.List;
         componentModel = "spring",
         uses = {
                 UserMapper.class,
-                BoardTypeMapper.class,
                 CommentMapper.class,
-                PhotoMapper.class,
-                VideoMapper.class
+                VideoMapper.class,
+                PhotoMapper.class
         }
 )
 public interface BoardMapper {
 
-    // Board → BoardDTO
     BoardDTO toDTO(Board board);
 
-    // Board 목록 → BoardDTO 목록
     List<BoardDTO> toDTOs(List<Board> boards);
 
-    // (필요 시) BoardDTO → Board
     Board toEntity(BoardDTO dto);
+
+    List<Board> toEntities(List<BoardDTO> dtos);
 }
