@@ -1,10 +1,9 @@
 package com.gaeko.gamecut.repository;
 
-import com.gaeko.gamecut.entity.Board;
+import com.gaeko.gamecut.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BoardRepository extends JpaRepository<Board, Integer> {
-    Board findBoardByBoardNo(Integer boardNo);
+public interface CommentRepository extends JpaRepository<Comment, Integer> {
 }

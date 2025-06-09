@@ -29,8 +29,8 @@ public class TestService {
         return TestMapper.toDTO(test);
     }
 
-    public TestDTO save(TestDTO dto) {
-        Test saved = testRepository.save(TestMapper.toEntity(dto));
+    public TestDTO save(TestDTO testDTO) {
+        Test saved = testRepository.save(TestMapper.toEntity(testDTO));
         return TestMapper.toDTO(saved);
     }
 

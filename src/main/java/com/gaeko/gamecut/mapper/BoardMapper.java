@@ -14,7 +14,8 @@ import java.util.List;
                 UserMapper.class,
                 CommentMapper.class,
                 VideoMapper.class,
-                PhotoMapper.class
+                PhotoMapper.class,
+                FileMapper.class
         }
 )
 public interface BoardMapper {

@@ -14,6 +14,12 @@ public class BoardTypeService {
     private final BoardTypeRepository boardTypeRepository;
     private final BoardTypeMapper boardTypeMapper;
 
+    public BoardTypeDTO save(BoardTypeDTO boardTypeDTO) {
+        BoardType boardType = boardTypeMapper.toEntity(boardTypeDTO);
+        boardType = boardTypeRepository.save(boardType);
+        return boardTypeMapper.toDTO(boardType);
+    }
+
     public BoardTypeDTO findByBoardTypeNo(int boardTypeNo) {
         BoardType boardType = boardTypeRepository.findBoardTypeByBoardTypeNo(boardTypeNo);
         BoardTypeDTO boardTypeDTO = boardTypeMapper.toDTO(boardType);

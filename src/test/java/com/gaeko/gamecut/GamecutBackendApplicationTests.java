@@ -1,8 +1,7 @@
 package com.gaeko.gamecut;
 
 import com.gaeko.gamecut.dto.*;
-import com.gaeko.gamecut.entity.BoardType;
-import com.gaeko.gamecut.entity.User;
+import com.gaeko.gamecut.entity.*;
 import com.gaeko.gamecut.mapper.BoardTypeMapper;
 import com.gaeko.gamecut.mapper.UserMapper;
 import com.gaeko.gamecut.mapper.VideoMapper;
@@ -46,18 +45,13 @@ class GamecutBackendApplicationTests {
         for (int i = 1; i <= 5; i++) {
             TestDTO dto = TestDTO.builder()
                                  .testId(i)
-                                 .testTitle("제목 " + i)
-                                 .testName("이름 " + i)
+                                 .testTitle("제목q " + i)
+                                 .testName("이름q " + i)
                                  .build();
             testService.save(dto);
         }
     }
 
-    @Test
-    void findByUserNo() {
-        UserDTO user = userService.findUserByUserNo(1);
-        log.info("{}", user);
-    }
 
     @Test
     void insertUser() {
@@ -67,6 +61,7 @@ class GamecutBackendApplicationTests {
                              .userName("테스터고")
                              .userNickname("test")
                              .phone("010-5555-5555")
+                             .userPoint(0)
                              .email("test@test.com")
                              .role("ROLE_USER")
                              .isSocial("basic")
@@ -86,6 +81,14 @@ class GamecutBackendApplicationTests {
                              .mimeType("video/mp4")
                              .build();
         FileDTO save = fileService.save(dto);
+    }
+
+    @Test
+    void insertBoardType() {
+        BoardTypeDTO boardTypeDTO = BoardTypeDTO.builder()
+                                                .boardTypeName("free")
+                                                .build();
+        boardTypeService.save(boardTypeDTO);
     }
 
     @Test
@@ -110,10 +113,14 @@ class GamecutBackendApplicationTests {
 
     @Test
     void insertVideo() {
+        FileDTO fileDTO = fileService.findByAttachNo(1);
+        log.info("fileDto : {}", fileDTO);
+
         VideoDTO dto = VideoDTO.builder()
-                               .attachNo(1)
+                               .attachFile(fileDTO)
                                .boardNo(1)
                                .build();
+        videoService.save(dto);
     }
 
 }

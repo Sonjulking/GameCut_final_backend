@@ -21,13 +21,22 @@ public class FileService {
     private final UserMapper userMapper;
     private final FileMapper fileMapper;
 
+    @Transactional
+    public FileDTO findByAttachNo(Integer attachNo) {
+
+        File file = fileRepository.findFileByAttachNo(attachNo);
+
+        return fileMapper.toDTO(file);
+
+    }
+
     //파일저장
     @Transactional
-    public FileDTO save(FileDTO dto) {
-        File file = fileMapper.toEntity(dto);
+    public FileDTO save(FileDTO fileDTO) {
+        File file = fileMapper.toEntity(fileDTO);
 
-        if (dto.getUserNo() != null) {
-            UserDTO userDto = userService.findUserByUserNo(dto.getUserNo());
+        if (fileDTO.getUserNo() != null) {
+            UserDTO userDto = userService.findUserByUserNo(fileDTO.getUserNo());
             User user = userMapper.toEntity(userDto);
             file.setUser(user);
         }
