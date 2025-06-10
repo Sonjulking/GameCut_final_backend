@@ -30,10 +30,10 @@ class GamecutBackendApplicationTests {
     private BoardService boardService;
 
     @Autowired
-    private BoardTypeService boardTypeService;
+    private CommentService commentService;
 
     @Autowired
-    private BoardTypeMapper boardTypeMapper;
+    private BoardTypeService boardTypeService;
 
 
     @Test
@@ -121,6 +121,17 @@ class GamecutBackendApplicationTests {
                                .boardNo(1)
                                .build();
         videoService.save(dto);
+    }
+
+    @Test
+    void insertComment() {
+        UserDTO userDTO = userService.findUserByUserNo(1);
+        CommentDTO commentDTO = CommentDTO.builder()
+                                          .boardNo(1)
+                                          .user(userDTO)
+                                          .commentContent("hello akali")
+                                          .build();
+        commentService.save(commentDTO);
     }
 
 }
