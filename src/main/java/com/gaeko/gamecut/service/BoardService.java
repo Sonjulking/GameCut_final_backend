@@ -8,6 +8,7 @@ import com.gaeko.gamecut.mapper.BoardMapper;
 import com.gaeko.gamecut.repository.BoardRepository;
 import com.gaeko.gamecut.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class BoardService {
     }
 
     public List<BoardDTO> getAllBoards() {
-        List<Board> boards = boardRepository.findAll();
+        List<Board> boards = boardRepository.findRandom5BoardType3NotDeleted(PageRequest.of(0, 5));
 
         for (Board board : boards) {
             Video video = board.getVideo();
