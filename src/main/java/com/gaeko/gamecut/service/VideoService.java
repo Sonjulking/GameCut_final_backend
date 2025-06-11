@@ -34,4 +34,15 @@ public class VideoService {
         return videoMapper.toDTO(video);
     }
 
+    @Transactional
+    public VideoDTO save(Integer boardNo, Integer attachNo) {
+        Video video = new Video();
+        File file = fileRepository.findFileByAttachNo(attachNo);
+        Board board = boardRepository.findBoardByBoardNo(boardNo);
+        video.setAttachFile(file);
+        video.setBoard(board);
+        video = videoRepository.save(video);
+        return videoMapper.toDTO(video);
+    }
+
 }

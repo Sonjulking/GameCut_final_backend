@@ -95,11 +95,11 @@ class GamecutBackendApplicationTests {
     void insertBoard() {
         UserDTO userDTO = userService.findUserByUserNo(1);
 
-        BoardTypeDTO boardTypeDTO = boardTypeService.findByBoardTypeNo(1);
+        //BoardTypeDTO boardTypeDTO = boardTypeService.findByBoardTypeNo(1);
 
 
         BoardDTO boardDTO = BoardDTO.builder()
-                                    .boardType(boardTypeDTO)
+                                    .boardTypeNo(1)
                                     .boardLike(0)
                                     .boardCount(0)
                                     .user(userDTO)

@@ -24,6 +24,7 @@ public interface BoardMapper {
 
     List<BoardDTO> toDTOs(List<Board> boards);
 
+    @Mapping(target = "boardType", ignore = true)
     Board toEntity(BoardDTO dto);
 
     List<Board> toEntities(List<BoardDTO> dtos);

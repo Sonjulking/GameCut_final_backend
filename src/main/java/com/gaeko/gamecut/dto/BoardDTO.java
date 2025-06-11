@@ -16,7 +16,8 @@ public class BoardDTO {
     private UserDTO user;
 
     // 게시판 타입 정보: BoardTypeDTO를 사용하거나, 아이디만 필요하다면 Integer boardTypeNo로 변경
-    private BoardTypeDTO boardType;
+    //private BoardTypeDTO boardType;
+    private Integer boardTypeNo;
 
     private String boardContent;
     private String boardTitle;
