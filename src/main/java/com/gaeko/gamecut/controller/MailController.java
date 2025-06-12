@@ -4,6 +4,7 @@ import com.gaeko.gamecut.util.GamecutUtil;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.mail.internet.MimeMessage;
 
 @Controller
-@Log4j2
+@Slf4j
 public class MailController {
     @Autowired
     private MailSender mailSender;
