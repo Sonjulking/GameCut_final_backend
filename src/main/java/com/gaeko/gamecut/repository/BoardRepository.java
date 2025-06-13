@@ -12,8 +12,11 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
     Board findBoardByBoardNo(Integer boardNo);
 
-    //board type이 3인 게시물을, 삭제일이 없는 게시물을 랜덤으로 불러줌
+    @Query(value = "SELECT * FROM board WHERE board_type_no = 3 AND board_delete_date IS NULL ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 5 ROWS ONLY", nativeQuery = true)
+    List<Board> findRandom5BoardType3NotDeleted();
+
     @Query("SELECT b FROM Board b WHERE b.boardType.boardTypeNo = 3 AND b.boardDeleteDate IS NULL ORDER BY function('DBMS_RANDOM.VALUE')")
-    List<Board> findRandom5BoardType3NotDeleted(Pageable pageable);
+    List<Board> findRandomOneBoard(Pageable pageable);
+
 
 }

@@ -32,8 +32,8 @@ public class BoardController {
     }
 
     @GetMapping("/one")
-    public BoardDTO board() {
-        return boardService.getBoard(1);
+    public List<BoardDTO> one() {
+        return boardService.getOneBoard();
     }
 
     @PostMapping

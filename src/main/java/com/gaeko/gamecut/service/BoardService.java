@@ -50,7 +50,7 @@ public class BoardService {
     }
 
     public List<BoardDTO> getAllBoards() {
-        List<Board> boards = boardRepository.findRandom5BoardType3NotDeleted(PageRequest.of(0, 5));
+        List<Board> boards = boardRepository.findRandom5BoardType3NotDeleted();
 
         for (Board board : boards) {
             Video video = board.getVideo();
@@ -64,5 +64,22 @@ public class BoardService {
 
         return boardMapper.toDTOs(boards);
     }
+
+    public List<BoardDTO> getOneBoard() {
+        List<Board> boards = boardRepository.findRandomOneBoard(PageRequest.of(0, 1));
+
+        for (Board board : boards) {
+            Video video = board.getVideo();
+            if (video != null) {
+                if (video.getAttachFile() != null) {
+                    video.getAttachFile().getFileUrl(); // Lazy 로딩 유도
+                }
+                video.getBoard(); // boardNo도 채워줌
+            }
+        }
+
+        return boardMapper.toDTOs(boards);
+    }
+
 
 }
