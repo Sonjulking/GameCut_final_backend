@@ -1,2 +1,16 @@
 포트번호 : 8081
-db에서 전송이나 수신시 엔티티말고  dto 사용하기!
+db에서 전송이나 수신시 엔티티말고  dto 사용하기! (Mapper 사용 권장)
+
+
+-테이블 변경되었습니다!
+-- ① 임시 CLOB 컬럼 추가
+ALTER TABLE board ADD board_content_tmp CLOB;
+
+-- ② 기존 데이터 복사
+UPDATE board SET board_content_tmp = board_content;
+
+-- ③ 기존 컬럼 삭제
+ALTER TABLE board DROP COLUMN board_content;
+
+— ④ 임시 컬럼 이름을 원래 이름으로 변경
+ALTER TABLE board RENAME COLUMN board_content_tmp TO board_content;

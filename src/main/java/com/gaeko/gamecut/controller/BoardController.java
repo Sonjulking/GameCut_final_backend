@@ -4,11 +4,9 @@ import com.gaeko.gamecut.dto.BoardDTO;
 import com.gaeko.gamecut.dto.FileDTO;
 import com.gaeko.gamecut.entity.Board;
 import com.gaeko.gamecut.entity.File;
+import com.gaeko.gamecut.entity.Photo;
 import com.gaeko.gamecut.repository.BoardRepository;
-import com.gaeko.gamecut.service.BoardService;
-import com.gaeko.gamecut.service.FileService;
-import com.gaeko.gamecut.service.FileUploadService;
-import com.gaeko.gamecut.service.VideoService;
+import com.gaeko.gamecut.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +25,7 @@ public class BoardController {
     private final FileService fileService;
     private final FileUploadService fileUploadService;
     private final VideoService videoService;
+    private final PhotoService photoService;
 
     @GetMapping("/list")
     public List<BoardDTO> list() {
@@ -57,7 +56,7 @@ public class BoardController {
                 videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
             }
             if (mimeType != null && mimeType.contains("image")) {
-               log.info("이미지!");
+                photoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo(), 1);
             }
         } else {
             boardDTO = boardService.save(boardDTO);
