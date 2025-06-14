@@ -12,6 +12,7 @@ import com.gaeko.gamecut.repository.BoardTypeRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardMapper boardMapper;
@@ -53,6 +55,7 @@ public class BoardService {
         List<Board> boards = boardRepository.findRandom5BoardType3NotDeleted();
 
         for (Board board : boards) {
+
             Video video = board.getVideo();
             if (video != null) {
                 if (video.getAttachFile() != null) {
