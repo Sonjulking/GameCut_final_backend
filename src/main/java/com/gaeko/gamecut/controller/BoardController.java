@@ -32,9 +32,10 @@ public class BoardController {
         return boardService.getAllBoards();
     }
 
-    @GetMapping("/one")
-    public List<BoardDTO> one() {
-        return boardService.getOneBoard();
+    @PostMapping("/one")
+    public List<BoardDTO> one(@RequestBody List<Long> excludeBoardNos) {
+        //return boardService.getOneBoard();
+        return boardService.getOneBoardExcluding(excludeBoardNos);
     }
 
     @PostMapping

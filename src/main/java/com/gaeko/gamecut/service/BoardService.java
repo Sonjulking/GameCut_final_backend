@@ -84,5 +84,29 @@ public class BoardService {
         return boardMapper.toDTOs(boards);
     }
 
+    public List<BoardDTO> getOneBoardExcluding(List<Long> excludeBoardNos) {
+        log.info(excludeBoardNos.toString());
+        List<Board> boards;
+        if (excludeBoardNos == null || excludeBoardNos.isEmpty()) {
+            boards=  boardRepository.findRandomOneBoard((PageRequest.of(0, 1)));
+        } else {
+            boards = boardRepository.findRandomOneBoardExclude(excludeBoardNos, (PageRequest.of(0, 1)));
+        }
+
+
+        for (Board board : boards) {
+            Video video = board.getVideo();
+            if (video != null) {
+                if (video.getAttachFile() != null) {
+                    video.getAttachFile().getFileUrl(); // Lazy 로딩 유도
+                }
+                video.getBoard(); // boardNo도 채워줌
+            }
+        }
+
+        return boardMapper.toDTOs(boards);
+    }
+
+
 
 }
