@@ -16,24 +16,25 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/user")
+    @GetMapping("/user/listUser")
     public List<UserDTO> findAll() {
         return userService.findAll();
     }
     
-    @PostMapping("/join")
+    @PostMapping("/user/join")
     public Map<String, Object> join(@RequestBody UserDTO dto) {
+    	System.out.println("user/join으로 넘어옴.");
         boolean result = userService.register(dto);
         return Map.of("success", result);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     public Map<String, Object> login(@RequestBody Map<String, String> body) {
         boolean result = userService.login(body.get("userId"), body.get("pwd"));
         return Map.of("success", result);
     }
 
-    @PostMapping("/find-password")
+    @PostMapping("/user/findPassword")
     public Map<String, Object> findPassword(@RequestBody Map<String, String> body) {
         boolean result = userService.findPassword(body.get("userId"), body.get("email"));
         return Map.of("success", result);

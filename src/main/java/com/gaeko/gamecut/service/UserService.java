@@ -61,9 +61,12 @@ public class UserService {
     
  // 회원가입
     public boolean register(UserDTO dto) {
-        if (userRepository.findByUserId(dto.getUserId()).isPresent()) {
-            return false;  // 중복 아이디 검사
-        }
+    	System.out.println("UserService의 register로 넘어옴.");
+//        if (userRepository.findByUserId(dto.getUserId()).isPresent()) {
+//            return false;  // 중복 아이디 검사
+//        }
+//        System.out.println("id중복검사 완료.");
+        
 
         User user = User.builder()
                 .userId(dto.getUserId())
