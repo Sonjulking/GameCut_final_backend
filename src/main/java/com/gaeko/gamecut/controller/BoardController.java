@@ -39,6 +39,24 @@ public class BoardController {
         return boardService.getAllBoards();
     }
 
+    @GetMapping("/{boardNo}")
+    public BoardDTO getBoardById(@PathVariable Integer boardNo) {
+        return boardService.getBoard(boardNo);
+    }
+
+    @PutMapping("/{boardNo}")
+    public ResponseEntity<?> updateBoardById(
+            @ModelAttribute BoardDTO boardDTO,
+            @PathVariable Integer boardNo,
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "thumbnail", required = false) MultipartFile thumbnail
+    ) {
+
+        boardDTO.setBoardNo(boardNo);
+        boardDTO = boardService.save(boardDTO);
+        return ResponseEntity.ok("OK");
+    }
+
     @PostMapping("/one")
     public List<BoardDTO> one(@RequestBody List<Long> excludeBoardNos) {
         //return boardService.getOneBoard();
