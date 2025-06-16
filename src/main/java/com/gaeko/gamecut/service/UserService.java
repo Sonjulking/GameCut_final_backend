@@ -110,6 +110,7 @@ public class UserService {
             sb.append(chars.charAt(rnd.nextInt(chars.length())));
         }
         return sb.toString();
+        
     }
 
 }
