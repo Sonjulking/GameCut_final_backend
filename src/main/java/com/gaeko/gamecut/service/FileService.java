@@ -30,6 +30,12 @@ public class FileService {
 
     }
 
+    @Transactional
+    public FileDTO findByFileUrl(String fileUrl) {
+        File file = fileRepository.findFileByFileUrl(fileUrl);
+        return fileMapper.toDTO(file);
+    }
+
     //파일저장
     @Transactional
     public FileDTO save(FileDTO fileDTO) {
