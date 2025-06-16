@@ -48,7 +48,8 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<?> insertBoard(
             @ModelAttribute BoardDTO boardDTO,
-            @RequestParam(value = "file", required = false) MultipartFile file
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "thumbnail", required = false) MultipartFile thumbnail
     ) throws IOException {
         boardDTO = boardService.save(boardDTO);
         FileUtil fileUtil = new FileUtil();
@@ -65,6 +66,14 @@ public class BoardController {
                 videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
             }
 
+            if (thumbnail != null && !thumbnail.isEmpty()) {
+                FileDTO thisFileDTO = fileUploadService.store(thumbnail);
+                thisFileDTO.setUserNo(1);
+                thisFileDTO = fileService.save(thisFileDTO);
+                photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), 1);
+            }
+
+            //게시판일때
         } else {
             List<String> imageUrls = fileUtil.extractImageUrls(boardDTO.getBoardContent());
             int order = 1;
