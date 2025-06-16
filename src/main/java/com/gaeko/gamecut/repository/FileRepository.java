@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FileRepository extends JpaRepository<File, Integer> {
     File findFileByAttachNo(Integer attachNo);
+
+
+    File findFileByFileUrl(String fileUrl);
 }
