@@ -59,7 +59,6 @@ public class UserService {
     }
     
     
-    
  // 회원가입
     public boolean register(UserDTO dto) {
         if (userRepository.findByUserId(dto.getUserId()).isPresent()) {
