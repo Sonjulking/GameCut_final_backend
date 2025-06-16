@@ -7,6 +7,7 @@ import com.gaeko.gamecut.entity.File;
 import com.gaeko.gamecut.entity.Photo;
 import com.gaeko.gamecut.repository.BoardRepository;
 import com.gaeko.gamecut.service.*;
+import com.gaeko.gamecut.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,14 @@ public class BoardController {
     private final VideoService videoService;
     private final PhotoService photoService;
 
+    @GetMapping("/listAll")
+    public List<BoardDTO> listAll() {
+        return boardService.getAll();
+    }
+
     @GetMapping("/list")
     public List<BoardDTO> list() {
+        System.out.println(boardService.getAllBoards());
         return boardService.getAllBoards();
     }
 
@@ -43,30 +50,65 @@ public class BoardController {
             @ModelAttribute BoardDTO boardDTO,
             @RequestParam(value = "file", required = false) MultipartFile file
     ) throws IOException {
+        boardDTO = boardService.save(boardDTO);
+        FileUtil fileUtil = new FileUtil();
         FileDTO fileDTO = null;
 
+        //동영상일떄
         if (file != null && !file.isEmpty()) {
             fileDTO = fileUploadService.store(file);
             fileDTO.setUserNo(1);
             fileDTO = fileService.save(fileDTO);
-            boardDTO = boardService.save(boardDTO);
-
 
             String mimeType = file.getContentType();
             if (mimeType != null && mimeType.contains("video")) {
                 videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
             }
-            if (mimeType != null && mimeType.contains("image")) {
-                photoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo(), 1);
-            }
+
         } else {
-            boardDTO = boardService.save(boardDTO);
+            List<String> imageUrls = fileUtil.extractImageUrls(boardDTO.getBoardContent());
+            int order = 1;
+            for (String imageUrl : imageUrls) {
+                int index = imageUrl.indexOf("/upload");
+                if (index == -1) continue;
+                String purePath = imageUrl.substring(index); // /upload부터 자름
+                log.info("url : " + purePath);
+                FileDTO thisFileDTO = fileService.findByFileUrl(purePath);
+                log.info(thisFileDTO.toString());
+                if (thisFileDTO != null) {
+                    photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), order);
+                    order++;
+                }
+            }
 
         }
 
 
-
         return ResponseEntity.ok("OK");
+    }
+
+    @PostMapping("/img")
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile image) {
+        log.info("이미지 등록 컨트롤러");
+        try {
+            // 1. 파일 저장 (임시 저장)
+            FileDTO fileDTO = fileUploadService.store(image); // 예: /uploads/temp/uuid.jpg
+            fileDTO.setUserNo(1); // 필요 시 사용자 번호 설정
+
+            // 2. DB 저장
+            fileDTO = fileService.save(fileDTO);
+
+            // 3. 이미지 URL 반환
+            String imageUrl = fileDTO.getFileUrl(); // 예: /uploads/temp/uuid.jpg
+
+            log.info("imgUrl : {}", imageUrl);
+            return ResponseEntity.ok().body(
+                    java.util.Collections.singletonMap("imageUrl", imageUrl)
+            );
+        } catch (Exception e) {
+            log.error("이미지 업로드 실패", e);
+            return ResponseEntity.status(500).body("이미지 업로드 실패");
+        }
     }
 
 }
