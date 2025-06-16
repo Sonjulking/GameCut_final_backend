@@ -97,7 +97,6 @@ public class BoardService {
 
     public List<BoardDTO> getAll() {
         List<Board> boards = boardRepository.findAll();
-        System.out.println(boards.get(1));
         return boardMapper.toDTOs(boards);
     }
 
@@ -124,5 +123,10 @@ public class BoardService {
         return boardMapper.toDTOs(boards);
     }
 
+    public BoardDTO findByNo(int boardNo) {
+        Board b = boardRepository.findBoardByBoardNo(boardNo);
+        
+        return boardMapper.toDTO(b);
+    }
 
 }
