@@ -25,8 +25,16 @@ public class CommentService {
 
         Board board = boardRepository.findBoardByBoardNo(commentDTO.getBoardNo());
         comment.setBoard(board);
-        User user = comment.getUser();
-        comment.setUser(user);
+
+
+        if (comment.getUser() != null) {
+            User user = comment.getUser();
+            comment.setUser(user);
+        } else {
+            User user = userRepository.findUserByUserNo(1);
+            comment.setUser(user);
+        }
+
         comment = commentRepository.save(comment);
         return commentMapper.toDTO(comment);
     }

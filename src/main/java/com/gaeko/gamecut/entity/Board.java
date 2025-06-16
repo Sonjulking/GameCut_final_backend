@@ -32,7 +32,8 @@ public class Board {
     @JoinColumn(name = "BOARD_TYPE_NO", nullable = false)
     private BoardType boardType;
 
-    @Column(name = "BOARD_CONTENT", nullable = false, length = 200)
+    @Lob
+    @Column(name = "BOARD_CONTENT", nullable = false)
     private String boardContent;
 
     @Column(name = "BOARD_TITLE", nullable = false, length = 200)

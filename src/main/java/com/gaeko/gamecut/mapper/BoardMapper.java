@@ -2,6 +2,7 @@ package com.gaeko.gamecut.mapper;
 
 import com.gaeko.gamecut.entity.Board;
 import com.gaeko.gamecut.dto.BoardDTO;
+import com.gaeko.gamecut.entity.BoardType;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,6 +21,7 @@ import java.util.List;
 )
 public interface BoardMapper {
 
+    @Mapping(source = "boardType.boardTypeNo", target = "boardTypeNo")
     BoardDTO toDTO(Board board);
 
     List<BoardDTO> toDTOs(List<Board> boards);
