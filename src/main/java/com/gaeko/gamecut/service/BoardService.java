@@ -81,5 +81,11 @@ public class BoardService {
         return boardMapper.toDTOs(boards);
     }
 
+    public List<BoardDTO> getAll() {
+        List<Board> boards = boardRepository.findAll();
+        System.out.println(boards.get(1));
+        return boardMapper.toDTOs(boards);
+    }
+
 
 }

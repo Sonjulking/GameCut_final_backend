@@ -27,8 +27,14 @@ public class BoardController {
     private final VideoService videoService;
     private final PhotoService photoService;
 
+    @GetMapping("/listAll")
+    public List<BoardDTO> listAll() {
+        return boardService.getAll();
+    }
+
     @GetMapping("/list")
     public List<BoardDTO> list() {
+        System.out.println(boardService.getAllBoards());
         return boardService.getAllBoards();
     }
 
