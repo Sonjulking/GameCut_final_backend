@@ -118,7 +118,15 @@ public class UserService {
 
 
 
-    
+    // 아이디 중복확인
+    public boolean isUserIdExists(String userId) {
+        return userRepository.findByUserId(userId).isPresent();
+    }
+
+    // 닉네임 중복확인
+    public boolean isUserNicknameExists(String userNickname) {
+        return userRepository.findByUserNickname(userNickname).isPresent();
+    }
     
     // 비밀번호 찾기
     public boolean findPassword(String userId, String email) {

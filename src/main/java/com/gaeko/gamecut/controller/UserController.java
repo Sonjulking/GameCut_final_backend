@@ -1,6 +1,7 @@
 package com.gaeko.gamecut.controller;
 
 import com.gaeko.gamecut.dto.UserDTO;
+import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -40,6 +42,21 @@ public class UserController {
     public Map<String, Object> findPassword(@RequestBody Map<String, String> body) {
         boolean result = userService.findPassword(body.get("userId"), body.get("email"));
         return Map.of("success", result);
+    }
+    
+    
+    // 아이디 중복확인
+    @GetMapping("/user/checkUserId")
+    public Map<String, Boolean> checkUserId(@RequestParam String userId) {
+        boolean exists = userService.isUserIdExists(userId);
+        return Map.of("exists", exists);
+    }
+
+    // 닉네임 중복확인
+    @GetMapping("/user/checkUserNickname")
+    public Map<String, Boolean> checkUserNickname(@RequestParam String userNickname) {
+        boolean exists = userService.isUserNicknameExists(userNickname);
+        return Map.of("exists", exists);
     }
     
     
