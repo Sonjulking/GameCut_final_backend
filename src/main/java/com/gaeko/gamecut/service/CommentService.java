@@ -10,6 +10,9 @@ import com.gaeko.gamecut.repository.BoardRepository;
 import com.gaeko.gamecut.repository.CommentRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,4 +42,6 @@ public class CommentService {
         return commentMapper.toDTO(comment);
     }
 
+
+    
 }
