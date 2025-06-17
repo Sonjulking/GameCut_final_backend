@@ -31,6 +31,8 @@ public class BoardService {
     private final UserRepository userRepository;
 
     public BoardDTO save(BoardDTO boardDTO) {
+
+
         if (boardDTO.getBoardCount() == null) {
             boardDTO.setBoardCount(0);
         }
@@ -125,7 +127,7 @@ public class BoardService {
 
     public BoardDTO findByNo(int boardNo) {
         Board b = boardRepository.findBoardByBoardNo(boardNo);
-        
+
         return boardMapper.toDTO(b);
     }
 
