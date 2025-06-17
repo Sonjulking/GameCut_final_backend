@@ -26,10 +26,10 @@ public class UserController {
     public List<UserDTO> findAll() {
         return userService.findAll();
     }
-    
+
     @PostMapping("/user/join")
     public Map<String, Object> join(@RequestBody UserDTO dto) {
-    	System.out.println("user/join으로 넘어옴.");
+        System.out.println("user/join으로 넘어옴.");
         boolean result = userService.register(dto);
         return Map.of("success", result);
     }
@@ -44,8 +44,8 @@ public class UserController {
         boolean result = userService.findPassword(body.get("userId"), body.get("email"));
         return Map.of("success", result);
     }
-    
-    
+
+
     // 아이디 중복확인
     @GetMapping("/user/checkUserId")
     public Map<String, Boolean> checkUserId(@RequestParam String userId) {
@@ -59,10 +59,10 @@ public class UserController {
         boolean exists = userService.isUserNicknameExists(userNickname);
         return Map.of("exists", exists);
     }
-    
-    
+
+
     //유저 정보가저오기
-    
+
     @GetMapping("/user/myinfo")
     public UserDTO getUserInfo() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -70,19 +70,20 @@ public class UserController {
 
         return userService.findUserByUserId(userId);
     }
-    
+
     @PostMapping("/user/oauth/google")
     public Map<String, Object> googleLogin(@RequestBody Map<String, String> body) {
         String token = body.get("token");
         return userService.googleLogin(token);
     }
-    
+
     @PostMapping("/user/oauth/naver")
     public Map<String, Object> naverLogin(@RequestBody Map<String, String> body) {
         String code = body.get("code");
         String state = body.get("state");
         return userService.naverLogin(code, state);
-      
+    }
+
     @GetMapping("/user/{userNo}")
     public UserDTO findUserByUserNo(@PathVariable Integer userNo) {
         System.out.println(userService.findUserByUserNo(userNo));
