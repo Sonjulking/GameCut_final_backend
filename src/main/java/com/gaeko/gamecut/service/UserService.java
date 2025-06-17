@@ -1,7 +1,6 @@
 package com.gaeko.gamecut.service;
 
 import com.gaeko.gamecut.dto.UserDTO;
-
 import com.gaeko.gamecut.entity.Photo;
 import com.gaeko.gamecut.entity.User;
 import com.gaeko.gamecut.jwt.JwtUtil;
@@ -9,16 +8,21 @@ import com.gaeko.gamecut.mapper.UserMapper;
 import com.gaeko.gamecut.repository.PhotoRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.util.EmailUtil;
-
 import lombok.RequiredArgsConstructor;
-
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 @Service
 @RequiredArgsConstructor
@@ -28,10 +32,7 @@ public class UserService {
     private final PhotoRepository photoRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailUtil emailUtil;
-    private final JwtUtil jwtUtil;  // 🔥 추가
-    
-    
-
+    private final JwtUtil jwtUtil;
 
     public UserDTO findUserByUserNo(Integer userNo) {
         User user = userRepository.findUserByUserNo(userNo);
@@ -39,34 +40,23 @@ public class UserService {
     }
 
     public List<UserDTO> findAll() {
-        // DB에서 모든 User 엔티티를 가져온 뒤,
-        // UserMapper의 toDTOs(List<User>)를 호출해야 합니다.
         List<User> users = userRepository.findAll();
         return userMapper.toDTOs(users);
     }
 
-    //DB에 유저정보 저장
     public void saveUser(UserDTO userDTO, Integer photoNo) {
         User user = userMapper.toEntity(userDTO);
-
         if (photoNo != null) {
             Photo photo = photoRepository.findById(photoNo).orElse(null);
             user.setPhoto(photo);
         }
-
         userRepository.save(user);
     }
-    
-    
- // 회원가입
-    public boolean register(UserDTO dto) {
-    	System.out.println("UserService의 register로 넘어옴.");
-       if (userRepository.findByUserId(dto.getUserId()).isPresent()) {
-            return false;  // 중복 아이디 검사
-        }
-        System.out.println("id중복검사 완료.");
-        
 
+    public boolean register(UserDTO dto) {
+        if (userRepository.findByUserId(dto.getUserId()).isPresent()) {
+            return false;
+        }
         User user = User.builder()
                 .userId(dto.getUserId())
                 .userPwd(passwordEncoder.encode(dto.getUserPwd()))
@@ -78,12 +68,10 @@ public class UserService {
                 .role("USER")
                 .userPoint(1000)
                 .build();
-
         userRepository.save(user);
         return true;
     }
 
-    // 로그인
     public boolean login(String userId, String password) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
         if (userOpt.isEmpty()) return false;
@@ -92,43 +80,28 @@ public class UserService {
 
     public Map<String, Object> loginWithToken(String userId, String password) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
-        
-        if (userOpt.isEmpty()) {
-            return Map.of("success", false);
-        }
-
+        if (userOpt.isEmpty()) return Map.of("success", false);
         User user = userOpt.get();
         if (!passwordEncoder.matches(password, user.getUserPwd())) {
             return Map.of("success", false);
         }
-
         String token = jwtUtil.createToken(user.getUserId(), user.getRole());
-        
-        // ✅ 콘솔 로그 추가
-        System.out.println(user.getUserNickname() + "님 로그인 성공!");
-        
-        return Map.of("success", true, "token", token , "userId", user.getUserId(), "userNinkname", user.getUserNickname());
+        return Map.of("success", true, "token", token, "userId", user.getUserId(), "userNinkname", user.getUserNickname());
     }
-    
+
     public UserDTO findUserByUserId(String userId) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
         return userOpt.map(userMapper::toDTO).orElse(null);
     }
-    
 
-
-
-    // 아이디 중복확인
     public boolean isUserIdExists(String userId) {
         return userRepository.findByUserId(userId).isPresent();
     }
 
-    // 닉네임 중복확인
     public boolean isUserNicknameExists(String userNickname) {
         return userRepository.findByUserNickname(userNickname).isPresent();
     }
-    
-    // 비밀번호 찾기
+
     public boolean findPassword(String userId, String email) {
         Optional<User> userOpt = userRepository.findByUserIdAndEmail(userId, email);
         if (userOpt.isEmpty()) return false;
@@ -141,7 +114,6 @@ public class UserService {
         return true;
     }
 
-    // 임시 비밀번호 생성
     private String generateTempPassword() {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder sb = new StringBuilder();
@@ -150,7 +122,120 @@ public class UserService {
             sb.append(chars.charAt(rnd.nextInt(chars.length())));
         }
         return sb.toString();
-        
     }
 
+    // ⭐ 구글 로그인 (안전 null 처리 추가)
+    public Map<String, Object> googleLogin(String idTokenString) {
+        String phone = "000-0000-0000";
+        try {
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
+                    GoogleNetHttpTransport.newTrustedTransport(),
+                    JacksonFactory.getDefaultInstance())
+                    .setAudience(Collections.singletonList("752741472899-quo69i7p0r9cgi0kh67steu3dtbjkvac.apps.googleusercontent.com"))  // 여기에 구글 Client ID 입력
+                    .build();
+
+            GoogleIdToken idToken = verifier.verify(idTokenString);
+            if (idToken != null) {
+                GoogleIdToken.Payload payload = idToken.getPayload();
+
+                String googleUserId = payload.getSubject();
+                String email = payload.getEmail();
+                String name = (String) payload.get("name");
+
+                if (email == null) email = googleUserId + "@googleuser.com";
+                if (name == null || name.isEmpty()) name = email;
+
+                Optional<User> userOpt = userRepository.findByUserId(googleUserId);
+                User user;
+                if (userOpt.isEmpty()) {
+                    user = User.builder()
+                            .userId(googleUserId)
+                            .userPwd("SOCIAL_LOGIN")
+                            .userName(name)
+                            .userNickname(name)
+                            .email(email)
+                            .phone(phone)
+                            .isSocial("google")
+                            .role("USER")
+                            .userPoint(1000)
+                            .build();
+                    userRepository.save(user);
+                } else {
+                    user = userOpt.get();
+                }
+
+                String jwt = jwtUtil.createToken(user.getUserId(), user.getRole());
+
+                return Map.of("success", true, "token", jwt, "userId", user.getUserId(), "userNickname", user.getUserNickname());
+            } else {
+                return Map.of("success", false, "message", "유효하지 않은 구글 토큰");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Map.of("success", false, "message", "서버 오류");
+        }
+    }
+
+    // ⭐ 네이버 로그인 (안전 null 처리 추가)
+    public Map<String, Object> naverLogin(String code, String state) {
+        String phone = "000-0000-0000";
+        try {
+            String clientId = "CQbPXwMaS8p6gHpnTpsS";
+            String clientSecret = "vGaGmanh_8";
+            String redirectUri = "http://localhost:5173/naver/callback";
+
+            String tokenUrl = "https://nid.naver.com/oauth2.0/token" +
+                    "?grant_type=authorization_code" +
+                    "&client_id=" + clientId +
+                    "&client_secret=" + clientSecret +
+                    "&code=" + code +
+                    "&state=" + state;
+
+            RestTemplate restTemplate = new RestTemplate();
+            Map<String, Object> tokenResponse = restTemplate.getForObject(tokenUrl, Map.class);
+            String accessToken = (String) tokenResponse.get("access_token");
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + accessToken);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+            ResponseEntity<Map> profileResponse = restTemplate.exchange(
+                    "https://openapi.naver.com/v1/nid/me", HttpMethod.GET, entity, Map.class);
+
+            Map<String, Object> responseMap = (Map<String, Object>) profileResponse.getBody().get("response");
+            String naverId = (String) responseMap.get("id");
+            String nickname = (String) responseMap.get("nickname");
+            String email = (String) responseMap.get("email");
+            String name = (String) responseMap.get("name");
+
+            if (email == null) email = naverId + "@naver.com";
+            if (nickname == null || nickname.isEmpty()) nickname = email;
+            if (name == null || name.isEmpty()) name = nickname;
+
+            Optional<User> userOpt = userRepository.findByUserId(naverId);
+            User user;
+            if (userOpt.isEmpty()) {
+                user = User.builder()
+                        .userId(naverId)
+                        .userPwd("SOCIAL_LOGIN")
+                        .userName(name)
+                        .userNickname(nickname)
+                        .email(email)
+                        .phone(phone)
+                        .isSocial("naver")
+                        .role("USER")
+                        .userPoint(1000)
+                        .build();
+                userRepository.save(user);
+            } else {
+                user = userOpt.get();
+            }
+
+            String jwt = jwtUtil.createToken(user.getUserId(), user.getRole());
+
+            return Map.of("success", true, "token", jwt, "userId", user.getUserId(), "userNickname", user.getUserNickname());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Map.of("success", false, "message", "네이버 로그인 실패");
+        }
+    }
 }

@@ -69,4 +69,17 @@ public class UserController {
 
         return userService.findUserByUserId(userId);
     }
+    
+    @PostMapping("/user/oauth/google")
+    public Map<String, Object> googleLogin(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        return userService.googleLogin(token);
+    }
+    
+    @PostMapping("/user/oauth/naver")
+    public Map<String, Object> naverLogin(@RequestBody Map<String, String> body) {
+        String code = body.get("code");
+        String state = body.get("state");
+        return userService.naverLogin(code, state);
+    }
 }
