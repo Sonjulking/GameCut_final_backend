@@ -10,12 +10,15 @@ import com.gaeko.gamecut.service.*;
 import com.gaeko.gamecut.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +31,29 @@ public class BoardController {
     private final VideoService videoService;
     private final PhotoService photoService;
 
+    @GetMapping("/detail/{boardNo}")
+    public ResponseEntity<BoardDTO> getBoardDetail(@PathVariable int boardNo) {
+        System.out.println("컨트롤러 넘어옴");
+        try {
+            // 게시글 상세조회 및 조회수 증가
+            BoardDTO boardDTO = boardService.findByNo(boardNo);
+            System.out.println(boardDTO);
+            if (boardDTO == null) {
+                return ResponseEntity.notFound().build();
+            }
+            
+            return ResponseEntity.ok(boardDTO);
+            
+        } catch (Exception e) {
+            // 로그 출력
+            System.err.println("게시글 상세조회 실패: " + e.getMessage());
+            e.printStackTrace();
+            
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    
     @GetMapping("/listAll")
     public List<BoardDTO> listAll() {
         return boardService.getAll();
