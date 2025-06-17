@@ -14,3 +14,7 @@ ALTER TABLE board DROP COLUMN board_content;
 
 — ④ 임시 컬럼 이름을 원래 이름으로 변경
 ALTER TABLE board RENAME COLUMN board_content_tmp TO board_content;
+
+//제약조건 삭제했습니다.
+ALTER TABLE "C##GAMECUT".VIDEO DROP CONSTRAINT SYS_C0010317;
+ALTER TABLE "C##GAMECUT".VIDEO DROP CONSTRAINT SYS_C0010316;

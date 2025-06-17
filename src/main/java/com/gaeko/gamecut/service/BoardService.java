@@ -13,7 +13,10 @@ import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -97,9 +100,10 @@ public class BoardService {
         return boardMapper.toDTOs(boards);
     }
 
-    public List<BoardDTO> getAll() {
-        List<Board> boards = boardRepository.findAll();
-        return boardMapper.toDTOs(boards);
+    public Page<BoardDTO> getAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "boardNo")); // 최신순 정렬
+        Page<Board> boardPage = boardRepository.findAll(pageable);
+        return boardPage.map(boardMapper::toDTO); // Page<Board> → Page<BoardDTO>
     }
 
     public List<BoardDTO> getOneBoardExcluding(List<Long> excludeBoardNos) {

@@ -12,6 +12,7 @@ import com.gaeko.gamecut.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,8 +58,11 @@ public class BoardController {
 
 
     @GetMapping("/listAll")
-    public List<BoardDTO> listAll() {
-        return boardService.getAll();
+    public Page<BoardDTO> listAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return boardService.getAll(page, size); // 전체 Page 객체 반환
     }
 
     @GetMapping("/list")
