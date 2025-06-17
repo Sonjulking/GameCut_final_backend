@@ -24,7 +24,7 @@ public class User {
     @Column(name = "USER_ID", nullable = false, length = 30, unique = true)
     private String userId;
 
-    @Column(name = "USER_PWD", nullable = false, length = 30)
+    @Column(name = "USER_PWD", nullable = false, length = 255)
     private String userPwd;
 
     @Column(name = "USER_NAME", nullable = false, length = 30)

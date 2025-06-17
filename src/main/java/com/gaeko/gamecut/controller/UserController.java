@@ -3,6 +3,9 @@ package com.gaeko.gamecut.controller;
 import com.gaeko.gamecut.dto.UserDTO;
 import com.gaeko.gamecut.service.UserService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,13 +33,23 @@ public class UserController {
 
     @PostMapping("/user/login")
     public Map<String, Object> login(@RequestBody Map<String, String> body) {
-        boolean result = userService.login(body.get("userId"), body.get("pwd"));
-        return Map.of("success", result);
+        return userService.loginWithToken(body.get("userId"), body.get("pwd"));
     }
 
     @PostMapping("/user/findPassword")
     public Map<String, Object> findPassword(@RequestBody Map<String, String> body) {
         boolean result = userService.findPassword(body.get("userId"), body.get("email"));
         return Map.of("success", result);
+    }
+    
+    
+    //유저 정보가저오기
+    
+    @GetMapping("/user/myinfo")
+    public UserDTO getUserInfo() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userId = auth.getName();  // 현재 로그인된 유저의 아이디
+
+        return userService.findUserByUserId(userId);
     }
 }
