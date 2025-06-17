@@ -238,4 +238,36 @@ public class UserService {
             return Map.of("success", false, "message", "네이버 로그인 실패");
         }
     }
+    
+    
+    
+    // 이메일 인증코드 임시 저장용 (임시로 Map 사용, 운영시에는 Redis 권장)
+    private final Map<String, String> emailVerificationMap = new HashMap<>();
+
+    // 이메일 발송
+    public Map<String, Object> sendEmailCode(String email) {
+        String code = generateCode();
+        emailVerificationMap.put(email, code);
+        
+        emailUtil.sendEmail(email, "인증코드 발송", "인증코드는: " + code);
+        return Map.of("success", true, "code", code);  // 개발 중에는 code도 리턴 (실제 배포시엔 code 빼도됨)
+    }
+
+    // 코드 검증
+    public Map<String, Object> verifyEmailCode(String email, String inputCode) {
+        String savedCode = emailVerificationMap.get(email);
+        if (savedCode != null && savedCode.equals(inputCode)) {
+            emailVerificationMap.remove(email); // 검증 성공시 삭제 (1회성)
+            return Map.of("success", true);
+        }
+        return Map.of("success", false);
+    }
+
+    // 인증코드 생성 로직 (간단한 랜덤코드)
+    private String generateCode() {
+        Random rnd = new Random();
+        int code = 100000 + rnd.nextInt(900000); // 6자리 숫자
+        return String.valueOf(code);
+    }
+
 }

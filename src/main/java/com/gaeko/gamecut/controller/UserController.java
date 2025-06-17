@@ -82,4 +82,19 @@ public class UserController {
         String state = body.get("state");
         return userService.naverLogin(code, state);
     }
+    
+    
+    @PostMapping("/user/email/send")
+    public Map<String, Object> sendEmailCode(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        return userService.sendEmailCode(email);
+    }
+
+    @PostMapping("/user/email/verify")
+    public Map<String, Object> verifyEmailCode(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        String code = body.get("code");
+        return userService.verifyEmailCode(email, code);
+    }
+
 }
