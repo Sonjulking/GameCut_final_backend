@@ -28,6 +28,7 @@ public class UserDTO {
     private LocalDateTime userDeleteDate;
 
     private String isSocial;
+    
     private String role;
 
     private Integer userPoint;

@@ -1,0 +1,782 @@
+2025-06-13 16:00:16 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Starting GamecutBackendApplication using Java 21.0.6 with PID 7104 (C:\Users\UserK\git\GameCut_final_backend\target\classes started by UserK in C:\Users\UserK\git\GameCut_final_backend)
+2025-06-13 16:00:16 [restartedMain] INFO  c.g.g.GamecutBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 16:00:16 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\UserK\.m2\repository\com\oracle\database\jdbc\ojdbc11\23.7.0.25.01\ojdbc11-23.7.0.25.01.jar referenced one or more files that do not exist: file:/C:/Users/UserK/.m2/repository/com/oracle/database/jdbc/ojdbc11/23.7.0.25.01/oraclepki.jar
+2025-06-13 16:00:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-13 16:00:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-13 16:00:18 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 16:00:18 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 118 ms. Found 8 JPA repository interfaces.
+2025-06-13 16:00:19 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-06-13 16:00:19 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-13 16:00:19 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 16:00:19 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-13 16:00:19 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 16:00:19 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2845 ms
+2025-06-13 16:00:19 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+2025-06-13 16:00:19 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-06-13 16:00:19 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-13 16:01:46 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Starting GamecutBackendApplication using Java 21.0.6 with PID 5068 (C:\Users\UserK\git\GameCut_final_backend\target\classes started by UserK in C:\Users\UserK\git\GameCut_final_backend)
+2025-06-13 16:01:46 [restartedMain] INFO  c.g.g.GamecutBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 16:01:47 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\UserK\.m2\repository\com\oracle\database\jdbc\ojdbc11\23.7.0.25.01\ojdbc11-23.7.0.25.01.jar referenced one or more files that do not exist: file:/C:/Users/UserK/.m2/repository/com/oracle/database/jdbc/ojdbc11/23.7.0.25.01/oraclepki.jar
+2025-06-13 16:01:47 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-13 16:01:47 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-13 16:01:48 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 16:01:48 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 107 ms. Found 8 JPA repository interfaces.
+2025-06-13 16:01:49 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-06-13 16:01:49 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:01:49 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 16:01:49 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-13 16:01:49 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 16:01:49 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2445 ms
+2025-06-13 16:01:49 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 16:01:49 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-13 16:01:50 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 16:01:50 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 16:01:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 16:01:50 [restartedMain] WARN  c.z.hikari.util.DriverDataSource - Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2025-06-13 16:01:50 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@53ef6c00
+2025-06-13 16:01:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 16:01:51 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 16:01:53 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table board modify board_content varchar2(200 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table board modify board_title varchar2(200 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table board_type modify board_type_name varchar2(50 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table comment_tb modify comment_content varchar2(200 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table file_tb add mime_tpye varchar2(50 char) not null
+2025-06-13 16:01:55 [restartedMain] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "alter table file_tb add mime_tpye varchar2(50 char) not null" via JDBC [ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table file_tb add mime_tpye varchar2(50 char) not null" via JDBC [ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:576)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:516)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:334)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:233)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1362)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1351)
+	at com.gaeko.gamecut.GamecutBackendApplication.main(GamecutBackendApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.sql.SQLSyntaxErrorException: ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:715)
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:615)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1372)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:969)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:237)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:524)
+	at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:192)
+	at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:1401)
+	at oracle.jdbc.driver.OracleStatement.executeSQLStatement(OracleStatement.java:2009)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1622)
+	at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:2687)
+	at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:2636)
+	at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:337)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+Caused by: oracle.jdbc.OracleDatabaseException: ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:723)
+	... 55 common frames omitted
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table file_tb add "original _file_name" varchar2(100 char) not null
+2025-06-13 16:01:55 [restartedMain] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "alter table file_tb add "original _file_name" varchar2(100 char) not null" via JDBC [ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table file_tb add "original _file_name" varchar2(100 char) not null" via JDBC [ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:576)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:516)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:334)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:233)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1362)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1351)
+	at com.gaeko.gamecut.GamecutBackendApplication.main(GamecutBackendApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.sql.SQLSyntaxErrorException: ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:715)
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:615)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1372)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:969)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:237)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:524)
+	at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:192)
+	at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:1401)
+	at oracle.jdbc.driver.OracleStatement.executeSQLStatement(OracleStatement.java:2009)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1622)
+	at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:2687)
+	at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:2636)
+	at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:337)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+Caused by: oracle.jdbc.OracleDatabaseException: ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:723)
+	... 55 common frames omitted
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table follow add followee_no number(10,0) not null
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table guess_the_rank modify tier varchar2(20 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table guess_the_rank_history modify is_correct varchar2(1 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table item modify item_name varchar2(30 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table item add attach_no number(10,0) not null
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table message modify message_content varchar2(200 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table point_history modify point_source varchar2(50 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table report modify report_content varchar2(50 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table tag modify tag_name varchar2(20 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table tag add attach_no number(10,0) not null
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table tag_by_video modify tag_name varchar2(255 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - create table test (test_id number(10,0) not null, test_name varchar2(255 char), test_title varchar2(255 char), primary key (test_id))
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_preference modify tag_name varchar2(255 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb modify email varchar2(30 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb modify is_social varchar2(20 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb modify phone varchar2(13 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb modify role varchar2(30 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb modify user_id varchar2(30 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb modify user_name varchar2(30 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb modify user_nickname varchar2(30 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb modify user_pwd varchar2(30 char)
+2025-06-13 16:01:55 [restartedMain] DEBUG org.hibernate.SQL - alter table video add board_no number(10,0) not null
+2025-06-13 16:01:56 [restartedMain] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "alter table video add board_no number(10,0) not null" via JDBC [ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table video add board_no number(10,0) not null" via JDBC [ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:576)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:516)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:334)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:233)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1362)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1351)
+	at com.gaeko.gamecut.GamecutBackendApplication.main(GamecutBackendApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.sql.SQLSyntaxErrorException: ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+https://docs.oracle.com/error-help/db/ora-01758/
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:715)
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:615)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1372)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:969)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:237)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:524)
+	at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:192)
+	at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:1401)
+	at oracle.jdbc.driver.OracleStatement.executeSQLStatement(OracleStatement.java:2009)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1622)
+	at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:2687)
+	at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:2636)
+	at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:337)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+Caused by: oracle.jdbc.OracleDatabaseException: ORA-01758: 테이블은 필수 열을 추가하기 위해 (NOT NULL) 비어 있어야 합니다.
+
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:723)
+	... 55 common frames omitted
+2025-06-13 16:01:56 [restartedMain] DEBUG org.hibernate.SQL - alter table video drop constraint UKr7dm760ny0xoa8j4ahmjfwpi1
+2025-06-13 16:01:56 [restartedMain] DEBUG org.hibernate.SQL - alter table video add constraint UKr7dm760ny0xoa8j4ahmjfwpi1 unique (board_no)
+2025-06-13 16:02:05 [restartedMain] DEBUG org.hibernate.SQL - alter table follow add constraint FKowowiaugn7k8x4keqolelanau foreign key (followee_no) references user_tb
+2025-06-13 16:02:05 [restartedMain] DEBUG org.hibernate.SQL - alter table item add constraint FKmcly4hhrd13j4wltoj2etkw1q foreign key (attach_no) references file_tb
+2025-06-13 16:02:05 [restartedMain] DEBUG org.hibernate.SQL - alter table tag add constraint FKj5te6t3l12adcm9vau4ldo6fb foreign key (attach_no) references file_tb
+2025-06-13 16:02:05 [restartedMain] DEBUG org.hibernate.SQL - alter table video add constraint FKbcip8mlxiai0ncw1g24jjol1x foreign key (board_no) references board
+2025-06-13 16:02:05 [restartedMain] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "alter table video add constraint FKbcip8mlxiai0ncw1g24jjol1x foreign key (board_no) references board" via JDBC [ORA-00904: "BOARD_NO": 부적합한 식별자
+
+https://docs.oracle.com/error-help/db/ora-00904/]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table video add constraint FKbcip8mlxiai0ncw1g24jjol1x foreign key (board_no) references board" via JDBC [ORA-00904: "BOARD_NO": 부적합한 식별자
+
+https://docs.oracle.com/error-help/db/ora-00904/]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:576)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:516)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyForeignKeys(AbstractSchemaMigrator.java:448)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:269)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1362)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1351)
+	at com.gaeko.gamecut.GamecutBackendApplication.main(GamecutBackendApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.sql.SQLSyntaxErrorException: ORA-00904: "BOARD_NO": 부적합한 식별자
+
+https://docs.oracle.com/error-help/db/ora-00904/
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:715)
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:615)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1372)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:969)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:237)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:524)
+	at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:192)
+	at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:1401)
+	at oracle.jdbc.driver.OracleStatement.executeSQLStatement(OracleStatement.java:2009)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1622)
+	at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:2687)
+	at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:2636)
+	at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:337)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 39 common frames omitted
+Caused by: oracle.jdbc.OracleDatabaseException: ORA-00904: "BOARD_NO": 부적합한 식별자
+
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:723)
+	... 54 common frames omitted
+2025-06-13 16:02:05 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 16:02:06 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 16:02:22 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Starting GamecutBackendApplication using Java 21.0.6 with PID 5084 (C:\Users\UserK\git\GameCut_final_backend\target\classes started by UserK in C:\Users\UserK\git\GameCut_final_backend)
+2025-06-13 16:02:22 [restartedMain] INFO  c.g.g.GamecutBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 16:02:22 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\UserK\.m2\repository\com\oracle\database\jdbc\ojdbc11\23.7.0.25.01\ojdbc11-23.7.0.25.01.jar referenced one or more files that do not exist: file:/C:/Users/UserK/.m2/repository/com/oracle/database/jdbc/ojdbc11/23.7.0.25.01/oraclepki.jar
+2025-06-13 16:02:22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-13 16:02:22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-13 16:02:23 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 16:02:23 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 167 ms. Found 8 JPA repository interfaces.
+2025-06-13 16:02:24 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-06-13 16:02:24 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:02:24 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 16:02:24 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-13 16:02:24 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 16:02:24 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2414 ms
+2025-06-13 16:02:25 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 16:02:25 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-13 16:02:25 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 16:02:25 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 16:02:25 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 16:02:25 [restartedMain] WARN  c.z.hikari.util.DriverDataSource - Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2025-06-13 16:02:26 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@121b8f48
+2025-06-13 16:02:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 16:02:26 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 16:02:29 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table board cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table board_like cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table board_type cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table comment_like cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table comment_tb cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table file_tb cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table follow cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table guess_the_rank cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table guess_the_rank_history cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table item cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table madmovie_world_cup_result cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table message cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table photo cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table point_history cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table report cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table tag cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table tag_by_video cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table test cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table user_block cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table user_item cascade constraints
+2025-06-13 16:02:29 [restartedMain] DEBUG org.hibernate.SQL - drop table user_preference cascade constraints
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop table user_tb cascade constraints
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop table video cascade constraints
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_attach_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_board_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_board_type_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_comment_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_gtr_history_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_gtr_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_item_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_message_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_photo_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_point_history_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_report_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_user_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_video_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - drop sequence seq_world_cup_no
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_attach_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_board_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_board_type_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_comment_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_gtr_history_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_gtr_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_item_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_message_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_photo_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_point_history_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_report_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_user_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_video_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create sequence seq_world_cup_no start with 1 increment by 1
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table board (board_count number(10,0) not null, board_like number(10,0) not null, board_no number(10,0) not null, board_type_no number(10,0) not null, user_no number(10,0) not null, board_create_date timestamp(6) not null, board_delete_date timestamp(6), board_content varchar2(200 char) not null, board_title varchar2(200 char) not null, primary key (board_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table board_like (board_no number(10,0) not null, user_no number(10,0) not null, primary key (board_no, user_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table board_type (board_type_no number(10,0) not null, board_type_name varchar2(50 char) not null, primary key (board_type_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table comment_like (comment_no number(10,0) not null, user_no number(10,0) not null, primary key (comment_no, user_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table comment_tb (board_no number(10,0) not null, comment_no number(10,0) not null, parent_comment_no number(10,0), user_no number(10,0) not null, comment_create_date timestamp(6) not null, comment_delete_date timestamp(6), comment_content varchar2(200 char) not null, primary key (comment_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table file_tb (attach_no number(10,0) not null, user_no number(10,0) not null, upload_time timestamp(6) not null, mime_tpye varchar2(50 char) not null, "original _file_name" varchar2(100 char) not null, uuid varchar2(200 char) not null unique, file_url varchar2(300 char) not null, real_path varchar2(300 char) not null, primary key (attach_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table follow (followee_no number(10,0) not null, follower_no number(10,0) not null, primary key (followee_no, follower_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table guess_the_rank (gtr_no number(10,0) not null, video_no number(10,0) not null, tier varchar2(20 char), primary key (gtr_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table guess_the_rank_history (gtr_history_no number(10,0) not null, gtr_no number(10,0) not null, is_correct varchar2(1 char), user_no number(10,0) not null, solve_date timestamp(6) not null, primary key (gtr_history_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table item (attach_no number(10,0) not null, item_no number(10,0) not null, item_price number(10,0) not null, item_delete_date timestamp(6), item_name varchar2(30 char) not null, primary key (item_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table madmovie_world_cup_result (user_no number(10,0) not null, video_no number(10,0) not null, world_cup_no number(10,0) not null, win_date timestamp(6) not null, primary key (world_cup_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table message (message_no number(10,0) not null, receive_user_no number(10,0) not null, send_user_no number(10,0) not null, message_date timestamp(6) not null, message_delete_date timestamp(6), message_content varchar2(200 char), primary key (message_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table photo (attach_no number(10,0) not null, board_no number(10,0) not null, photo_no number(10,0) not null, photo_order number(10,0) not null, primary key (photo_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table point_history (point_amount number(10,0) not null, point_history_no number(10,0) not null, user_no number(10,0) not null, point_date timestamp(6) not null, point_source varchar2(50 char) not null, primary key (point_history_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table report (board_no number(10,0) not null, report_no number(10,0) not null, user_no number(10,0) not null, report_date timestamp(6) not null, report_content varchar2(50 char), report_type varchar2(50 char) not null, primary key (report_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table tag (attach_no number(10,0) not null, tag_name varchar2(20 char) not null, primary key (tag_name))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table tag_by_video (video_no number(10,0) not null, tag_name varchar2(255 char) not null, primary key (video_no, tag_name))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table test (test_id number(10,0) not null, test_name varchar2(255 char), test_title varchar2(255 char), primary key (test_id))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table user_block (blocked_no number(10,0) not null, blocker_no number(10,0) not null, primary key (blocked_no, blocker_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table user_item (item_no number(10,0) not null, user_no number(10,0) not null, primary key (item_no, user_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table user_preference (tag_count number(10,0) not null, user_no number(10,0) not null, tag_name varchar2(255 char) not null, primary key (user_no, tag_name))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table user_tb (item_no number(10,0), photo_no number(10,0), user_no number(10,0) not null, user_point number(10,0) not null, user_create_date timestamp(6) not null, user_delete_date timestamp(6), phone varchar2(13 char) not null, is_social varchar2(20 char) not null, email varchar2(30 char) not null, role varchar2(30 char) not null, user_id varchar2(30 char) not null unique, user_name varchar2(30 char) not null, user_nickname varchar2(30 char) not null unique, user_pwd varchar2(30 char) not null, primary key (user_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - create table video (attach_no number(10,0) not null unique, board_no number(10,0) not null unique, video_no number(10,0) not null, primary key (video_no))
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table board add constraint FKqhnu1cwx89wqv8ipv8odyfrku foreign key (board_type_no) references board_type
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table board add constraint FKgfuu3nddco48rovqnhtrw1ww0 foreign key (user_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table board_like add constraint FK59e9evxp2wgu8mrb8439mm3u5 foreign key (board_no) references board
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table board_like add constraint FKksgjd3kjam1st1gfdtogy63en foreign key (user_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table comment_like add constraint FKgjg22yrn1dbkq613gf5dapsdm foreign key (comment_no) references comment_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table comment_like add constraint FKjmah8ppboma045u4j2inxijcp foreign key (user_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table comment_tb add constraint FK3u52oqah95vadtbx4syjr21jw foreign key (board_no) references board
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table comment_tb add constraint FK6rbvj4j5x6ooh8g2afv3vn7qn foreign key (parent_comment_no) references comment_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table comment_tb add constraint FKc2yooq6ip22wq7dy2lvn51gwr foreign key (user_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table file_tb add constraint FKohmd105gjglph2kh3px4ch2f8 foreign key (user_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table follow add constraint FKowowiaugn7k8x4keqolelanau foreign key (followee_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table follow add constraint FKq7h2v3nejmr3vx8q5b6mtcwqf foreign key (follower_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table guess_the_rank add constraint FKbv7i55fhouwnkdk2twtimxeir foreign key (video_no) references video
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table guess_the_rank_history add constraint FK2381ud0byxgw88i8kbiaylqo4 foreign key (gtr_no) references guess_the_rank
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table guess_the_rank_history add constraint FKf65lqi2v25ukwwdbgusl2iogb foreign key (user_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table item add constraint FKmcly4hhrd13j4wltoj2etkw1q foreign key (attach_no) references file_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table madmovie_world_cup_result add constraint FKppcmnhpssltt7bg8b6ki0vech foreign key (user_no) references user_tb
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table madmovie_world_cup_result add constraint FKopcdrivjbim2cfkkjyaqsgvwg foreign key (video_no) references video
+2025-06-13 16:02:30 [restartedMain] DEBUG org.hibernate.SQL - alter table message add constraint FKf9ye2bdi9gvdrqx89la08e05f foreign key (receive_user_no) references user_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table message add constraint FKtpmb3r1jp59njtblwr8qa7tte foreign key (send_user_no) references user_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table photo add constraint FK9o6m6vtnw3imbsuvh7tfeeb1r foreign key (attach_no) references file_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table photo add constraint FK64j7ctwf3hnkpvcrn9aqjuudm foreign key (board_no) references board
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table point_history add constraint FK9p478riofo8oljk41nqimveun foreign key (user_no) references user_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table report add constraint FKqcgqf9ey0dnc9b0kk0kerhgfi foreign key (board_no) references board
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table report add constraint FKsgqo0ecdyyphqlixx1dbrdalp foreign key (user_no) references user_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table tag add constraint FKj5te6t3l12adcm9vau4ldo6fb foreign key (attach_no) references file_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table tag_by_video add constraint FKjm1fo67l0te1454fpefuyvslc foreign key (tag_name) references tag
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table tag_by_video add constraint FKhcdtwcglsh60eiep7egd61gx1 foreign key (video_no) references video
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table user_block add constraint FK3hnyu2t9bb5s338yp58c4lg6t foreign key (blocked_no) references user_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table user_block add constraint FKsy73rxah0rw35wh0o6y1nlg3s foreign key (blocker_no) references user_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table user_item add constraint FKjjkdshu1hrl8fgm4uvt3lgvel foreign key (item_no) references item
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table user_item add constraint FKewo5fxgcmwnxov4rvbvg8j9lp foreign key (user_no) references user_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table user_preference add constraint FKnruewaw59a3o69vs1pixo8cby foreign key (tag_name) references tag
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table user_preference add constraint FKlqf0hxpeu5tpghe1ytgw0g40u foreign key (user_no) references user_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb add constraint FKf14s8bnb8rfavxe3iwqd65fe7 foreign key (item_no) references item
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table user_tb add constraint FK6xycr7rog5sgu0mh7a8ukxheq foreign key (photo_no) references photo
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table video add constraint FKsh6petbehkj5m87goq9mwybd2 foreign key (attach_no) references file_tb
+2025-06-13 16:02:31 [restartedMain] DEBUG org.hibernate.SQL - alter table video add constraint FKbcip8mlxiai0ncw1g24jjol1x foreign key (board_no) references board
+2025-06-13 16:02:31 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 16:02:31 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 16:02:32 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.javaMailSender() 실행 시간: 11 ms
+2025-06-13 16:02:32 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.sms() 실행 시간: 0 ms
+2025-06-13 16:02:33 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-13 16:02:33 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-06-13 16:02:33 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CorsConfig.addCorsMappings(..) 실행 시간: 3 ms
+2025-06-13 16:02:33 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] WebConfig.addResourceHandlers(..) 실행 시간: 0 ms
+2025-06-13 16:02:33 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-13 16:02:34 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:02:34 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2025-06-13 16:02:34 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Started GamecutBackendApplication in 12.416 seconds (process running for 13.575)
+2025-06-13 16:02:38 [RMI TCP Connection(6)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-06-13 16:02:38 [RMI TCP Connection(6)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-13 16:02:39 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:02:39 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-06-13 16:02:39 [RMI TCP Connection(6)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:02:39 [RMI TCP Connection(6)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 16:02:39 [RMI TCP Connection(6)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 16:02:39 [RMI TCP Connection(6)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 16:02:54 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Starting GamecutBackendApplication using Java 21.0.6 with PID 9208 (C:\Users\UserK\git\GameCut_final_backend\target\classes started by UserK in C:\Users\UserK\git\GameCut_final_backend)
+2025-06-13 16:02:54 [restartedMain] INFO  c.g.g.GamecutBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 16:02:55 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\UserK\.m2\repository\com\oracle\database\jdbc\ojdbc11\23.7.0.25.01\ojdbc11-23.7.0.25.01.jar referenced one or more files that do not exist: file:/C:/Users/UserK/.m2/repository/com/oracle/database/jdbc/ojdbc11/23.7.0.25.01/oraclepki.jar
+2025-06-13 16:02:55 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-13 16:02:55 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-13 16:02:56 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 16:02:56 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 112 ms. Found 8 JPA repository interfaces.
+2025-06-13 16:02:57 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-06-13 16:02:57 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:02:57 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 16:02:57 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-13 16:02:57 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 16:02:57 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2161 ms
+2025-06-13 16:02:57 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 16:02:57 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-13 16:02:57 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 16:02:58 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 16:02:58 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 16:02:58 [restartedMain] WARN  c.z.hikari.util.DriverDataSource - Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2025-06-13 16:02:58 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@499628ed
+2025-06-13 16:02:58 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 16:02:59 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 16:03:00 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 16:03:03 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 16:03:03 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 16:03:04 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.javaMailSender() 실행 시간: 12 ms
+2025-06-13 16:03:04 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.sms() 실행 시간: 0 ms
+2025-06-13 16:03:04 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-13 16:03:04 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-06-13 16:03:04 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CorsConfig.addCorsMappings(..) 실행 시간: 5 ms
+2025-06-13 16:03:05 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] WebConfig.addResourceHandlers(..) 실행 시간: 0 ms
+2025-06-13 16:03:05 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-13 16:03:05 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:03:05 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2025-06-13 16:03:05 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Started GamecutBackendApplication in 11.52 seconds (process running for 12.787)
+2025-06-13 16:04:02 [main] INFO  c.g.g.GamecutBackendApplicationTests - Starting GamecutBackendApplicationTests using Java 21.0.6 with PID 8656 (started by UserK in C:\Users\UserK\git\GameCut_final_backend)
+2025-06-13 16:04:02 [main] INFO  c.g.g.GamecutBackendApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 16:04:04 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 16:04:04 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 214 ms. Found 8 JPA repository interfaces.
+2025-06-13 16:04:06 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 16:04:06 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-13 16:04:06 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 16:04:07 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 16:04:07 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 16:04:07 [main] WARN  c.z.hikari.util.DriverDataSource - Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2025-06-13 16:04:08 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@75ee6f89
+2025-06-13 16:04:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 16:04:09 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 16:04:11 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 16:04:12 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 16:04:13 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 16:04:15 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.javaMailSender() 실행 시간: 21 ms
+2025-06-13 16:04:15 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.sms() 실행 시간: 1 ms
+2025-06-13 16:04:15 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-13 16:04:15 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-06-13 16:04:15 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CorsConfig.addCorsMappings(..) 실행 시간: 6 ms
+2025-06-13 16:04:16 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] WebConfig.addResourceHandlers(..) 실행 시간: 1 ms
+2025-06-13 16:04:19 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-06-13 16:04:19 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-13 16:04:19 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:04:19 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-06-13 16:04:19 [RMI TCP Connection(11)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 16:04:19 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 16:04:19 [RMI TCP Connection(11)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 16:04:19 [RMI TCP Connection(11)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:30:08 [main] INFO  c.g.g.GamecutBackendApplicationTests - Starting GamecutBackendApplicationTests using Java 21.0.6 with PID 5976 (started by UserK in C:\Users\UserK\git\GameCut_final_backend)
+2025-06-13 17:30:08 [main] INFO  c.g.g.GamecutBackendApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:30:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:30:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 175 ms. Found 8 JPA repository interfaces.
+2025-06-13 17:30:12 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 17:30:12 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-13 17:30:12 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 17:30:13 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 17:30:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:30:13 [main] WARN  c.z.hikari.util.DriverDataSource - Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2025-06-13 17:30:14 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@236b4a44
+2025-06-13 17:30:14 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:30:14 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 17:30:17 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 17:30:17 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:30:18 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 17:30:20 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.javaMailSender() 실행 시간: 50 ms
+2025-06-13 17:30:20 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.sms() 실행 시간: 0 ms
+2025-06-13 17:30:21 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-13 17:30:21 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-06-13 17:30:21 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CorsConfig.addCorsMappings(..) 실행 시간: 4 ms
+2025-06-13 17:30:21 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] WebConfig.addResourceHandlers(..) 실행 시간: 0 ms
+2025-06-13 17:30:22 [main] INFO  c.g.g.GamecutBackendApplicationTests - Started GamecutBackendApplicationTests in 14.79 seconds (process running for 17.214)
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 280 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 287 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toEntity(..) 실행 시간: 0 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] VideoMapperImpl.toEntity(..) 실행 시간: 0 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toEntity(..) 실행 시간: 3 ms
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select bt1_0.board_type_no,bt1_0.board_type_name from board_type bt1_0 where bt1_0.board_type_no=?
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.findById(..) 실행 시간: 57 ms
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 5 ms
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select seq_board_no.nextval from dual
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select f1_0.attach_no,f1_0.file_url,f1_0.mime_tpye,f1_0."original _file_name",f1_0.real_path,f1_0.upload_time,f1_0.user_no,f1_0.uuid from file_tb f1_0 where f1_0.attach_no=?
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] FileRepository.findFileByAttachNo(..) 실행 시간: 42 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] FileMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] FileService.findByAttachNo(..) 실행 시간: 46 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.GamecutBackendApplicationTests - fileDto : null
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] FileMapperImpl.toEntity(..) 실행 시간: 1 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] VideoMapperImpl.toEntity(..) 실행 시간: 1 ms
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select t1_0.test_id,t1_0.test_name,t1_0.test_title from test t1_0 where t1_0.test_id=?
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - insert into test (test_name,test_title,test_id) values (?,?,?)
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.save(..) 실행 시간: 249 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] TestService.save(..) 실행 시간: 252 ms
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select t1_0.test_id,t1_0.test_name,t1_0.test_title from test t1_0 where t1_0.test_id=?
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - insert into test (test_name,test_title,test_id) values (?,?,?)
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.save(..) 실행 시간: 17 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] TestService.save(..) 실행 시간: 17 ms
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select t1_0.test_id,t1_0.test_name,t1_0.test_title from test t1_0 where t1_0.test_id=?
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - insert into test (test_name,test_title,test_id) values (?,?,?)
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.save(..) 실행 시간: 8 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] TestService.save(..) 실행 시간: 8 ms
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select t1_0.test_id,t1_0.test_name,t1_0.test_title from test t1_0 where t1_0.test_id=?
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - insert into test (test_name,test_title,test_id) values (?,?,?)
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.save(..) 실행 시간: 14 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] TestService.save(..) 실행 시간: 14 ms
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - select t1_0.test_id,t1_0.test_name,t1_0.test_title from test t1_0 where t1_0.test_id=?
+2025-06-13 17:30:23 [main] DEBUG org.hibernate.SQL - insert into test (test_name,test_title,test_id) values (?,?,?)
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.save(..) 실행 시간: 7 ms
+2025-06-13 17:30:23 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] TestService.save(..) 실행 시간: 8 ms
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 5 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 7 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CommentMapperImpl.toEntity(..) 실행 시간: 0 ms
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_no=?
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findBoardByBoardNo(..) 실행 시간: 14 ms
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - select seq_comment_no.nextval from dual
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardTypeMapperImpl.toEntity(..) 실행 시간: 0 ms
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - select seq_board_type_no.nextval from dual
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - insert into board_type (board_type_name,board_type_no) values (?,?)
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.save(..) 실행 시간: 271 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardTypeMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardTypeService.save(..) 실행 시간: 275 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] FileMapperImpl.toEntity(..) 실행 시간: 0 ms
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 4 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 4 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toEntity(..) 실행 시간: 0 ms
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - select seq_attach_no.nextval from dual
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toEntity(..) 실행 시간: 1 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toEntity(..) 실행 시간: 0 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toEntity(..) 실행 시간: 4 ms
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - select seq_user_no.nextval from dual
+2025-06-13 17:30:24 [main] DEBUG org.hibernate.SQL - insert into user_tb (email,is_social,item_no,phone,photo_no,role,user_create_date,user_delete_date,user_id,user_name,user_nickname,user_point,user_pwd,user_no) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.save(..) 실행 시간: 245 ms
+2025-06-13 17:30:24 [main] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.saveUser(..) 실행 시간: 252 ms
+2025-06-13 17:30:24 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:30:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 17:30:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-13 17:32:31 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Starting GamecutBackendApplication using Java 21.0.6 with PID 17764 (C:\Users\UserK\git\GameCut_final_backend\target\classes started by UserK in C:\Users\UserK\git\GameCut_final_backend)
+2025-06-13 17:32:31 [restartedMain] INFO  c.g.g.GamecutBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-13 17:32:31 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\UserK\.m2\repository\com\oracle\database\jdbc\ojdbc11\23.7.0.25.01\ojdbc11-23.7.0.25.01.jar referenced one or more files that do not exist: file:/C:/Users/UserK/.m2/repository/com/oracle/database/jdbc/ojdbc11/23.7.0.25.01/oraclepki.jar
+2025-06-13 17:32:31 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-13 17:32:31 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-13 17:32:32 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-13 17:32:32 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 114 ms. Found 8 JPA repository interfaces.
+2025-06-13 17:32:33 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-06-13 17:32:33 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 17:32:33 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-13 17:32:33 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-13 17:32:33 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-13 17:32:33 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2265 ms
+2025-06-13 17:32:34 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-13 17:32:34 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-13 17:32:34 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-13 17:32:34 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-13 17:32:34 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-13 17:32:34 [restartedMain] WARN  c.z.hikari.util.DriverDataSource - Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2025-06-13 17:32:35 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@121b8f48
+2025-06-13 17:32:35 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-13 17:32:35 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-13 17:32:37 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-13 17:32:38 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 17:32:38 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-13 17:32:39 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.javaMailSender() 실행 시간: 11 ms
+2025-06-13 17:32:39 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.sms() 실행 시간: 0 ms
+2025-06-13 17:32:39 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-13 17:32:39 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-06-13 17:32:39 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CorsConfig.addCorsMappings(..) 실행 시간: 3 ms
+2025-06-13 17:32:40 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] WebConfig.addResourceHandlers(..) 실행 시간: 0 ms
+2025-06-13 17:32:40 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-13 17:32:40 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 17:32:40 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2025-06-13 17:32:40 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Started GamecutBackendApplication in 9.716 seconds (process running for 10.92)
+2025-06-13 17:33:53 [http-nio-0.0.0.0-8081-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-13 17:33:53 [http-nio-0.0.0.0-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-13 17:33:53 [http-nio-0.0.0.0-8081-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-06-13 17:33:53 [http-nio-0.0.0.0-8081-exec-1] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-13 17:33:53 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 176 ms
+2025-06-13 17:33:53 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-13 17:33:53 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoard() 실행 시간: 179 ms
+2025-06-13 17:33:53 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one() 실행 시간: 179 ms
+2025-06-13 17:33:54 [http-nio-0.0.0.0-8081-exec-2] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-13 17:33:54 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 3 ms
+2025-06-13 17:33:54 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-13 17:33:54 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoard() 실행 시간: 4 ms
+2025-06-13 17:33:54 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one() 실행 시간: 4 ms
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-3] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 2 ms
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoard() 실행 시간: 3 ms
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one() 실행 시간: 3 ms
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-4] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 3 ms
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoard() 실행 시간: 3 ms
+2025-06-13 17:33:57 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one() 실행 시간: 3 ms
+2025-06-13 20:02:53 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h19m18s417ms365µs).
+2025-06-13 22:02:50 [RMI TCP Connection(144)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-06-13 22:02:50 [RMI TCP Connection(144)-127.0.0.1] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-13 22:02:50 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 22:02:50 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-06-13 22:02:50 [RMI TCP Connection(144)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-13 22:02:50 [RMI TCP Connection(144)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-13 22:02:50 [RMI TCP Connection(144)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-13 22:02:50 [RMI TCP Connection(144)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
