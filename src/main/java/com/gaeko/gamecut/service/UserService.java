@@ -81,7 +81,7 @@ public class UserService {
             return Map.of("success", false);
         }
         String token = jwtUtil.createToken(user.getUserId(), user.getRole());
-        return Map.of("success", true, "token", token, "userId", user.getUserId(), "userNinkname", user.getUserNickname());
+        return Map.of("success", true, "token", token, "userId", user.getUserId(), "userNickname", user.getUserNickname());
     }
 
     public UserDTO findUserByUserId(String userId) {
