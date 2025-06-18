@@ -13,7 +13,10 @@ import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,7 +33,9 @@ public class BoardService {
     private final BoardTypeRepository boardTypeRepository;
     private final UserRepository userRepository;
 
-    public BoardDTO save(BoardDTO boardDTO) {
+    public BoardDTO save(BoardDTO boardDTO, Integer userNo) {
+
+
         if (boardDTO.getBoardCount() == null) {
             boardDTO.setBoardCount(0);
         }
@@ -48,8 +53,9 @@ public class BoardService {
         }
         Board board = boardMapper.toEntity(boardDTO);
         BoardType boardType = boardTypeRepository.findById(boardDTO.getBoardTypeNo()).orElse(null);
-        //TODO : 로그인 기능 구현 후 나중에 클라이언트 데이터 받아오기
-        User user = userRepository.findUserByUserNo(1);
+
+
+        User user = userRepository.findUserByUserNo(userNo);
         board.setUser(user);
         board.setBoardType(boardType);
         board = boardRepository.save(board);
@@ -95,9 +101,18 @@ public class BoardService {
         return boardMapper.toDTOs(boards);
     }
 
-    public List<BoardDTO> getAll() {
-        List<Board> boards = boardRepository.findAll();
-        return boardMapper.toDTOs(boards);
+    public Page<BoardDTO> getAll(int page, int size, Integer boardTypeNo) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "boardNo")); // 최신순 정렬
+        Page<Board> boardPage;
+        if (boardTypeNo == null) {
+            boardPage = boardRepository.findAll(pageable);
+        } else {
+            BoardType type = boardTypeRepository.findBoardTypeByBoardTypeNo(boardTypeNo);
+            boardPage = boardRepository.findAllByBoardType(pageable, type);
+
+        }
+
+        return boardPage.map(boardMapper::toDTO); // Page<Board> → Page<BoardDTO>
     }
 
     public List<BoardDTO> getOneBoardExcluding(List<Long> excludeBoardNos) {
@@ -125,7 +140,7 @@ public class BoardService {
 
     public BoardDTO findByNo(int boardNo) {
         Board b = boardRepository.findBoardByBoardNo(boardNo);
-        
+
         return boardMapper.toDTO(b);
     }
 
