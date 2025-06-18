@@ -58,16 +58,16 @@ public class UserService {
             return false;
         }
         User user = User.builder()
-                .userId(dto.getUserId())
-                .userPwd(passwordEncoder.encode(dto.getUserPwd()))
-                .userName(dto.getUserName())
-                .userNickname(dto.getUserNickname())
-                .phone(dto.getPhone())
-                .email(dto.getEmail())
-                .isSocial("basic")
-                .role("USER")
-                .userPoint(1000)
-                .build();
+                        .userId(dto.getUserId())
+                        .userPwd(passwordEncoder.encode(dto.getUserPwd()))
+                        .userName(dto.getUserName())
+                        .userNickname(dto.getUserNickname())
+                        .phone(dto.getPhone())
+                        .email(dto.getEmail())
+                        .isSocial("basic")
+                        .role("USER")
+                        .userPoint(1000)
+                        .build();
         userRepository.save(user);
         return true;
     }
@@ -130,7 +130,8 @@ public class UserService {
         try {
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
                     GoogleNetHttpTransport.newTrustedTransport(),
-                    JacksonFactory.getDefaultInstance())
+                    JacksonFactory.getDefaultInstance()
+            )
                     .setAudience(Collections.singletonList("752741472899-quo69i7p0r9cgi0kh67steu3dtbjkvac.apps.googleusercontent.com"))  // 여기에 구글 Client ID 입력
                     .build();
 
@@ -149,16 +150,16 @@ public class UserService {
                 User user;
                 if (userOpt.isEmpty()) {
                     user = User.builder()
-                            .userId(googleUserId)
-                            .userPwd("SOCIAL_LOGIN")
-                            .userName(name)
-                            .userNickname(name)
-                            .email(email)
-                            .phone(phone)
-                            .isSocial("google")
-                            .role("USER")
-                            .userPoint(1000)
-                            .build();
+                               .userId(googleUserId)
+                               .userPwd("SOCIAL_LOGIN")
+                               .userName(name)
+                               .userNickname(name)
+                               .email(email)
+                               .phone(phone)
+                               .isSocial("google")
+                               .role("USER")
+                               .userPoint(1000)
+                               .build();
                     userRepository.save(user);
                 } else {
                     user = userOpt.get();
@@ -215,16 +216,16 @@ public class UserService {
             User user;
             if (userOpt.isEmpty()) {
                 user = User.builder()
-                        .userId(naverId)
-                        .userPwd("SOCIAL_LOGIN")
-                        .userName(name)
-                        .userNickname(nickname)
-                        .email(email)
-                        .phone(phone)
-                        .isSocial("naver")
-                        .role("USER")
-                        .userPoint(1000)
-                        .build();
+                           .userId(naverId)
+                           .userPwd("SOCIAL_LOGIN")
+                           .userName(name)
+                           .userNickname(nickname)
+                           .email(email)
+                           .phone(phone)
+                           .isSocial("naver")
+                           .role("USER")
+                           .userPoint(1000)
+                           .build();
                 userRepository.save(user);
             } else {
                 user = userOpt.get();
@@ -238,4 +239,10 @@ public class UserService {
             return Map.of("success", false, "message", "네이버 로그인 실패");
         }
     }
+    
+    //유저번호 찾기
+    public Integer userNoFindByUserName(String username) {
+        return userRepository.findUserNoByUserId(username);
+    }
+
 }

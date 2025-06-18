@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +34,7 @@ public class BoardController {
     private final FileUploadService fileUploadService;
     private final VideoService videoService;
     private final PhotoService photoService;
+    private final UserService userService;
 
     //게시글 상세페이지
     @GetMapping("/detail/{boardNo}")
@@ -82,12 +85,14 @@ public class BoardController {
     @PutMapping("/{boardNo}")
     public ResponseEntity<?> updateBoardById(
             @ModelAttribute BoardDTO boardDTO,
+            @AuthenticationPrincipal UserDetails loginUser,
             @PathVariable Integer boardNo,
             @RequestParam(value = "file", required = false) MultipartFile file,
             @RequestParam(value = "thumbnail", required = false) MultipartFile thumbnail,
             @RequestParam(value = "existingVideoNo", required = false) String existingVideoNo
     ) throws IOException {
 
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         if (boardDTO.getBoardTypeNo() != 3) {
             photoService.deleteByBoardNo(boardDTO);
             fileUploadService.thumbnailChange(boardDTO);
@@ -106,7 +111,7 @@ public class BoardController {
                 boardDTO.setVideo(existingVideo);
             } else {
                 FileDTO fileDTO = fileUploadService.store(file);
-                fileDTO.setUserNo(1);
+                fileDTO.setUserNo(userNo);
                 fileDTO = fileService.save(fileDTO);
 
                 String mimeType = file.getContentType();
@@ -117,7 +122,7 @@ public class BoardController {
 
                 if (thumbnail != null && !thumbnail.isEmpty()) {
                     FileDTO thisFileDTO = fileUploadService.store(thumbnail);
-                    thisFileDTO.setUserNo(1);
+                    thisFileDTO.setUserNo(userNo);
                     thisFileDTO = fileService.save(thisFileDTO);
                     photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), 1);
                 }
@@ -125,7 +130,7 @@ public class BoardController {
 
         }
         boardDTO.setBoardNo(boardNo);
-        boardDTO = boardService.save(boardDTO);
+        boardDTO = boardService.save(boardDTO, userNo);
         return ResponseEntity.ok("OK");
     }
 
@@ -137,18 +142,23 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<?> insertBoard(
+            @AuthenticationPrincipal UserDetails loginUser,
             @ModelAttribute BoardDTO boardDTO,
             @RequestParam(value = "file", required = false) MultipartFile file,
             @RequestParam(value = "thumbnail", required = false) MultipartFile thumbnail
     ) throws IOException {
-        boardDTO = boardService.save(boardDTO);
+        log.info("username : " + loginUser.getUsername());
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+
+        boardDTO = boardService.save(boardDTO, userNo);
         FileUtil fileUtil = new FileUtil();
         FileDTO fileDTO = null;
 
         //동영상일떄
         if (file != null && !file.isEmpty()) {
+
             fileDTO = fileUploadService.store(file);
-            fileDTO.setUserNo(1);
+            fileDTO.setUserNo(userNo);
             fileDTO = fileService.save(fileDTO);
 
             String mimeType = file.getContentType();
@@ -158,7 +168,7 @@ public class BoardController {
 
             if (thumbnail != null && !thumbnail.isEmpty()) {
                 FileDTO thisFileDTO = fileUploadService.store(thumbnail);
-                thisFileDTO.setUserNo(1);
+                thisFileDTO.setUserNo(userNo);
                 thisFileDTO = fileService.save(thisFileDTO);
                 photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), 1);
             }
@@ -172,12 +182,17 @@ public class BoardController {
 
 
     @PostMapping("/img")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile image) {
+    public ResponseEntity<?> uploadImage(
+            @RequestParam("image") MultipartFile image,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
         log.info("이미지 등록 컨트롤러");
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+
         try {
             // 1. 파일 저장 (임시 저장)
             FileDTO fileDTO = fileUploadService.store(image); // 예: /uploads/temp/uuid.jpg
-            fileDTO.setUserNo(1); // 필요 시 사용자 번호 설정
+            fileDTO.setUserNo(userNo); // 필요 시 사용자 번호 설정
 
             // 2. DB 저장
             fileDTO = fileService.save(fileDTO);

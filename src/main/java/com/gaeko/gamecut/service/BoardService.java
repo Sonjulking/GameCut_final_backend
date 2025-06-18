@@ -33,7 +33,7 @@ public class BoardService {
     private final BoardTypeRepository boardTypeRepository;
     private final UserRepository userRepository;
 
-    public BoardDTO save(BoardDTO boardDTO) {
+    public BoardDTO save(BoardDTO boardDTO, Integer userNo) {
 
 
         if (boardDTO.getBoardCount() == null) {
@@ -53,8 +53,9 @@ public class BoardService {
         }
         Board board = boardMapper.toEntity(boardDTO);
         BoardType boardType = boardTypeRepository.findById(boardDTO.getBoardTypeNo()).orElse(null);
-        //TODO : 로그인 기능 구현 후 나중에 클라이언트 데이터 받아오기
-        User user = userRepository.findUserByUserNo(1);
+
+
+        User user = userRepository.findUserByUserNo(userNo);
         board.setUser(user);
         board.setBoardType(boardType);
         board = boardRepository.save(board);
