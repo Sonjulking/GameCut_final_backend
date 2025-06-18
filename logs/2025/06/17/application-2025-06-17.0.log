@@ -3273,3 +3273,316 @@ Error starting ApplicationContext. To display the condition evaluation report re
 2025-06-17 17:11:36 [RMI TCP Connection(5)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-06-17 17:11:36 [RMI TCP Connection(5)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-06-17 17:11:36 [RMI TCP Connection(5)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-17 17:42:12 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Starting GamecutBackendApplication using Java 21.0.6 with PID 14716 (C:\Users\UserK\git\GameCut_final_backend\target\classes started by UserK in C:\Users\UserK\git\GameCut_final_backend)
+2025-06-17 17:42:12 [restartedMain] INFO  c.g.g.GamecutBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-17 17:42:12 [restartedMain] INFO  o.s.b.d.restart.ChangeableUrls - The Class-Path manifest attribute in C:\Users\UserK\.m2\repository\com\oracle\database\jdbc\ojdbc11\23.7.0.25.01\ojdbc11-23.7.0.25.01.jar referenced one or more files that do not exist: file:/C:/Users/UserK/.m2/repository/com/oracle/database/jdbc/ojdbc11/23.7.0.25.01/oraclepki.jar
+2025-06-17 17:42:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-17 17:42:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-17 17:42:13 [restartedMain] INFO  o.s.b.c.c.annotation.BatchRegistrar - Finished Spring Batch infrastructure beans configuration in 9 ms.
+2025-06-17 17:42:14 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-17 17:42:14 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 138 ms. Found 8 JPA repository interfaces.
+2025-06-17 17:42:15 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2025-06-17 17:42:15 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-17 17:42:15 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-17 17:42:15 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-17 17:42:15 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-17 17:42:15 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2819 ms
+2025-06-17 17:42:15 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-17 17:42:15 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-17 17:42:15 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-17 17:42:16 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-17 17:42:16 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-17 17:42:16 [restartedMain] WARN  c.z.hikari.util.DriverDataSource - Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2025-06-17 17:42:16 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@88e137e
+2025-06-17 17:42:16 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-17 17:42:17 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 21.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-17 17:42:19 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-17 17:42:20 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-17 17:42:21 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-17 17:42:22 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] SecurityConfig.passwordEncoder() 실행 시간: 2 ms
+2025-06-17 17:42:22 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.javaMailSender() 실행 시간: 17 ms
+2025-06-17 17:42:22 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] MailConfig.sms() 실행 시간: 0 ms
+2025-06-17 17:42:22 [restartedMain] INFO  o.s.b.c.r.s.JobRepositoryFactoryBean - No database type set, using meta data indicating: ORACLE
+2025-06-17 17:42:22 [restartedMain] INFO  o.s.b.c.l.s.TaskExecutorJobLauncher - No TaskExecutor has been set, defaulting to synchronous executor.
+2025-06-17 17:42:22 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-17 17:42:22 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-06-17 17:42:22 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+2025-06-17 17:42:22 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CorsConfig.addCorsMappings(..) 실행 시간: 2 ms
+2025-06-17 17:42:22 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] WebConfig.addResourceHandlers(..) 실행 시간: 0 ms
+2025-06-17 17:42:23 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] SecurityConfig.corsConfigurationSource() 실행 시간: 0 ms
+2025-06-17 17:42:23 [restartedMain] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] SecurityConfig.filterChain(..) 실행 시간: 446 ms
+2025-06-17 17:42:23 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-17 17:42:23 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-0.0.0.0-8081"]
+2025-06-17 17:42:23 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2025-06-17 17:42:23 [restartedMain] INFO  c.g.g.GamecutBackendApplication - Started GamecutBackendApplication in 12.066 seconds (process running for 13.362)
+2025-06-17 17:42:33 [http-nio-0.0.0.0-8081-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-17 17:42:33 [http-nio-0.0.0.0-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-17 17:42:33 [http-nio-0.0.0.0-8081-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-06-17 17:42:33 [http-nio-0.0.0.0-8081-exec-3] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:42:33 [http-nio-0.0.0.0-8081-exec-4] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-4] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-3] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 155 ms
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 151 ms
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 159 ms
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 160 ms
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 161 ms
+2025-06-17 17:42:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 161 ms
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-6] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-5] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-6] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 4 ms
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 2 ms
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 5 ms
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 1 ms
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 6 ms
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 4 ms
+2025-06-17 17:42:39 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 4 ms
+2025-06-17 17:42:57 [http-nio-0.0.0.0-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:42:57 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 25 ms
+2025-06-17 17:42:57 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.isUserIdExists(..) 실행 시간: 26 ms
+2025-06-17 17:42:57 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.checkUserId(..) 실행 시간: 26 ms
+2025-06-17 17:43:16 [http-nio-0.0.0.0-8081-exec-8] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_nickname=?
+2025-06-17 17:43:16 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserNickname(..) 실행 시간: 23 ms
+2025-06-17 17:43:16 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.isUserNicknameExists(..) 실행 시간: 24 ms
+2025-06-17 17:43:16 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.checkUserNickname(..) 실행 시간: 24 ms
+2025-06-17 17:43:18 [http-nio-0.0.0.0-8081-exec-9] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_nickname=?
+2025-06-17 17:43:18 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserNickname(..) 실행 시간: 5 ms
+2025-06-17 17:43:18 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.isUserNicknameExists(..) 실행 시간: 6 ms
+2025-06-17 17:43:18 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.checkUserNickname(..) 실행 시간: 7 ms
+2025-06-17 17:43:32 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] EmailUtil.sendEmail(..) 실행 시간: 5054 ms
+2025-06-17 17:43:32 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.sendEmailCode(..) 실행 시간: 5054 ms
+2025-06-17 17:43:32 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.sendEmailCode(..) 실행 시간: 5055 ms
+2025-06-17 17:45:03 [http-nio-0.0.0.0-8081-exec-3] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:45:03 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 5 ms
+2025-06-17 17:45:03 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.register(..) 실행 시간: 5 ms
+2025-06-17 17:45:03 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.join(..) 실행 시간: 6 ms
+2025-06-17 17:45:10 [http-nio-0.0.0.0-8081-exec-5] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:45:10 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 9 ms
+2025-06-17 17:45:10 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.register(..) 실행 시간: 9 ms
+2025-06-17 17:45:10 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.join(..) 실행 시간: 10 ms
+2025-06-17 17:45:31 [http-nio-0.0.0.0-8081-exec-6] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:45:31 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 9 ms
+2025-06-17 17:45:31 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.register(..) 실행 시간: 9 ms
+2025-06-17 17:45:31 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.join(..) 실행 시간: 9 ms
+2025-06-17 17:45:52 [http-nio-0.0.0.0-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:45:52 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 5 ms
+2025-06-17 17:45:52 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.isUserIdExists(..) 실행 시간: 6 ms
+2025-06-17 17:45:52 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.checkUserId(..) 실행 시간: 6 ms
+2025-06-17 17:45:54 [http-nio-0.0.0.0-8081-exec-8] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:45:54 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 5 ms
+2025-06-17 17:45:54 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.isUserIdExists(..) 실행 시간: 6 ms
+2025-06-17 17:45:54 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.checkUserId(..) 실행 시간: 6 ms
+2025-06-17 17:46:07 [http-nio-0.0.0.0-8081-exec-9] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_nickname=?
+2025-06-17 17:46:07 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserNickname(..) 실행 시간: 5 ms
+2025-06-17 17:46:07 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.isUserNicknameExists(..) 실행 시간: 6 ms
+2025-06-17 17:46:07 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.checkUserNickname(..) 실행 시간: 7 ms
+2025-06-17 17:46:11 [http-nio-0.0.0.0-8081-exec-10] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:46:11 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 8 ms
+2025-06-17 17:46:11 [http-nio-0.0.0.0-8081-exec-10] DEBUG org.hibernate.SQL - select seq_user_no.nextval from dual
+2025-06-17 17:46:11 [http-nio-0.0.0.0-8081-exec-10] DEBUG org.hibernate.SQL - insert into user_tb (email,is_social,item_no,phone,photo_no,role,user_create_date,user_delete_date,user_id,user_name,user_nickname,user_point,user_pwd,user_no) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+2025-06-17 17:46:11 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] CrudRepository.save(..) 실행 시간: 49 ms
+2025-06-17 17:46:11 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.register(..) 실행 시간: 178 ms
+2025-06-17 17:46:11 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.join(..) 실행 시간: 181 ms
+2025-06-17 17:46:17 [http-nio-0.0.0.0-8081-exec-1] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:46:17 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 5 ms
+2025-06-17 17:46:18 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] JwtUtil.createToken(..) 실행 시간: 27 ms
+2025-06-17 17:46:18 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.loginWithToken(..) 실행 시간: 142 ms
+2025-06-17 17:46:18 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.login(..) 실행 시간: 142 ms
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-4] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-4] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-3] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-3] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 2 ms
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 2 ms
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 3 ms
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 3 ms
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 3 ms
+2025-06-17 17:46:20 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 3 ms
+2025-06-17 17:46:27 [http-nio-0.0.0.0-8081-exec-5] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_id=?
+2025-06-17 17:46:27 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findByUserId(..) 실행 시간: 6 ms
+2025-06-17 17:46:27 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] JwtUtil.createToken(..) 실행 시간: 1 ms
+2025-06-17 17:46:27 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.loginWithToken(..) 실행 시간: 134 ms
+2025-06-17 17:46:27 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.login(..) 실행 시간: 134 ms
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-7] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-6] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-7] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-6] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 3 ms
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 3 ms
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 3 ms
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 3 ms
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 3 ms
+2025-06-17 17:46:30 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 3 ms
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-8] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ListCrudRepository.findAll() 실행 시간: 17 ms
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getAll() 실행 시간: 22 ms
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.listAll() 실행 시간: 22 ms
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-9] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ListCrudRepository.findAll() 실행 시간: 7 ms
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getAll() 실행 시간: 7 ms
+2025-06-17 17:46:32 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.listAll() 실행 시간: 7 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-10] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ListCrudRepository.findAll() 실행 시간: 9 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getAll() 실행 시간: 10 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.listAll() 실행 시간: 10 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-2] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ListCrudRepository.findAll() 실행 시간: 8 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getAll() 실행 시간: 8 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.listAll() 실행 시간: 9 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 9 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 2 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 11 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 5 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 5 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.findUserByUserNo(..) 실행 시간: 26 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-3] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 6 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 6 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 6 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-4] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 3 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 4 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 5 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 8 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 9 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 3 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 4 ms
+2025-06-17 17:46:34 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.findUserByUserNo(..) 실행 시간: 13 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 5 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 1 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 6 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 4 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 5 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.findUserByUserNo(..) 실행 시간: 11 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 9 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 9 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 4 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 4 ms
+2025-06-17 17:46:35 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.findUserByUserNo(..) 실행 시간: 14 ms
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-8] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-8] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 3 ms
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 3 ms
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-8] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 3 ms
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-9] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-9] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 7 ms
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 8 ms
+2025-06-17 17:46:37 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 8 ms
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-10] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ListCrudRepository.findAll() 실행 시간: 5 ms
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getAll() 실행 시간: 6 ms
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-10] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.listAll() 실행 시간: 6 ms
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-2] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ListCrudRepository.findAll() 실행 시간: 7 ms
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getAll() 실행 시간: 8 ms
+2025-06-17 17:46:38 [http-nio-0.0.0.0-8081-exec-2] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.listAll() 실행 시간: 8 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 9 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 1 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 11 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 4 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 4 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-3] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.findUserByUserNo(..) 실행 시간: 16 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 6 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 1 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 7 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] DEBUG org.hibernate.SQL - select u1_0.user_no,u1_0.email,u1_0.is_social,u1_0.item_no,u1_0.phone,u1_0.photo_no,u1_0.role,u1_0.user_create_date,u1_0.user_delete_date,u1_0.user_id,u1_0.user_name,u1_0.user_nickname,u1_0.user_point,u1_0.user_pwd from user_tb u1_0 where u1_0.user_no=?
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserRepository.findUserByUserNo(..) 실행 시간: 5 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ItemMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] PhotoMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserMapperImpl.toDTO(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.findUserByUserNo(..) 실행 시간: 5 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-4] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.findUserByUserNo(..) 실행 시간: 12 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-1] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ListCrudRepository.findAll() 실행 시간: 5 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getAll() 실행 시간: 6 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-1] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.listAll() 실행 시간: 6 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-5] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] ListCrudRepository.findAll() 실행 시간: 8 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getAll() 실행 시간: 9 ms
+2025-06-17 17:46:39 [http-nio-0.0.0.0-8081-exec-5] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.listAll() 실행 시간: 9 ms
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-7] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-7] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-6] INFO  c.gaeko.gamecut.service.BoardService - []
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-6] DEBUG org.hibernate.SQL - select b1_0.board_no,b1_0.board_content,b1_0.board_count,b1_0.board_create_date,b1_0.board_delete_date,b1_0.board_like,b1_0.board_title,b1_0.board_type_no,b1_0.user_no from board b1_0 where b1_0.board_type_no=3 and b1_0.board_delete_date is null order by dbms_random.value() fetch first ? rows only
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 2 ms
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 3 ms
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-7] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 3 ms
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardRepository.findRandomOneBoard(..) 실행 시간: 4 ms
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardMapperImpl.toDTOs(..) 실행 시간: 0 ms
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardService.getOneBoardExcluding(..) 실행 시간: 4 ms
+2025-06-17 17:46:41 [http-nio-0.0.0.0-8081-exec-6] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] BoardController.one(..) 실행 시간: 4 ms
+2025-06-17 17:46:50 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserService.googleLogin(..) 실행 시간: 227 ms
+2025-06-17 17:46:50 [http-nio-0.0.0.0-8081-exec-9] INFO  c.g.g.advice.ExecutionTimeAspect - [ExecutionTime] UserController.googleLogin(..) 실행 시간: 227 ms
+2025-06-17 20:50:07 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h20s231ms264µs400ns).

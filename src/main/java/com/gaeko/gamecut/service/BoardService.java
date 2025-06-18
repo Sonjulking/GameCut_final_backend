@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,11 +31,22 @@ public class BoardService {
     private final UserRepository userRepository;
 
     public BoardDTO save(BoardDTO boardDTO) {
+
+
         if (boardDTO.getBoardCount() == null) {
             boardDTO.setBoardCount(0);
         }
         if (boardDTO.getBoardLike() == null) {
             boardDTO.setBoardLike(0);
+        }
+        //수정 시 기존 createDate 유지
+        if (boardDTO.getBoardNo() != null) {
+            Board existing = boardRepository.findById(boardDTO.getBoardNo())
+                                            .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
+            boardDTO.setBoardCreateDate(existing.getBoardCreateDate());
+        } else {
+            // 신규 작성 시 현재 시각 설정
+            boardDTO.setBoardCreateDate(new Date());
         }
         Board board = boardMapper.toEntity(boardDTO);
         BoardType boardType = boardTypeRepository.findById(boardDTO.getBoardTypeNo()).orElse(null);
@@ -86,7 +99,6 @@ public class BoardService {
 
     public List<BoardDTO> getAll() {
         List<Board> boards = boardRepository.findAll();
-        System.out.println(boards.get(1));
         return boardMapper.toDTOs(boards);
     }
 
@@ -94,7 +106,7 @@ public class BoardService {
         log.info(excludeBoardNos.toString());
         List<Board> boards;
         if (excludeBoardNos == null || excludeBoardNos.isEmpty()) {
-            boards=  boardRepository.findRandomOneBoard((PageRequest.of(0, 1)));
+            boards = boardRepository.findRandomOneBoard((PageRequest.of(0, 1)));
         } else {
             boards = boardRepository.findRandomOneBoardExclude(excludeBoardNos, (PageRequest.of(0, 1)));
         }
@@ -113,6 +125,10 @@ public class BoardService {
         return boardMapper.toDTOs(boards);
     }
 
+    public BoardDTO findByNo(int boardNo) {
+        Board b = boardRepository.findBoardByBoardNo(boardNo);
 
+        return boardMapper.toDTO(b);
+    }
 
 }
