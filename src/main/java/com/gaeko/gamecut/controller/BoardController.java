@@ -60,9 +60,11 @@ public class BoardController {
     @GetMapping("/listAll")
     public Page<BoardDTO> listAll(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(value = "boardTypeNo", required = false) Integer boardTypeNo
     ) {
-        return boardService.getAll(page, size); // 전체 Page 객체 반환
+        log.info("boardTypeNo : " + boardTypeNo);
+        return boardService.getAll(page, size, boardTypeNo); // 전체 Page 객체 반환
     }
 
     @GetMapping("/list")

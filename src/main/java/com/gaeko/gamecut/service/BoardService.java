@@ -100,9 +100,17 @@ public class BoardService {
         return boardMapper.toDTOs(boards);
     }
 
-    public Page<BoardDTO> getAll(int page, int size) {
+    public Page<BoardDTO> getAll(int page, int size, Integer boardTypeNo) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "boardNo")); // 최신순 정렬
-        Page<Board> boardPage = boardRepository.findAll(pageable);
+        Page<Board> boardPage;
+        if (boardTypeNo == null) {
+            boardPage = boardRepository.findAll(pageable);
+        } else {
+            BoardType type = boardTypeRepository.findBoardTypeByBoardTypeNo(boardTypeNo);
+            boardPage = boardRepository.findAllByBoardType(pageable, type);
+
+        }
+
         return boardPage.map(boardMapper::toDTO); // Page<Board> → Page<BoardDTO>
     }
 
