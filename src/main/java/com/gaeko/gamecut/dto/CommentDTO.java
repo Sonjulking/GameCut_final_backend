@@ -18,7 +18,7 @@ public class CommentDTO {
     private UserDTO user;
 
     // 대댓글 구조를 위한 부모 댓글 번호만 저장 (없으면 null)
-    private Integer parentCommentNo;
+    private CommentDTO parentComment;
 
     private String commentContent;
     private Date commentCreateDate;
