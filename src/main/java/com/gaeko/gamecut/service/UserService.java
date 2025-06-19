@@ -9,10 +9,7 @@ import com.gaeko.gamecut.repository.PhotoRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.util.EmailUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -22,20 +19,20 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final PhotoRepository photoRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailUtil emailUtil;
     private final JwtUtil jwtUtil;
-    private final Map<String, String> refreshTokenStore = new HashMap<>(); // userId -> refreshToken
-
+    private final Map<String, String> refreshTokenStore = new HashMap<>();
+    private final Map<String, String> emailVerificationMap = new HashMap<>();
 
     public String getRefreshTokenForUser(String userId) {
         return refreshTokenStore.get(userId);
     }
 
-    
     public UserDTO findUserByUserNo(Integer userNo) {
         User user = userRepository.findUserByUserNo(userNo);
         return userMapper.toDTO(user);
@@ -76,8 +73,7 @@ public class UserService {
 
     public boolean login(String userId, String password) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
-        if (userOpt.isEmpty()) return false;
-        return passwordEncoder.matches(password, userOpt.get().getUserPwd());
+        return userOpt.filter(user -> passwordEncoder.matches(password, user.getUserPwd())).isPresent();
     }
 
     public Map<String, Object> loginWithToken(String userId, String password) {
@@ -92,18 +88,16 @@ public class UserService {
         String accessToken = jwtUtil.createToken(user.getUserId(), user.getRole());
         String refreshToken = jwtUtil.createRefreshToken(user.getUserId());
 
-        // 서버에 저장
         refreshTokenStore.put(user.getUserId(), refreshToken);
 
         return Map.of(
-            "success", true,
-            "token", accessToken,
-            "refreshToken", refreshToken,
-            "userId", user.getUserId(),
-            "userNickname", user.getUserNickname()
+                "success", true,
+                "token", accessToken,
+                "refreshToken", refreshToken,
+                "userId", user.getUserId(),
+                "userNickname", user.getUserNickname()
         );
     }
-
 
     public UserDTO findUserByUserId(String userId) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
@@ -140,28 +134,26 @@ public class UserService {
         return sb.toString();
     }
 
-    // ⭐ 구글 로그인 (access_token 기반)
+    // Google Login (access_token 기반)
     public Map<String, Object> googleLogin(String accessToken) {
         String phone = "000-0000-0000";
-        System.out.println("엑세스토큰 : " + accessToken);
         try {
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
-            headers.setBearerAuth(accessToken); // ✅ 더 안전하고 명확한 방식
+            headers.setBearerAuth(accessToken);
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
             ResponseEntity<Map> response = restTemplate.exchange(
-            	 "https://www.googleapis.com/oauth2/v3/userinfo", // ✅ 최신 버전으로 교체
-             HttpMethod.GET,
-             entity,
-             Map.class
+                    "https://www.googleapis.com/oauth2/v3/userinfo",
+                    HttpMethod.GET,
+                    entity,
+                    Map.class
             );
 
             Map<String, Object> userInfo = response.getBody();
-            String googleId = (String) userInfo.get("sub"); // ← "id" 말고 "sub"이 실제 사용자 고유 ID
+            String googleId = (String) userInfo.get("sub");
             String email = (String) userInfo.get("email");
             String name = (String) userInfo.get("name");
-            System.out.println("구글 유저정보: " + userInfo);
 
             if (email == null) email = googleId + "@googleuser.com";
             if (name == null || name.isEmpty()) name = email;
@@ -194,7 +186,6 @@ public class UserService {
         }
     }
 
-    // ⭐ 네이버 로그인 (기존 유지)
     public Map<String, Object> naverLogin(String code, String state) {
         String phone = "000-0000-0000";
         try {
@@ -257,8 +248,6 @@ public class UserService {
         }
     }
 
-    private final Map<String, String> emailVerificationMap = new HashMap<>();
-
     public Map<String, Object> sendEmailCode(String email) {
         String code = generateCode();
         emailVerificationMap.put(email, code);
@@ -279,5 +268,9 @@ public class UserService {
         Random rnd = new Random();
         int code = 100000 + rnd.nextInt(900000);
         return String.valueOf(code);
+    }
+
+    public Integer userNoFindByUserName(String username) {
+        return userRepository.findUserNoByUserId(username);
     }
 }
