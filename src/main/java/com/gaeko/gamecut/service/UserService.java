@@ -80,9 +80,14 @@ public class UserService {
         Optional<User> userOpt = userRepository.findByUserId(userId);
         if (userOpt.isEmpty()) return Map.of("success", false);
         User user = userOpt.get();
+        
+        // 🔒 탈퇴한 유저인지 확인
+        if (user.getUserDeleteDate() != null) {
+            return Map.of("success", false, "message", "탈퇴한 사용자입니다.");
+        }
 
         if (!passwordEncoder.matches(password, user.getUserPwd())) {
-            return Map.of("success", false);
+            return Map.of("success", false, "message", "비밀번호가 일치하지 않습니다.");
         }
 
         String accessToken = jwtUtil.createToken(user.getUserId(), user.getRole());
