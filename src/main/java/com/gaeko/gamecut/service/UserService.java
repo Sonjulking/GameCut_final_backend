@@ -28,7 +28,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final EmailUtil emailUtil;
     private final JwtUtil jwtUtil;
+    private final Map<String, String> refreshTokenStore = new HashMap<>(); // userId -> refreshToken
 
+
+    public String getRefreshTokenForUser(String userId) {
+        return refreshTokenStore.get(userId);
+    }
+
+    
     public UserDTO findUserByUserNo(Integer userNo) {
         User user = userRepository.findUserByUserNo(userNo);
         return userMapper.toDTO(user);
@@ -77,12 +84,26 @@ public class UserService {
         Optional<User> userOpt = userRepository.findByUserId(userId);
         if (userOpt.isEmpty()) return Map.of("success", false);
         User user = userOpt.get();
+
         if (!passwordEncoder.matches(password, user.getUserPwd())) {
             return Map.of("success", false);
         }
-        String token = jwtUtil.createToken(user.getUserId(), user.getRole());
-        return Map.of("success", true, "token", token, "userId", user.getUserId(), "userNickname", user.getUserNickname());
+
+        String accessToken = jwtUtil.createToken(user.getUserId(), user.getRole());
+        String refreshToken = jwtUtil.createRefreshToken(user.getUserId());
+
+        // 서버에 저장
+        refreshTokenStore.put(user.getUserId(), refreshToken);
+
+        return Map.of(
+            "success", true,
+            "token", accessToken,
+            "refreshToken", refreshToken,
+            "userId", user.getUserId(),
+            "userNickname", user.getUserNickname()
+        );
     }
+
 
     public UserDTO findUserByUserId(String userId) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
