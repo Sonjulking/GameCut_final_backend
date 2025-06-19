@@ -89,7 +89,6 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getUserPwd())) {
             return Map.of("success", false, "message", "비밀번호가 일치하지 않습니다.");
         }
-
         String accessToken = jwtUtil.createToken(user.getUserId(), user.getRole());
         String refreshToken = jwtUtil.createRefreshToken(user.getUserId());
 
@@ -100,7 +99,8 @@ public class UserService {
                 "token", accessToken,
                 "refreshToken", refreshToken,
                 "userId", user.getUserId(),
-                "userNickname", user.getUserNickname()
+                "userNickname", user.getUserNickname(),
+                "userNo", user.getUserNo()
         );
     }
 
@@ -278,4 +278,8 @@ public class UserService {
     public Integer userNoFindByUserName(String username) {
         return userRepository.findUserNoByUserId(username);
     }
+    public void userDelete(String userid) {
+        userRepository.userDelete(userid);
+    }
+
 }

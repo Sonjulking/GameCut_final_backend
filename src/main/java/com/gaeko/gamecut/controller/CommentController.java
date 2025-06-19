@@ -32,9 +32,6 @@ public class CommentController {
         //임시
         log.info("댓글" + commentDTO.toString());
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
-
         return ResponseEntity.ok(commentService.save(commentDTO, userNo));
     }
-
-
 }
