@@ -9,30 +9,29 @@ import com.gaeko.gamecut.repository.PhotoRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.util.EmailUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final PhotoRepository photoRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailUtil emailUtil;
     private final JwtUtil jwtUtil;
+    private final Map<String, String> refreshTokenStore = new HashMap<>();
+    private final Map<String, String> emailVerificationMap = new HashMap<>();
+
+    public String getRefreshTokenForUser(String userId) {
+        return refreshTokenStore.get(userId);
+    }
 
     public UserDTO findUserByUserNo(Integer userNo) {
         User user = userRepository.findUserByUserNo(userNo);
@@ -58,35 +57,51 @@ public class UserService {
             return false;
         }
         User user = User.builder()
-                        .userId(dto.getUserId())
-                        .userPwd(passwordEncoder.encode(dto.getUserPwd()))
-                        .userName(dto.getUserName())
-                        .userNickname(dto.getUserNickname())
-                        .phone(dto.getPhone())
-                        .email(dto.getEmail())
-                        .isSocial("basic")
-                        .role("USER")
-                        .userPoint(1000)
-                        .build();
+                .userId(dto.getUserId())
+                .userPwd(passwordEncoder.encode(dto.getUserPwd()))
+                .userName(dto.getUserName())
+                .userNickname(dto.getUserNickname())
+                .phone(dto.getPhone())
+                .email(dto.getEmail())
+                .isSocial("basic")
+                .role("USER")
+                .userPoint(1000)
+                .build();
         userRepository.save(user);
         return true;
     }
 
     public boolean login(String userId, String password) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
-        if (userOpt.isEmpty()) return false;
-        return passwordEncoder.matches(password, userOpt.get().getUserPwd());
+        return userOpt.filter(user -> passwordEncoder.matches(password, user.getUserPwd())).isPresent();
     }
 
     public Map<String, Object> loginWithToken(String userId, String password) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
         if (userOpt.isEmpty()) return Map.of("success", false);
         User user = userOpt.get();
-        if (!passwordEncoder.matches(password, user.getUserPwd())) {
-            return Map.of("success", false);
+        
+        // 🔒 탈퇴한 유저인지 확인
+        if (user.getUserDeleteDate() != null) {
+            return Map.of("success", false, "message", "탈퇴한 사용자입니다.");
         }
-        String token = jwtUtil.createToken(user.getUserId(), user.getRole());
-        return Map.of("success", true, "token", token, "userId", user.getUserId(), "userNinkname", user.getUserNickname(), "userNo", user.getUserNo());
+
+        if (!passwordEncoder.matches(password, user.getUserPwd())) {
+            return Map.of("success", false, "message", "비밀번호가 일치하지 않습니다.");
+        }
+        String accessToken = jwtUtil.createToken(user.getUserId(), user.getRole());
+        String refreshToken = jwtUtil.createRefreshToken(user.getUserId());
+
+        refreshTokenStore.put(user.getUserId(), refreshToken);
+
+        return Map.of(
+                "success", true,
+                "token", accessToken,
+                "refreshToken", refreshToken,
+                "userId", user.getUserId(),
+                "userNickname", user.getUserNickname(),
+                "userNo", user.getUserNo()
+        );
     }
 
     public UserDTO findUserByUserId(String userId) {
@@ -124,60 +139,58 @@ public class UserService {
         return sb.toString();
     }
 
-    // ⭐ 구글 로그인 (안전 null 처리 추가)
-    public Map<String, Object> googleLogin(String idTokenString) {
+    // Google Login (access_token 기반)
+    public Map<String, Object> googleLogin(String accessToken) {
         String phone = "000-0000-0000";
         try {
-            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
-                    GoogleNetHttpTransport.newTrustedTransport(),
-                    JacksonFactory.getDefaultInstance()
-            )
-                    .setAudience(Collections.singletonList("752741472899-quo69i7p0r9cgi0kh67steu3dtbjkvac.apps.googleusercontent.com"))  // 여기에 구글 Client ID 입력
-                    .build();
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
 
-            GoogleIdToken idToken = verifier.verify(idTokenString);
-            if (idToken != null) {
-                GoogleIdToken.Payload payload = idToken.getPayload();
+            ResponseEntity<Map> response = restTemplate.exchange(
+                    "https://www.googleapis.com/oauth2/v3/userinfo",
+                    HttpMethod.GET,
+                    entity,
+                    Map.class
+            );
 
-                String googleUserId = payload.getSubject();
-                String email = payload.getEmail();
-                String name = (String) payload.get("name");
+            Map<String, Object> userInfo = response.getBody();
+            String googleId = (String) userInfo.get("sub");
+            String email = (String) userInfo.get("email");
+            String name = (String) userInfo.get("name");
 
-                if (email == null) email = googleUserId + "@googleuser.com";
-                if (name == null || name.isEmpty()) name = email;
+            if (email == null) email = googleId + "@googleuser.com";
+            if (name == null || name.isEmpty()) name = email;
 
-                Optional<User> userOpt = userRepository.findByUserId(googleUserId);
-                User user;
-                if (userOpt.isEmpty()) {
-                    user = User.builder()
-                               .userId(googleUserId)
-                               .userPwd("SOCIAL_LOGIN")
-                               .userName(name)
-                               .userNickname(name)
-                               .email(email)
-                               .phone(phone)
-                               .isSocial("google")
-                               .role("USER")
-                               .userPoint(1000)
-                               .build();
-                    userRepository.save(user);
-                } else {
-                    user = userOpt.get();
-                }
-
-                String jwt = jwtUtil.createToken(user.getUserId(), user.getRole());
-
-                return Map.of("success", true, "token", jwt, "userId", user.getUserId(), "userNickname", user.getUserNickname());
+            Optional<User> userOpt = userRepository.findByUserId(googleId);
+            User user;
+            if (userOpt.isEmpty()) {
+                user = User.builder()
+                        .userId(googleId)
+                        .userPwd("SOCIAL_LOGIN")
+                        .userName(name)
+                        .userNickname(name)
+                        .email(email)
+                        .phone(phone)
+                        .isSocial("google")
+                        .role("USER")
+                        .userPoint(1000)
+                        .build();
+                userRepository.save(user);
             } else {
-                return Map.of("success", false, "message", "유효하지 않은 구글 토큰");
+                user = userOpt.get();
             }
+
+            String jwt = jwtUtil.createToken(user.getUserId(), user.getRole());
+
+            return Map.of("success", true, "token", jwt, "userId", user.getUserId(), "userNickname", user.getUserNickname());
         } catch (Exception e) {
             e.printStackTrace();
-            return Map.of("success", false, "message", "서버 오류");
+            return Map.of("success", false, "message", "구글 로그인 실패");
         }
     }
 
-    // ⭐ 네이버 로그인 (안전 null 처리 추가)
     public Map<String, Object> naverLogin(String code, String state) {
         String phone = "000-0000-0000";
         try {
@@ -216,16 +229,16 @@ public class UserService {
             User user;
             if (userOpt.isEmpty()) {
                 user = User.builder()
-                           .userId(naverId)
-                           .userPwd("SOCIAL_LOGIN")
-                           .userName(name)
-                           .userNickname(nickname)
-                           .email(email)
-                           .phone(phone)
-                           .isSocial("naver")
-                           .role("USER")
-                           .userPoint(1000)
-                           .build();
+                        .userId(naverId)
+                        .userPwd("SOCIAL_LOGIN")
+                        .userName(name)
+                        .userNickname(nickname)
+                        .email(email)
+                        .phone(phone)
+                        .isSocial("naver")
+                        .role("USER")
+                        .userPoint(1000)
+                        .build();
                 userRepository.save(user);
             } else {
                 user = userOpt.get();
@@ -239,14 +252,34 @@ public class UserService {
             return Map.of("success", false, "message", "네이버 로그인 실패");
         }
     }
-    
-    //유저번호 찾기
+
+    public Map<String, Object> sendEmailCode(String email) {
+        String code = generateCode();
+        emailVerificationMap.put(email, code);
+        emailUtil.sendEmail(email, "인증코드 발송", "인증코드는: " + code);
+        return Map.of("success", true, "code", code);
+    }
+
+    public Map<String, Object> verifyEmailCode(String email, String inputCode) {
+        String savedCode = emailVerificationMap.get(email);
+        if (savedCode != null && savedCode.equals(inputCode)) {
+            emailVerificationMap.remove(email);
+            return Map.of("success", true);
+        }
+        return Map.of("success", false);
+    }
+
+    private String generateCode() {
+        Random rnd = new Random();
+        int code = 100000 + rnd.nextInt(900000);
+        return String.valueOf(code);
+    }
+
     public Integer userNoFindByUserName(String username) {
         return userRepository.findUserNoByUserId(username);
     }
-
-
     public void userDelete(String userid) {
         userRepository.userDelete(userid);
     }
+
 }

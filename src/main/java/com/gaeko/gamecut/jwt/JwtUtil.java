@@ -55,4 +55,16 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+    
+    
+    public String createRefreshToken(String userId) {
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
+        return Jwts.builder()
+                .setSubject(userId)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 7)) // 7일
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
 }
