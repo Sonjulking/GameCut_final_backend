@@ -1,4 +1,4 @@
-package com.gaeko.gamecut.config;
+package com.gaeko.gamecut.filter;
 
 import java.io.IOException;
 
@@ -6,7 +6,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.gaeko.gamecut.jwt.JwtUtil;
@@ -15,8 +14,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-
 
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
