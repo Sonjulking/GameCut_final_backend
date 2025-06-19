@@ -29,6 +29,7 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
+    //필터 추가필수
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
