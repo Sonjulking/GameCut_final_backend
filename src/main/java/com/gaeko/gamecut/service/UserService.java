@@ -86,7 +86,7 @@ public class UserService {
             return Map.of("success", false);
         }
         String token = jwtUtil.createToken(user.getUserId(), user.getRole());
-        return Map.of("success", true, "token", token, "userId", user.getUserId(), "userNinkname", user.getUserNickname());
+        return Map.of("success", true, "token", token, "userId", user.getUserId(), "userNinkname", user.getUserNickname(), "userNo", user.getUserNo());
     }
 
     public UserDTO findUserByUserId(String userId) {
@@ -245,4 +245,8 @@ public class UserService {
         return userRepository.findUserNoByUserId(username);
     }
 
+
+    public void userDelete(String userid) {
+        userRepository.userDelete(userid);
+    }
 }
