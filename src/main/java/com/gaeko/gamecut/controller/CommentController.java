@@ -3,28 +3,35 @@ package com.gaeko.gamecut.controller;
 
 import com.gaeko.gamecut.dto.CommentDTO;
 import com.gaeko.gamecut.service.CommentService;
+import com.gaeko.gamecut.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/comment")
 @Slf4j
 public class CommentController {
+    private final UserService userService;
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<?> saveComment(@RequestBody CommentDTO commentDTO) {
+    public ResponseEntity<?> saveComment(
+            @RequestBody CommentDTO commentDTO,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
         //임시
         log.info("댓글" + commentDTO.toString());
-
-        return ResponseEntity.ok(commentService.save(commentDTO));
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        return ResponseEntity.ok(commentService.save(commentDTO, userNo));
     }
-
 }

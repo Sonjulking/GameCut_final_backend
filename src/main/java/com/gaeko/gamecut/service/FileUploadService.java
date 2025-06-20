@@ -1,22 +1,33 @@
 package com.gaeko.gamecut.service;
 
+import com.gaeko.gamecut.dto.BoardDTO;
 import com.gaeko.gamecut.dto.FileDTO;
+import com.gaeko.gamecut.repository.BoardRepository;
+import com.gaeko.gamecut.repository.FileRepository;
+import com.gaeko.gamecut.util.FileUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FileUploadService {
     private final String baseUploadDir = System.getProperty("user.dir") + "/upload";
-
+    private final FileService fileService;
+    private final PhotoService photoService;
+    private final FileRepository fileRepository;
+    LocalDateTime oneWeekAgo = LocalDateTime.now().minusWeeks(1);
     private static final Set<String> ALLOWED_IMAGE_TYPES = Set.of(
             "image/jpeg", "image/png", "image/gif", "image/webp"
     );
@@ -83,5 +94,40 @@ public class FileUploadService {
                       .uploadTime(new Date())
                       .originalFileName(originalFileName)
                       .build();
+    }
+
+    public void thumbnailChange(BoardDTO boardDTO) {
+        FileUtil fileUtil = new FileUtil();
+        List<String> imageUrls = fileUtil.extractImageUrls(boardDTO.getBoardContent());
+        int order = 1;
+        for (String imageUrl : imageUrls) {
+            int index = imageUrl.indexOf("/upload");
+            if (index == -1) continue;
+            String purePath = imageUrl.substring(index); // /upload부터 자름
+            log.info("purePath : " + purePath);
+            FileDTO thisFileDTO = fileService.findByFileUrl(purePath);
+            log.info(thisFileDTO.toString());
+            if (thisFileDTO != null) {
+                photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), order);
+                order++;
+            }
+        }
+    }
+
+    public void NotUsedFileDelete() {
+        List<String> notUsedRealPaths = fileRepository.findRealPathNotUsedInPhotoAndVideo(oneWeekAgo);
+        for (String notUsedRealPath : notUsedRealPaths) {
+            File file = new File(notUsedRealPath);
+            if (file.exists()) {
+                boolean deleted = file.delete();
+            }
+        }
+    }
+
+    public void NotUsedDbDelete() {
+        List<Integer> notUserAttachNos = fileRepository.findAttachNoUsedInPhotoAndVideo(oneWeekAgo);
+        for (Integer notUserAttachNo : notUserAttachNos) {
+            fileRepository.deleteByAttachNo(notUserAttachNo);
+        }
     }
 }
