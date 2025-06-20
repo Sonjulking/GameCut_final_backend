@@ -12,18 +12,21 @@ import java.util.List;
  * - photo 필드는 PhotoMapper를 통해 PhotoDTO로 매핑
  */
 @Mapper(
-        componentModel = "spring",
-        uses = {
-                PhotoMapper.class,
-                ItemMapper.class
-        }
-        //ItemMapper.class도  필요함
-)
-//자바에서는 인터페이스는 인스턴스가 불가능함.
-public interface UserMapper {
-    UserDTO toDTO(User user);
+	    componentModel = "spring",
+	    uses = { PhotoMapper.class, ItemMapper.class }
+	)
+	public interface UserMapper {
 
-    User toEntity(UserDTO dto);
+	    @Mapping(target = "item", ignore = true)
+	    @Mapping(target = "photo", ignore = true)
+	    User toEntity(UserDTO dto);
 
-    List<UserDTO> toDTOs(List<User> users);
-}
+	    UserDTO toDTO(User user);
+
+	    List<UserDTO> toDTOs(List<User> users);
+	    
+	    List<User> toEntities(List<UserDTO> dtos);
+	}
+
+
+

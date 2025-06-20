@@ -36,12 +36,19 @@ public class VideoService {
 
     @Transactional
     public VideoDTO save(Integer boardNo, Integer attachNo) {
+        // 이미 해당 board에 video가 연결되어 있으면 insert 막기
         Video video = new Video();
         File file = fileRepository.findFileByAttachNo(attachNo);
         Board board = boardRepository.findBoardByBoardNo(boardNo);
         video.setAttachFile(file);
         video.setBoard(board);
         video = videoRepository.save(video);
+        return videoMapper.toDTO(video);
+    }
+
+    public VideoDTO findByVideoNo(Integer videoNo) {
+
+        Video video = videoRepository.findVideoByVideoNo(videoNo);
         return videoMapper.toDTO(video);
     }
 

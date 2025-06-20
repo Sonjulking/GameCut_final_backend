@@ -1,6 +1,8 @@
 package com.gaeko.gamecut.repository;
 
 import com.gaeko.gamecut.entity.Board;
+import com.gaeko.gamecut.entity.BoardType;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,7 +26,12 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             "AND b.BOARD_DELETE_DATE IS NULL " +
             "AND b.BOARD_NO NOT IN (:excludeIds) " +
             "ORDER BY DBMS_RANDOM.VALUE", nativeQuery = true)
-    List<Board> findRandomOneBoardExclude(@Param("excludeIds") List<Long> excludeIds, Pageable pageable);
+    List<Board> findRandomOneBoardExclude(
+            @Param("excludeIds") List<Long> excludeIds,
+            Pageable pageable
+    );
 
 
+
+    Page<Board> findAllByBoardType(Pageable pageable, BoardType boardType);
 }
