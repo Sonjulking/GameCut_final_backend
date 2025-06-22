@@ -19,5 +19,5 @@ public class Tag {
     // 외래키 연관관계 매핑 - 태그 이미지 파일
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ATTACH_NO", nullable = false)
-    private File tagImage;
+    private File file;
 }

@@ -8,5 +8,5 @@ import lombok.*;
 @Builder
 public class TagDTO {
     private String tagName;
-    private Integer attachNo;
+    private FileDTO file;
 }

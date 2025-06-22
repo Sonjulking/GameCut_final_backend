@@ -34,13 +34,13 @@ public class File {
     @Column(name = "REAL_PATH", nullable = false, length = 300)
     private String realPath;
 
-    @Column(name = "MIME_TPYE", nullable = false, length = 50)
+    @Column(name = "MIME_TYPE", nullable = false, length = 50)
     private String mimeType;
 
     @CreationTimestamp
     @Column(name = "UPLOAD_TIME", nullable = false)
     private Date uploadTime;
 
-    @Column(name = "ORIGINAL _FILE_NAME", nullable = false, length = 100)
+    @Column(name = "ORIGINAL_FILE_NAME", nullable = false, length = 100)
     private String originalFileName;
 }

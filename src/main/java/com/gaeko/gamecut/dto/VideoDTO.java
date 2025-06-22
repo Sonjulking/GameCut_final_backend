@@ -2,6 +2,9 @@ package com.gaeko.gamecut.dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,4 +20,6 @@ public class VideoDTO {
 
     // Board 엔티티의 PK만 담습니다.
     private Integer boardNo;
+
+    private List<TagByVideoDTO>  tagByVideoList = new ArrayList<>();
 }
