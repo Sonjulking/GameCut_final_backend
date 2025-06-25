@@ -10,6 +10,9 @@ import com.gaeko.gamecut.repository.BoardRepository;
 import com.gaeko.gamecut.repository.CommentRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +23,7 @@ public class CommentService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
-    public CommentDTO save(CommentDTO commentDTO) {
+    public CommentDTO save(CommentDTO commentDTO, Integer userNo) {
         Comment comment = commentMapper.toEntity(commentDTO);
 
         Board board = boardRepository.findBoardByBoardNo(commentDTO.getBoardNo());
@@ -31,7 +34,7 @@ public class CommentService {
             User user = comment.getUser();
             comment.setUser(user);
         } else {
-            User user = userRepository.findUserByUserNo(1);
+            User user = userRepository.findUserByUserNo(userNo);
             comment.setUser(user);
         }
 
@@ -39,4 +42,6 @@ public class CommentService {
         return commentMapper.toDTO(comment);
     }
 
+
+    
 }

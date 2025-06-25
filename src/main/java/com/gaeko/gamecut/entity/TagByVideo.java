@@ -24,13 +24,3 @@ public class TagByVideo {
     private Tag tag;
 }
 
-// 복합키 ID 클래스
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-class TagByVideoId implements java.io.Serializable {
-    private Integer video;
-    private String tag;
-}

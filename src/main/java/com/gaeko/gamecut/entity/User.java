@@ -21,22 +21,22 @@ public class User {
     @Column(name = "USER_NO")
     private Integer userNo;
 
-    @Column(name = "USER_ID", nullable = false, length = 30, unique = true)
+    @Column(name = "USER_ID", nullable = false, length = 255, unique = true)
     private String userId;
 
-    @Column(name = "USER_PWD", nullable = false, length = 30)
+    @Column(name = "USER_PWD", nullable = false, length = 255)
     private String userPwd;
 
-    @Column(name = "USER_NAME", nullable = false, length = 30)
+    @Column(name = "USER_NAME", nullable = false, length = 255)
     private String userName;
 
-    @Column(name = "USER_NICKNAME", nullable = false, length = 30, unique = true)
+    @Column(name = "USER_NICKNAME", nullable = false, length = 255, unique = true)
     private String userNickname;
 
-    @Column(name = "PHONE", nullable = false, length = 13)
+    @Column(name = "PHONE", nullable = false, length = 255)
     private String phone;
 
-    @Column(name = "EMAIL", nullable = false, length = 30)
+    @Column(name = "EMAIL", nullable = false, length = 255)
     private String email;
 
     @CreationTimestamp

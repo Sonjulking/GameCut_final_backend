@@ -15,6 +15,8 @@ import java.util.List;
                 UserMapper.class,
                 CommentMapper.class,
                 VideoMapper.class,
+                TagByVideoMapper.class,
+                TagMapper.class,
                 PhotoMapper.class,
                 FileMapper.class
         }

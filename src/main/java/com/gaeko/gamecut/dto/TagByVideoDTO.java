@@ -8,5 +8,5 @@ import lombok.*;
 @Builder
 public class TagByVideoDTO {
     private Integer videoNo;
-    private String tagName;
+    private TagDTO tag;
 }

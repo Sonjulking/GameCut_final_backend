@@ -107,7 +107,7 @@ class GamecutBackendApplicationTests {
                                     .boardContent("hello world")
                                     .build();
 
-        boardService.save(boardDTO);
+        boardService.save(boardDTO, 1);
 
     }
 
@@ -131,7 +131,7 @@ class GamecutBackendApplicationTests {
                                           .user(userDTO)
                                           .commentContent("hello akali")
                                           .build();
-        commentService.save(commentDTO);
+        commentService.save(commentDTO, 1);
     }
 
 }
