@@ -92,10 +92,12 @@ public class BoardController {
             @PathVariable Integer boardNo,
             @RequestParam(value = "file", required = false) MultipartFile file,
             @RequestParam(value = "thumbnail", required = false) MultipartFile thumbnail,
-            @RequestParam(value = "existingVideoNo", required = false) String existingVideoNo
+            @RequestParam(value = "existingVideoNo", required = false) String existingVideoNo,
+            @RequestParam(value = "videoTags", required = false) List<String> videoTags
     ) throws IOException {
 
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        VideoDTO videoDTO = null;
         if (boardDTO.getBoardTypeNo() != 3) {
             photoService.deleteByBoardNo(boardDTO);
             fileUploadService.thumbnailChange(boardDTO);
@@ -110,8 +112,8 @@ public class BoardController {
 
             if (existingVideoNo != null) {
                 log.info("board existingVideoNo : " + existingVideoNo);
-                VideoDTO existingVideo = videoService.findByVideoNo(clientExistingVideoNo);
-                boardDTO.setVideo(existingVideo);
+                videoDTO = videoService.findByVideoNo(clientExistingVideoNo);
+                boardDTO.setVideo(videoDTO);
             } else {
                 FileDTO fileDTO = fileUploadService.store(file);
                 fileDTO.setUserNo(userNo);
@@ -119,7 +121,7 @@ public class BoardController {
 
                 String mimeType = file.getContentType();
                 if (mimeType != null && mimeType.contains("video")) {
-                    VideoDTO videoDTO = videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
+                    videoDTO = videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
                     boardDTO.setVideo(videoDTO);
                 }
 
@@ -128,6 +130,20 @@ public class BoardController {
                     thisFileDTO.setUserNo(userNo);
                     thisFileDTO = fileService.save(thisFileDTO);
                     photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), 1);
+                }
+            }
+            //
+            if (videoTags != null && !videoTags.isEmpty()) {
+                Integer vId = boardDTO.getVideo().getVideoNo();
+                tagByVideoService.deleteByVideo(vId);  // 한 번만 전체 삭제
+                System.out.println("videoTags = " + videoTags);
+                log.info("videoTags = " + videoTags);
+                log.info("videoNo = " + videoDTO.getVideoNo());
+                for (String videoTag : videoTags) {
+                    String cleanTag = videoTag.startsWith("#") ? videoTag.substring(1) : videoTag;
+                    cleanTag = cleanTag.trim();
+                    tagService.insert(cleanTag);
+                    tagByVideoService.insertOnly(cleanTag, videoDTO.getVideoNo());
                 }
             }
 
@@ -182,7 +198,7 @@ public class BoardController {
             if (videoTags != null && !videoTags.isEmpty()) {
                 System.out.println("videoTags = " + videoTags);
                 log.info("videoTags = " + videoTags);
-                log.info("videoNo = " +  videoDTO.getVideoNo());
+                log.info("videoNo = " + videoDTO.getVideoNo());
                 for (String videoTag : videoTags) {
                     String cleanTag = videoTag.startsWith("#") ? videoTag.substring(1) : videoTag;
                     cleanTag = cleanTag.trim();
