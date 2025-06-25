@@ -1,16 +1,11 @@
 package com.gaeko.gamecut.service;
 
 import com.gaeko.gamecut.dto.BoardDTO;
+import com.gaeko.gamecut.dto.TagDTO;
 import com.gaeko.gamecut.dto.VideoDTO;
-import com.gaeko.gamecut.entity.Board;
-import com.gaeko.gamecut.entity.BoardType;
-import com.gaeko.gamecut.entity.User;
-import com.gaeko.gamecut.entity.Video;
+import com.gaeko.gamecut.entity.*;
 import com.gaeko.gamecut.mapper.BoardMapper;
-import com.gaeko.gamecut.repository.BoardRepository;
-import com.gaeko.gamecut.repository.BoardTypeRepository;
-import com.gaeko.gamecut.repository.UserRepository;
-import com.gaeko.gamecut.repository.VideoRepository;
+import com.gaeko.gamecut.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -32,6 +27,7 @@ public class BoardService {
     private final VideoRepository videoRepository;
     private final BoardTypeRepository boardTypeRepository;
     private final UserRepository userRepository;
+    private final TagRepository tagRepository;
 
     public BoardDTO save(BoardDTO boardDTO, Integer userNo) {
 
@@ -72,15 +68,24 @@ public class BoardService {
         List<Board> boards = boardRepository.findRandom5BoardType3NotDeleted();
 
         for (Board board : boards) {
-
             Video video = board.getVideo();
+
             if (video != null) {
-                if (video.getAttachFile() != null) {
-                    video.getAttachFile().getFileUrl(); // Lazy 로딩 유도
+                for (TagByVideo tagByVideo : video.getTagByVideoList()) {
+                    Tag tag = tagByVideo.getTag();
+                    String fileUrl = tagRepository.findFileUrlByTagName(tag.getTagName());
+                    TagDTO tagDTO = new TagDTO();
+                    tagDTO.setFileUrl(fileUrl);
                 }
-                video.getBoard(); // boardNo도 채워줌
+
+                if (video.getAttachFile() != null) {
+                    video.getAttachFile().getFileUrl();
+                }
+
+                video.getBoard();
             }
         }
+
 
         return boardMapper.toDTOs(boards);
     }

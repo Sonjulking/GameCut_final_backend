@@ -3,6 +3,9 @@ package com.gaeko.gamecut.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "VIDEO")
 @Getter
@@ -27,4 +30,8 @@ public class Video {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOARD_NO", nullable = false, unique = false)
     private Board board;
+
+    @OneToMany(mappedBy = "video")
+    private List<TagByVideo> tagByVideoList;
+
 }

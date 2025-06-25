@@ -7,6 +7,7 @@ import com.gaeko.gamecut.entity.Board;
 import com.gaeko.gamecut.entity.File;
 import com.gaeko.gamecut.entity.Photo;
 import com.gaeko.gamecut.repository.BoardRepository;
+import com.gaeko.gamecut.repository.TagRepository;
 import com.gaeko.gamecut.service.*;
 import com.gaeko.gamecut.util.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,8 @@ public class BoardController {
     private final VideoService videoService;
     private final PhotoService photoService;
     private final UserService userService;
+    private final TagService tagService;
+    private final TagByVideoService tagByVideoService;
 
     //게시글 상세페이지
     @GetMapping("/detail/{boardNo}")
@@ -145,10 +148,13 @@ public class BoardController {
             @AuthenticationPrincipal UserDetails loginUser,
             @ModelAttribute BoardDTO boardDTO,
             @RequestParam(value = "file", required = false) MultipartFile file,
-            @RequestParam(value = "thumbnail", required = false) MultipartFile thumbnail
+            @RequestParam(value = "thumbnail", required = false) MultipartFile thumbnail,
+            @RequestParam(value = "videoTags", required = false) List<String> videoTags
+
     ) throws IOException {
-        log.info("username : " + loginUser.getUsername());
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+
+        log.info("username : " + loginUser.getUsername());
 
         boardDTO = boardService.save(boardDTO, userNo);
         FileUtil fileUtil = new FileUtil();
@@ -161,9 +167,10 @@ public class BoardController {
             fileDTO.setUserNo(userNo);
             fileDTO = fileService.save(fileDTO);
 
+            VideoDTO videoDTO = null;
             String mimeType = file.getContentType();
             if (mimeType != null && mimeType.contains("video")) {
-                videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
+                videoDTO = videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
             }
 
             if (thumbnail != null && !thumbnail.isEmpty()) {
@@ -171,6 +178,18 @@ public class BoardController {
                 thisFileDTO.setUserNo(userNo);
                 thisFileDTO = fileService.save(thisFileDTO);
                 photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), 1);
+            }
+            if (videoTags != null && !videoTags.isEmpty()) {
+                System.out.println("videoTags = " + videoTags);
+                log.info("videoTags = " + videoTags);
+                log.info("videoNo = " +  videoDTO.getVideoNo());
+                for (String videoTag : videoTags) {
+                    String cleanTag = videoTag.startsWith("#") ? videoTag.substring(1) : videoTag;
+                    cleanTag = cleanTag.trim();
+
+                    tagService.insert(cleanTag);
+                    tagByVideoService.insert(cleanTag, videoDTO.getVideoNo());
+                }
             }
 
             //게시판일때

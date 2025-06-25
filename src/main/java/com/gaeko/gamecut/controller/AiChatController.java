@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/chat")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class AiChatController {
     private final AiService aiService;
 
-    @PostMapping
+    @PostMapping("/chat")
     public ResponseEntity<String> chat(
             @RequestBody Map<String, String> body,
             @AuthenticationPrincipal UserDetails loginUser
@@ -29,9 +29,12 @@ public class AiChatController {
             String response = aiService.askGpt(loginUser.getUsername(), userMessage);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("GPT 요청 실패");
+            return ResponseEntity.status(500).body("AI Service 요청 실패");
         }
     }
+
+
+    //@PostMapping("/tag")
 
 
 }
