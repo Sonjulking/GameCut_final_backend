@@ -15,7 +15,7 @@ public interface VideoMapper {
 
     @Mapping(source = "boardNo", target = "board.boardNo") // Entity 재구성 시
     @Mapping(source = "attachFile", target = "attachFile")
-    @Mapping(source = "tagByVideoList", target = "tagByVideoList")
+    @Mapping(target = "tagByVideoList", ignore = true)
     Video toEntity(VideoDTO dto);
 }
 
