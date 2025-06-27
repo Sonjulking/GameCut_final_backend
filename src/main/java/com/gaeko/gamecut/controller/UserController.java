@@ -3,6 +3,7 @@ package com.gaeko.gamecut.controller;
 import com.gaeko.gamecut.dto.UserDTO;
 import com.gaeko.gamecut.jwt.JwtUtil;
 import com.gaeko.gamecut.repository.UserRepository;
+import com.gaeko.gamecut.service.SmsService;
 import com.gaeko.gamecut.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +31,7 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
+    private final SmsService smsService;
 
     @GetMapping("/user/listUser")
     public List<UserDTO> findAll() {
@@ -161,5 +163,29 @@ public class UserController {
             .header(HttpHeaders.SET_COOKIE, cookie.toString())
             .body(result);
     }
+    
+    @PostMapping("/user/findPasswordByPhone")
+    public Map<String, Object> findPasswordByPhone(@RequestBody Map<String, String> body) {
+        boolean result = smsService.findPasswordByPhone(body.get("userId"), body.get("phone"));
+        return Map.of("success", result);
+    }
+    
+    
+    @PutMapping("/user/change-password")
+    public Map<String, Object> changePassword(@RequestBody Map<String, String> body) {
+        String userId = body.get("userId");
+        String currentPassword = body.get("currentPassword");
+        String newPassword = body.get("newPassword");
+
+        boolean result = userService.changePassword(userId, currentPassword, newPassword);
+        return result
+            ? Map.of("success", true)
+            : Map.of("success", false, "message", "현재 비밀번호가 일치하지 않습니다.");
+    }
+
+
+    
+
+
 
 }
