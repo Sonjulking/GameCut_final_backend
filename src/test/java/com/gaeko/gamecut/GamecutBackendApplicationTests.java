@@ -83,12 +83,21 @@ class GamecutBackendApplicationTests {
         FileDTO save = fileService.save(dto);
     }
 
+    //처음 실행시 이거 먼저 실행...
     @Test
     void insertBoardType() {
-        BoardTypeDTO boardTypeDTO = BoardTypeDTO.builder()
-                                                .boardTypeName("free")
-                                                .build();
-        boardTypeService.save(boardTypeDTO);
+        BoardTypeDTO boardTypeDTO1 = BoardTypeDTO.builder()
+                                                 .boardTypeName("자유")
+                                                 .build();
+        boardTypeService.save(boardTypeDTO1);
+        BoardTypeDTO boardTypeDTO2 = BoardTypeDTO.builder()
+                                                 .boardTypeName("공략")
+                                                 .build();
+        boardTypeService.save(boardTypeDTO2);
+        BoardTypeDTO boardTypeDTO3 = BoardTypeDTO.builder()
+                                                 .boardTypeName("영상")
+                                                 .build();
+        boardTypeService.save(boardTypeDTO3);
     }
 
     @Test
