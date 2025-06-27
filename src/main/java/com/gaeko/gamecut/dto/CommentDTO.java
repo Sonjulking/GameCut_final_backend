@@ -19,6 +19,9 @@ public class CommentDTO {
 
     // 대댓글 구조를 위한 부모 댓글 번호만 저장 (없으면 null)
     private CommentDTO parentComment;
+    
+    private String boardTitle; // ✨ 게시글 제목 (화면에서 제목 출력용)
+
 
     private String commentContent;
     private Date commentCreateDate;

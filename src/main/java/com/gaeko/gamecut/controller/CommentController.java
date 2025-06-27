@@ -7,9 +7,12 @@ import com.gaeko.gamecut.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +37,13 @@ public class CommentController {
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         return ResponseEntity.ok(commentService.save(commentDTO, userNo));
     }
+    
+    @GetMapping("/my")
+    public ResponseEntity<List<CommentDTO>> getMyComments(@AuthenticationPrincipal UserDetails loginUser) {
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        return ResponseEntity.ok(commentService.getCommentsByUser(userNo));
+    }
+
+    
+   
 }
