@@ -6,17 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/ai")
 @RequiredArgsConstructor
-public class AiChatController {
+public class AiController {
     private final AiService aiService;
 
     @PostMapping("/chat")
@@ -33,8 +32,14 @@ public class AiChatController {
         }
     }
 
-
-    //@PostMapping("/tag")
-
+    @PostMapping("/tag")
+    public ResponseEntity<List<String>> recommendTags(
+            @RequestParam String title,
+            @RequestParam String content,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) throws IOException {
+        List<String> tags = aiService.generateTags(loginUser.getUsername(), title, content);
+        return ResponseEntity.ok(tags);
+    }
 
 }
