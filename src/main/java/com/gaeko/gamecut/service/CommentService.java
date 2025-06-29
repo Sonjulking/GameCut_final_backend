@@ -41,6 +41,13 @@ public class CommentService {
         comment = commentRepository.save(comment);
         return commentMapper.toDTO(comment);
     }
+    
+    //추가
+    public List<CommentDTO> getCommentsByUser(Integer userNo) {
+        List<Comment> comments = commentRepository.findByUserNo(userNo);
+        return comments.stream().map(commentMapper::toDTO).toList();
+    }
+
 
 
     
