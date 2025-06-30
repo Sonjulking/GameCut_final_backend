@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -81,6 +83,9 @@ public class UserController {
 
         return userService.findUserByUserId(userId);
     }
+    
+    
+    
 
     @PostMapping("/user/oauth/google")
     public Map<String, Object> googleLogin(@RequestBody Map<String, String> body) {
@@ -173,7 +178,10 @@ public class UserController {
     
     @PutMapping("/user/change-password")
     public Map<String, Object> changePassword(@RequestBody Map<String, String> body) {
-        String userId = body.get("userId");
+        // 기존: String userId = body.get("userId");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userId = auth.getName(); // ✅ JWT에서 가져온 userId
+
         String currentPassword = body.get("currentPassword");
         String newPassword = body.get("newPassword");
 
@@ -182,6 +190,36 @@ public class UserController {
             ? Map.of("success", true)
             : Map.of("success", false, "message", "현재 비밀번호가 일치하지 않습니다.");
     }
+
+    
+    
+    
+    
+
+    @PostMapping("/user/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        // 1. SecurityContextHolder로부터 유저 정보 가져오기
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userId = auth.getName(); // 로그인된 userId
+
+        // 2. refreshToken 제거 (서버 쪽 메모리 or Redis 등에서)
+        userService.removeRefreshToken(userId);
+
+        // 3. 쿠키 삭제 (maxAge = 0)
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)  // 쿠키 제거
+                .sameSite("Lax")
+                .secure(false) // 배포시 true로
+                .build();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(Map.of("success", true, "message", "로그아웃 되었습니다."));
+    }
+
+    
 
 
     

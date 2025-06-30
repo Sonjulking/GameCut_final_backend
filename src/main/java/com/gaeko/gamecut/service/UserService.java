@@ -297,6 +297,12 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
+    
+    
+    public void removeRefreshToken(String userId) {
+        refreshTokenStore.remove(userId);
+    }
+
 
 
 }
