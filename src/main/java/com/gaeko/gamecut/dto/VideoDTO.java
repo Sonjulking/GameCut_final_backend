@@ -22,4 +22,6 @@ public class VideoDTO {
     private Integer boardNo;
 
     private List<TagByVideoDTO>  tagByVideoList = new ArrayList<>();
+
+    private String url; 
 }

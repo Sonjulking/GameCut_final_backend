@@ -8,8 +8,12 @@ import com.gaeko.gamecut.mapper.VideoMapper;
 import com.gaeko.gamecut.repository.BoardRepository;
 import com.gaeko.gamecut.repository.FileRepository;
 import com.gaeko.gamecut.repository.VideoRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -51,5 +55,18 @@ public class VideoService {
         Video video = videoRepository.findVideoByVideoNo(videoNo);
         return videoMapper.toDTO(video);
     }
+
+     /** 모든 영상 조회 */
+    @Transactional(readOnly = true)
+    public List<VideoDTO> findAllVideos() {
+        return videoRepository.findAll().stream().map(entity -> {
+            VideoDTO dto = videoMapper.toDTO(entity);
+            String rp = entity.getAttachFile().getRealPath();
+            // "/upload/" 이후만 URL로 사용
+            int idx = rp.indexOf("/upload/");
+            dto.setUrl(idx >= 0 ? rp.substring(idx) : "");
+        return dto;
+    }).collect(Collectors.toList());
+}
 
 }

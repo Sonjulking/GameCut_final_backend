@@ -34,4 +34,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
 
     Page<Board> findAllByBoardType(Pageable pageable, BoardType boardType);
+    
+    List<Board> findByBoardType_BoardTypeNo(int boardTypeNo);
 }
