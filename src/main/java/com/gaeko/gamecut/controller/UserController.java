@@ -11,6 +11,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -128,22 +129,26 @@ public class UserController {
     
     
     @PostMapping("/user/refresh")
-    public Map<String, Object> refreshAccessToken(@RequestBody Map<String, String> body) {
-        String refreshToken = body.get("refreshToken");
+    public Map<String, Object> refreshAccessToken(@CookieValue("refreshToken") String refreshToken) {
+        if (refreshToken == null) {
+            return Map.of("success", false, "message", "쿠키가 없음");
+        }
 
         try {
             String userId = jwtUtil.getUserId(refreshToken);
             String stored = userService.getRefreshTokenForUser(userId);
+
             if (!refreshToken.equals(stored)) {
                 return Map.of("success", false, "message", "유효하지 않은 토큰");
             }
 
-            String newAccessToken = jwtUtil.createToken(userId, "USER"); // role은 필요시 DB에서 조회
+            String newAccessToken = jwtUtil.createToken(userId, "USER");
             return Map.of("success", true, "token", newAccessToken);
         } catch (Exception e) {
             return Map.of("success", false, "message", "토큰 만료 또는 위조됨");
         }
     }
+
     
     @PostMapping("/user/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> body) {
