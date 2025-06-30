@@ -6,6 +6,7 @@ import com.gaeko.gamecut.dto.VideoDTO;
 import com.gaeko.gamecut.entity.*;
 import com.gaeko.gamecut.mapper.BoardMapper;
 import com.gaeko.gamecut.repository.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -13,10 +14,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -148,5 +151,22 @@ public class BoardService {
 
         return boardMapper.toDTO(b);
     }
+
+    /** 모든 영상 게시물 가져오기 **/
+  @Transactional(readOnly = true)
+  public List<VideoDTO> findAllVideoBoards() {
+    return boardRepository.findByBoardType_BoardTypeNo(3).stream()
+      .filter(b -> b.getVideo() != null && b.getVideo().getAttachFile() != null)
+      .map(b -> {
+        VideoDTO dto = new VideoDTO();
+        dto.setBoardNo(b.getBoardNo());
+        // realPath 에서 /upload/** 이하만 잘라서 담아둔다
+        String rp = b.getVideo().getAttachFile().getRealPath();
+        int idx = rp.indexOf("/upload/");
+        dto.setUrl(idx >= 0 ? rp.substring(idx) : "");
+        return dto;
+      })
+      .collect(Collectors.toList());
+  }
 
 }
