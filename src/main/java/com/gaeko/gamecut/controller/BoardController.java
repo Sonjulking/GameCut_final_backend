@@ -46,7 +46,6 @@ public class BoardController {
         try {
             // 게시글 상세조회 및 조회수 증가
             BoardDTO boardDTO = boardService.findByNo(boardNo);
-            System.out.println(boardDTO);
             if (boardDTO == null) {
                 return ResponseEntity.notFound().build();
             }
@@ -75,7 +74,6 @@ public class BoardController {
 
     @GetMapping("/list")
     public List<BoardDTO> list() {
-        System.out.println(boardService.getAllBoards());
         return boardService.getAllBoards();
     }
 
@@ -200,11 +198,12 @@ public class BoardController {
                 log.info("videoTags = " + videoTags);
                 log.info("videoNo = " + videoDTO.getVideoNo());
                 for (String videoTag : videoTags) {
+                    log.warn("태그 삽입 : " + videoTag);
                     String cleanTag = videoTag.startsWith("#") ? videoTag.substring(1) : videoTag;
                     cleanTag = cleanTag.trim();
 
                     tagService.insert(cleanTag);
-                    tagByVideoService.insert(cleanTag, videoDTO.getVideoNo());
+                    tagByVideoService.insertOnly(cleanTag, videoDTO.getVideoNo());
                 }
             }
 
@@ -244,5 +243,8 @@ public class BoardController {
             return ResponseEntity.status(500).body("이미지 업로드 실패");
         }
     }
-
+    @DeleteMapping("/{boardNo}")
+    public void deleteBoard(@PathVariable Integer boardNo) {
+        boardService.deleteBoard(boardNo);
+    }
 }

@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +42,23 @@ public class CommentService {
         comment = commentRepository.save(comment);
         return commentMapper.toDTO(comment);
     }
+    
+    //추가
+    public List<CommentDTO> getCommentsByUser(Integer userNo) {
+        List<Comment> comments = commentRepository.findByUserNo(userNo);
+        return comments.stream().map(commentMapper::toDTO).toList();
+    }
+
+    @Transactional
+    public void deleteComment(Integer commentNo) {
+        commentRepository.deleteByCommentNo(commentNo);
+    }
+
+    @Transactional
+    public void updateComment(Integer commentNo, CommentDTO commentDTO) {
+        commentRepository.updateComment(commentNo, commentDTO);
+    }
+
 
 
     

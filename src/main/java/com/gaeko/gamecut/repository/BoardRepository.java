@@ -5,6 +5,7 @@ import com.gaeko.gamecut.entity.BoardType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -34,4 +35,16 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
 
     Page<Board> findAllByBoardType(Pageable pageable, BoardType boardType);
+    
+    List<Board> findByBoardType_BoardTypeNo(int boardTypeNo);
+
+    // 🔥 삭제되지 않은 전체 게시글 (페이징 자동 적용)
+    Page<Board> findByBoardDeleteDateIsNull(Pageable pageable);
+    
+    // 🔥 삭제되지 않은 특정 타입 게시글 (페이징 자동 적용)  
+    Page<Board> findByBoardDeleteDateIsNullAndBoardType(Pageable pageable, BoardType boardType);
+
+    @Modifying
+    @Query("UPDATE Board b SET b.boardDeleteDate = SYSDATE WHERE b.boardNo = :boardNo")
+    void deleteByBoardNo(@Param("boardNo") Integer boardNo);
 }

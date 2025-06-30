@@ -3,6 +3,7 @@ package com.gaeko.gamecut.controller;
 import com.gaeko.gamecut.dto.UserDTO;
 import com.gaeko.gamecut.jwt.JwtUtil;
 import com.gaeko.gamecut.repository.UserRepository;
+import com.gaeko.gamecut.service.SmsService;
 import com.gaeko.gamecut.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +34,7 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
+    private final SmsService smsService;
 
     @GetMapping("/user/listUser")
     public List<UserDTO> findAll() {
@@ -79,6 +84,9 @@ public class UserController {
 
         return userService.findUserByUserId(userId);
     }
+    
+    
+    
 
     @PostMapping("/user/oauth/google")
     public Map<String, Object> googleLogin(@RequestBody Map<String, String> body) {
@@ -121,22 +129,26 @@ public class UserController {
     
     
     @PostMapping("/user/refresh")
-    public Map<String, Object> refreshAccessToken(@RequestBody Map<String, String> body) {
-        String refreshToken = body.get("refreshToken");
+    public Map<String, Object> refreshAccessToken(@CookieValue("refreshToken") String refreshToken) {
+        if (refreshToken == null) {
+            return Map.of("success", false, "message", "쿠키가 없음");
+        }
 
         try {
             String userId = jwtUtil.getUserId(refreshToken);
             String stored = userService.getRefreshTokenForUser(userId);
+
             if (!refreshToken.equals(stored)) {
                 return Map.of("success", false, "message", "유효하지 않은 토큰");
             }
 
-            String newAccessToken = jwtUtil.createToken(userId, "USER"); // role은 필요시 DB에서 조회
+            String newAccessToken = jwtUtil.createToken(userId, "USER");
             return Map.of("success", true, "token", newAccessToken);
         } catch (Exception e) {
             return Map.of("success", false, "message", "토큰 만료 또는 위조됨");
         }
     }
+
     
     @PostMapping("/user/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> body) {
@@ -161,5 +173,62 @@ public class UserController {
             .header(HttpHeaders.SET_COOKIE, cookie.toString())
             .body(result);
     }
+    
+    @PostMapping("/user/findPasswordByPhone")
+    public Map<String, Object> findPasswordByPhone(@RequestBody Map<String, String> body) {
+        boolean result = smsService.findPasswordByPhone(body.get("userId"), body.get("phone"));
+        return Map.of("success", result);
+    }
+    
+    
+    @PutMapping("/user/change-password")
+    public Map<String, Object> changePassword(@RequestBody Map<String, String> body) {
+        // 기존: String userId = body.get("userId");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userId = auth.getName(); // ✅ JWT에서 가져온 userId
+
+        String currentPassword = body.get("currentPassword");
+        String newPassword = body.get("newPassword");
+
+        boolean result = userService.changePassword(userId, currentPassword, newPassword);
+        return result
+            ? Map.of("success", true)
+            : Map.of("success", false, "message", "현재 비밀번호가 일치하지 않습니다.");
+    }
+
+    
+    
+    
+    
+
+    @PostMapping("/user/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        // 1. SecurityContextHolder로부터 유저 정보 가져오기
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userId = auth.getName(); // 로그인된 userId
+
+        // 2. refreshToken 제거 (서버 쪽 메모리 or Redis 등에서)
+        userService.removeRefreshToken(userId);
+
+        // 3. 쿠키 삭제 (maxAge = 0)
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", "")
+                .path("/")
+                .httpOnly(true)
+                .maxAge(0)  // 쿠키 제거
+                .sameSite("Lax")
+                .secure(false) // 배포시 true로
+                .build();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(Map.of("success", true, "message", "로그아웃 되었습니다."));
+    }
+
+    
+
+
+    
+
+
 
 }

@@ -27,4 +27,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional  // 트랜잭션 추가
     @Query(value = "UPDATE USER_TB SET USER_DELETE_DATE = SYSTIMESTAMP WHERE USER_ID = :userId", nativeQuery = true)
     void userDelete(@Param("userId") String userId);
+    
+    //문자전송위한 함수
+    Optional<User> findByUserIdAndPhone(String userId, String phone);
+
 }

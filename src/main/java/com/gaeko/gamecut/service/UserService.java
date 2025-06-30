@@ -8,10 +8,17 @@ import com.gaeko.gamecut.mapper.UserMapper;
 import com.gaeko.gamecut.repository.PhotoRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.util.EmailUtil;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -281,5 +288,55 @@ public class UserService {
     public void userDelete(String userid) {
         userRepository.userDelete(userid);
     }
+    
+    
+    
+    public boolean changePassword(String userId, String currentPassword, String newPassword) {
+        Optional<User> userOpt = userRepository.findByUserId(userId);
+        if (userOpt.isEmpty()) return false;
+
+        User user = userOpt.get();
+        if (!passwordEncoder.matches(currentPassword, user.getUserPwd())) {
+            return false;
+        }
+
+        user.setUserPwd(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        return true;
+    }
+    
+    
+    public void removeRefreshToken(String userId) {
+        refreshTokenStore.remove(userId);
+    }
+
+
+
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+        Authentication auth = SecurityContextHolder
+            .getContext()
+            .getAuthentication();
+
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new UsernameNotFoundException("인증된 사용자가 없습니다.");
+        }
+
+        // Principal에서 아이디(userId)를 추출
+        Object principal = auth.getPrincipal();
+        String userId;
+        if (principal instanceof UserDetails) {
+            userId = ((UserDetails) principal).getUsername();
+        } else {
+            userId = principal.toString();
+        }
+
+        // Repository의 findByUserId를 호출
+        return userRepository.findByUserId(userId)
+            .orElseThrow(() ->
+                new UsernameNotFoundException("해당 사용자 없음: " + userId)
+            );
+    }
+
 
 }
