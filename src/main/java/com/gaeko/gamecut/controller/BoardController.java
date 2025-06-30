@@ -245,5 +245,8 @@ public class BoardController {
             return ResponseEntity.status(500).body("이미지 업로드 실패");
         }
     }
-
+    @DeleteMapping("/{boardNo}")
+    public void deleteBoard(@PathVariable Integer boardNo) {
+        boardService.deleteBoard(boardNo);
+    }
 }

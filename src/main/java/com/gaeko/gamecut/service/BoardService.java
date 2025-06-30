@@ -113,10 +113,10 @@ public class BoardService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "boardNo")); // 최신순 정렬
         Page<Board> boardPage;
         if (boardTypeNo == null) {
-            boardPage = boardRepository.findAll(pageable);
+            boardPage = boardRepository.findByBoardDeleteDateIsNull(pageable);
         } else {
             BoardType type = boardTypeRepository.findBoardTypeByBoardTypeNo(boardTypeNo);
-            boardPage = boardRepository.findAllByBoardType(pageable, type);
+            boardPage = boardRepository.findByBoardDeleteDateIsNullAndBoardType(pageable, type);
 
         }
 
@@ -169,4 +169,8 @@ public class BoardService {
       .collect(Collectors.toList());
   }
 
+  @Transactional
+  public void deleteBoard(Integer boardNo) {
+    boardRepository.deleteByBoardNo(boardNo);
+  }
 }
