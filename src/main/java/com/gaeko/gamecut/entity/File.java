@@ -43,4 +43,5 @@ public class File {
 
     @Column(name = "ORIGINAL_FILE_NAME", nullable = false, length = 100)
     private String originalFileName;
+    
 }

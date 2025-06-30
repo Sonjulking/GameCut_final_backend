@@ -281,5 +281,22 @@ public class UserService {
     public void userDelete(String userid) {
         userRepository.userDelete(userid);
     }
+    
+    
+    
+    public boolean changePassword(String userId, String currentPassword, String newPassword) {
+        Optional<User> userOpt = userRepository.findByUserId(userId);
+        if (userOpt.isEmpty()) return false;
+
+        User user = userOpt.get();
+        if (!passwordEncoder.matches(currentPassword, user.getUserPwd())) {
+            return false;
+        }
+
+        user.setUserPwd(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        return true;
+    }
+
 
 }

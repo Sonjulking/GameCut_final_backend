@@ -200,11 +200,12 @@ public class BoardController {
                 log.info("videoTags = " + videoTags);
                 log.info("videoNo = " + videoDTO.getVideoNo());
                 for (String videoTag : videoTags) {
+                    log.warn("태그 삽입 : " + videoTag);
                     String cleanTag = videoTag.startsWith("#") ? videoTag.substring(1) : videoTag;
                     cleanTag = cleanTag.trim();
 
                     tagService.insert(cleanTag);
-                    tagByVideoService.insert(cleanTag, videoDTO.getVideoNo());
+                    tagByVideoService.insertOnly(cleanTag, videoDTO.getVideoNo());
                 }
             }
 

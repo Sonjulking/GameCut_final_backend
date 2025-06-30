@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.gaeko.gamecut.entity.PointHistory;
+import com.gaeko.gamecut.entity.User;
 
 public interface PointHistoryRepository extends JpaRepository<PointHistory, Integer> {
 
@@ -29,5 +30,11 @@ public interface PointHistoryRepository extends JpaRepository<PointHistory, Inte
     	    ORDER BY total_points DESC
     	    """, nativeQuery = true)
     	List<Object[]> findTotalRanking();
+    	
+    	
+    	
+    	List<PointHistory> findByUser(User user);
+
+    	
 
 }
