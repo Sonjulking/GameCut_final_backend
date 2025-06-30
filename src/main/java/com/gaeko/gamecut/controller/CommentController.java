@@ -12,8 +12,11 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +47,24 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getCommentsByUser(userNo));
     }
 
-    
+    @DeleteMapping("/{commentNo}")
+    public void deleteComment(@PathVariable Integer commentNo) {
+        commentService.deleteComment(commentNo);
+    }
+
+    @PutMapping("/{commentNo}")
+    public void updateComment(
+            @PathVariable Integer commentNo,
+            @RequestBody CommentDTO commentDTO,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
+        log.info("댓글 수정 - commentNo: " + commentNo + ", 내용: " + commentDTO.toString());
+        
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        
+        // 댓글 수정 서비스 호출
+        commentService.updateComment(commentNo, commentDTO);
+        
+    }
    
 }

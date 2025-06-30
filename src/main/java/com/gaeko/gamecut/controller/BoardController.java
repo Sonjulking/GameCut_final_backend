@@ -46,7 +46,6 @@ public class BoardController {
         try {
             // 게시글 상세조회 및 조회수 증가
             BoardDTO boardDTO = boardService.findByNo(boardNo);
-            System.out.println(boardDTO);
             if (boardDTO == null) {
                 return ResponseEntity.notFound().build();
             }
@@ -75,7 +74,6 @@ public class BoardController {
 
     @GetMapping("/list")
     public List<BoardDTO> list() {
-        System.out.println(boardService.getAllBoards());
         return boardService.getAllBoards();
     }
 
