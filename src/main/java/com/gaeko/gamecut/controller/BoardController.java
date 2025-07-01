@@ -247,4 +247,5 @@ public class BoardController {
     public void deleteBoard(@PathVariable Integer boardNo) {
         boardService.deleteBoard(boardNo);
     }
+    
 }

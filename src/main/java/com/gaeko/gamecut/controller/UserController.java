@@ -129,9 +129,9 @@ public class UserController {
     
     
     @PostMapping("/user/refresh")
-    public Map<String, Object> refreshAccessToken(@CookieValue("refreshToken") String refreshToken) {
+    public ResponseEntity<Map<String, Object>> refreshAccessToken(@CookieValue("refreshToken") String refreshToken) {
         if (refreshToken == null) {
-            return Map.of("success", false, "message", "쿠키가 없음");
+            return ResponseEntity.ok(Map.of("success", false, "message", "쿠키가 없음"));
         }
 
         try {
@@ -139,13 +139,24 @@ public class UserController {
             String stored = userService.getRefreshTokenForUser(userId);
 
             if (!refreshToken.equals(stored)) {
-                return Map.of("success", false, "message", "유효하지 않은 토큰");
+                return ResponseEntity.ok(Map.of("success", false, "message", "유효하지 않은 토큰"));
             }
-
+            
             String newAccessToken = jwtUtil.createToken(userId, "USER");
-            return Map.of("success", true, "token", newAccessToken);
+
+            ResponseCookie accessCookie = ResponseCookie.from("accessToken", newAccessToken)
+                .httpOnly(false)  // JavaScript에서 JWT 디코딩을 위해 false
+                .path("/")
+                .maxAge(60 * 15)  // 15분
+                .secure(false)    // 프로덕션에서는 true
+                .sameSite("Lax")
+                .build();
+            return ResponseEntity
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, accessCookie.toString())
+                .body(Map.of("success", true, "token", newAccessToken));
         } catch (Exception e) {
-            return Map.of("success", false, "message", "토큰 만료 또는 위조됨");
+            return ResponseEntity.ok(Map.of("success", false, "message", "토큰 만료 또는 위조됨"));
         }
     }
 
@@ -158,19 +169,31 @@ public class UserController {
             return ResponseEntity.ok(result);
         }
 
+        String accessToken = (String) result.get("accessToken");
         String refreshToken = (String) result.get("refreshToken");
 
-        ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
+        // refreshToken 쿠키
+        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken)
             .httpOnly(true)
             .path("/")
             .maxAge(60 * 60 * 24 * 7) // 7일
-            .secure(false) // 프로덕션에서는 true
+            .secure(false)
+            .sameSite("Lax")
+            .build();
+
+        // accessToken 쿠키
+        ResponseCookie accessCookie = ResponseCookie.from("accessToken", accessToken)
+            .httpOnly(false)  // JavaScript에서 접근 가능하도록
+            .path("/")
+            .maxAge(60 * 15)  // 15분
+            .secure(false)
             .sameSite("Lax")
             .build();
 
         return ResponseEntity
             .ok()
-            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
+            .header(HttpHeaders.SET_COOKIE, accessCookie.toString()) // 두 개의 쿠키 모두 설정
             .body(result);
     }
     

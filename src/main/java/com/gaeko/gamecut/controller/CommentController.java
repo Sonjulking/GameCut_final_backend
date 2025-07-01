@@ -59,7 +59,7 @@ public class CommentController {
             @AuthenticationPrincipal UserDetails loginUser
     ) {
         log.info("댓글 수정 - commentNo: " + commentNo + ", 내용: " + commentDTO.toString());
-        
+
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         
         // 댓글 수정 서비스 호출
