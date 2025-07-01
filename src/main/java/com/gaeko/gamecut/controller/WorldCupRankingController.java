@@ -14,9 +14,14 @@ public class WorldCupRankingController {
 
     private final WorldCupRankingService rankingService;
 
-    // /api/worldcup/ranking?worldCupNo=7
+    // // /api/worldcup/ranking?worldCupNo=7
+    // @GetMapping("/ranking")
+    // public List<VideoRankingDTO> getRanking(@RequestParam Integer worldCupNo) {
+    //     return rankingService.getRanking(worldCupNo);
+    // }
+
     @GetMapping("/ranking")
-    public List<VideoRankingDTO> getRanking(@RequestParam Integer worldCupNo) {
-        return rankingService.getRanking(worldCupNo);
+    public List<VideoRankingDTO> getAllRanking() {
+        return rankingService.getRanking();
     }
 }

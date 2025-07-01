@@ -103,7 +103,7 @@ public class UserService {
 
         return Map.of(
                 "success", true,
-                "token", accessToken,
+                "accessToken", accessToken,
                 "refreshToken", refreshToken,
                 "userId", user.getUserId(),
                 "userNickname", user.getUserNickname(),
