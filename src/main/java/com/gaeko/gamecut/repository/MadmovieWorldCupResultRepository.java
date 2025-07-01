@@ -21,4 +21,13 @@ public interface MadmovieWorldCupResultRepository
 
     // same 월드컵No 의 총 게임 수
     long countByWorldCupNo(Integer worldCupNo);
+
+    // 전체 누적 우승 횟수
+    @Query("""
+      SELECT r.video.videoNo, COUNT(r)
+      FROM MadmovieWorldCupResult r
+      GROUP BY r.video.videoNo
+      ORDER BY COUNT(r) DESC
+      """)
+      List<Object[]> countWinsAll();
 }
