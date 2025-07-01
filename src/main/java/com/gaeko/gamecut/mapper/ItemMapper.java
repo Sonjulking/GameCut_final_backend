@@ -1,10 +1,11 @@
 package com.gaeko.gamecut.mapper;
 
-import com.gaeko.gamecut.dto.ItemDTO;
-import com.gaeko.gamecut.entity.Item;
+import java.util.List;
+
 import org.mapstruct.Mapper;
 
-import java.util.List;
+import com.gaeko.gamecut.dto.ItemDTO;
+import com.gaeko.gamecut.entity.Item;
 
 @Mapper(componentModel = "spring", uses = {FileMapper.class})
 public interface ItemMapper {
@@ -16,4 +17,6 @@ public interface ItemMapper {
 
     // 리스트 매핑
     List<ItemDTO> toDTOs(List<Item> items);
+    
+    
 }

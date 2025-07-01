@@ -1,8 +1,10 @@
 package com.gaeko.gamecut.mapper;
 
 import com.gaeko.gamecut.dto.UserDTO;
+import com.gaeko.gamecut.entity.Item;
 import com.gaeko.gamecut.entity.User;
 import org.mapstruct.*;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ import java.util.List;
 	    List<UserDTO> toDTOs(List<User> users);
 	    
 	    List<User> toEntities(List<UserDTO> dtos);
+	    
 	}
 
 

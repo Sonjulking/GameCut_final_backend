@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.gaeko.gamecut.entity.User;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,4 +40,12 @@ public class UserDTO {
 
     // 연관된 Photo 엔티티(프로필 사진)를 PhotoDTO로 매핑
     private PhotoDTO photo;
+    
+    public UserDTO(User user) {
+        this.userNo = user.getUserNo();
+        this.userId = user.getUserId();
+        this.userName = user.getUserName();
+        this.userNickname = user.getUserNickname();
+        this.userPoint = user.getUserPoint();
+    }
 }
