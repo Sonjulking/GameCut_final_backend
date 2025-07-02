@@ -71,7 +71,7 @@ public class UserService {
                 .phone(dto.getPhone())
                 .email(dto.getEmail())
                 .isSocial("basic")
-                .role("USER")
+                .role("ROLE_USER")
                 .userPoint(1000)
                 .build();
         userRepository.save(user);

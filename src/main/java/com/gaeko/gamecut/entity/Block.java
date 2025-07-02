@@ -24,12 +24,3 @@ public class Block {
     private User blocked; // 차단당한 사용자
 }
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-class BlockId implements java.io.Serializable {
-    private Integer blocker;
-    private Integer blocked;
-}
