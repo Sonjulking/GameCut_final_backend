@@ -22,7 +22,7 @@ public class CommentDTO {
     
     private String boardTitle; // ✨ 게시글 제목 (화면에서 제목 출력용)
 
-
+    private Integer commentLike;
     private String commentContent;
     private Date commentCreateDate;
     private Date commentDeleteDate;

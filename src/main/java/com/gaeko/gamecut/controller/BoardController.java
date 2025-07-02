@@ -248,4 +248,22 @@ public class BoardController {
         boardService.deleteBoard(boardNo);
     }
     
+    @PostMapping("/like/{boardNo}")
+    public void boardLike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser){
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        boardService.boardLike(userNo, boardNo);
+    }
+
+    @PostMapping("/unlike/{boardNo}")
+    public void boardUnlike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser){
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        boardService.boardUnlike(userNo, boardNo);
+    }   
+
+    @PostMapping("/isLike/{boardNo}")
+    public Boolean isLike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser) {
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        System.out.println("좋아요체크들어옴");
+        return boardService.isLike(userNo, boardNo);
+    }
 }
