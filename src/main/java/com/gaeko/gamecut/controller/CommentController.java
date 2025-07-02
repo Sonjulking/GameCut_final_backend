@@ -60,11 +60,24 @@ public class CommentController {
     ) {
         log.info("댓글 수정 - commentNo: " + commentNo + ", 내용: " + commentDTO.toString());
 
-        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         
         // 댓글 수정 서비스 호출
         commentService.updateComment(commentNo, commentDTO);
         
+    }
+
+    // 댓글 좋아요 추가
+    @PostMapping("/like/{commentNo}")
+    public void commentLike(@PathVariable Integer commentNo, @AuthenticationPrincipal UserDetails loginUser) {
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        // 댓글 좋아요 로직
+        commentService.commentLike(commentNo, userNo);
+    }
+
+    // 댓글 좋아요 취소  
+    @PostMapping("/unlike/{commentNo}")
+    public void commentUnlike(@PathVariable Integer commentNo, @AuthenticationPrincipal UserDetails loginUser) {
+        // 댓글 좋아요 취소 로직
     }
    
 }
