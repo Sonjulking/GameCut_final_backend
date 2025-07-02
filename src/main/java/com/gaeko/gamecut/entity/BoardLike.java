@@ -1,6 +1,5 @@
 package com.gaeko.gamecut.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,14 +22,4 @@ public class BoardLike {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOARD_NO", nullable = false)
     private Board board; // 좋아요 받은 게시글
-}
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-class BoardLikeId implements java.io.Serializable {
-    private Integer user;
-    private Integer board;
 }
