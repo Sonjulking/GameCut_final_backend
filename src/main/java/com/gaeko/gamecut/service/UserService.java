@@ -14,6 +14,8 @@ import com.gaeko.gamecut.util.EmailUtil;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +25,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -38,6 +42,14 @@ public class UserService {
     private final JwtUtil jwtUtil;
     private final Map<String, String> refreshTokenStore = new HashMap<>();
     private final Map<String, String> emailVerificationMap = new HashMap<>();
+    private FileUploadService fileUploadService;
+    private final FileRepository fileRepository;
+
+    // 이 세터 주입으로 순환 참조 깨기
+    @Autowired
+    public void setFileUploadService(@Lazy FileUploadService fileUploadService) {
+        this.fileUploadService = fileUploadService;
+    }
 
     public String getRefreshTokenForUser(String userId) {
         return refreshTokenStore.get(userId);
@@ -376,5 +388,45 @@ public class UserService {
         // 새 토큰 저장
         refreshTokenStore.put(newUserId, newRefreshToken);
     }
+
+
+    /**
+     * 프로필 사진만 업데이트하거나 삭제
+     *
+     * @param userId        JWT에서 추출된 로그인된 사용자 ID
+     * @param deletePhoto   true면 사진 삭제, false면 업로드 처리
+     * @param profileImage  새로 업로드된 파일 (없으면 null)
+     * @return              성공 여부
+     * @throws IOException  파일 저장 중 I/O 오류 발생 시
+     */
+    public boolean updateProfilePhoto(
+        String userId,
+        boolean deletePhoto,
+        MultipartFile profileImage
+    ) throws IOException {
+        User user = userRepository.findByUserId(userId)
+            .orElseThrow(() -> new NoSuchElementException("유저를 찾을 수 없습니다: " + userId));
+
+        if (profileImage != null && !profileImage.isEmpty()) {
+            FileDTO dto = fileUploadService.store(profileImage);
+            File   savedFile = fileRepository.findById(dto.getAttachNo())
+                .orElseThrow(() ->
+                    new NoSuchElementException("저장된 파일을 찾을 수 없습니다: " + dto.getAttachNo())
+                );
+
+            Photo photo = Photo.builder()
+                               .attachFile(savedFile)
+                               .build();
+            photoRepository.save(photo);
+            user.setPhoto(photo);
+
+        } else if (deletePhoto) {
+            user.setPhoto(null);
+        }
+
+        userRepository.save(user);
+        return true;
+    }
+    
 
 }

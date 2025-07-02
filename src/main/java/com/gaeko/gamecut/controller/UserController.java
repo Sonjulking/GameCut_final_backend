@@ -5,6 +5,7 @@ import com.gaeko.gamecut.jwt.JwtUtil;
 import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.service.SmsService;
 import com.gaeko.gamecut.service.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseCookie;
@@ -17,14 +18,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -279,5 +284,32 @@ public class UserController {
             .body(Map.of("success", true, "accessToken", newAccessToken));
     }
 
-    
+
+     /**
+     * 프로필 사진만 업데이트하거나 삭제
+     *
+     * @param auth          JWT 인증 정보
+     * @param deletePhoto   프로필 삭제 여부 (true → 삭제)
+     * @param profileImage  새로 업로드된 파일 (없으면 null)
+     * @return              { "success": true } 또는 오류
+     * @throws IOException  파일 저장 중 I/O 오류 발생 시
+     */
+    @PutMapping(
+        value    = "/user/photo",
+        consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ResponseEntity<Map<String, Object>> updateProfilePhoto(
+            Authentication auth,
+            @RequestPart(value = "deletePhoto",   required = false) Boolean deletePhoto,
+            @RequestPart(value = "profileImage",  required = false) MultipartFile profileImage
+    ) throws IOException {
+        String userId = auth.getName();
+        boolean success = userService.updateProfilePhoto(
+            userId,
+            Boolean.TRUE.equals(deletePhoto),
+            profileImage
+        );
+        return ResponseEntity
+            .ok(Map.of("success", success));
+    }
 }
