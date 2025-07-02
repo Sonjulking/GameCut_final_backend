@@ -25,6 +25,7 @@ public class Follow {
     private User follower; // 팔로우하는 사람 (팔로워)
 }
 
+/*
 // 복합키 ID 클래스
 @Getter
 @Setter
@@ -35,3 +36,4 @@ class FollowId implements java.io.Serializable {
     private Integer followee;
     private Integer follower;
 }
+*/
