@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -247,11 +246,38 @@ public class UserController {
                 .body(Map.of("success", true, "message", "로그아웃 되었습니다."));
     }
 
+
+    @PutMapping("/user")
+    public ResponseEntity<Map<String, Object>> updateUserId(
+            Authentication auth,
+            @RequestBody Map<String, String> body
+    ) {
+        String oldUserId   = auth.getName();
+        String newUserId   = body.get("userId");
+        String newNickname = body.get("userNickname");
+
+        // 1) ID·닉네임 업데이트
+        userService.updateUserIdNickname(oldUserId, newUserId, newNickname);
+
+        // 2) 새 토큰 생성
+        String newAccessToken  = jwtUtil.createToken(newUserId, "USER");
+        String newRefreshToken = jwtUtil.createRefreshToken(newUserId);
+
+        // 3) 서비스 메서드로 refreshTokenStore 갱신
+        userService.replaceRefreshToken(oldUserId, newUserId, newRefreshToken);
+
+        // 4) 쿠키에 새 토큰 세팅
+        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", newRefreshToken)
+            .httpOnly(true).path("/").maxAge(7 * 24 * 3600).sameSite("Lax").build();
+        ResponseCookie accessCookie = ResponseCookie.from("accessToken", newAccessToken)
+            .httpOnly(false).path("/").maxAge(15 * 60).sameSite("Lax").build();
+
+        return ResponseEntity
+            .ok()
+            .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
+            .header(HttpHeaders.SET_COOKIE, accessCookie.toString())
+            .body(Map.of("success", true, "accessToken", newAccessToken));
+    }
+
     
-
-
-    
-
-
-
 }
