@@ -31,6 +31,7 @@ public class BoardService {
     private final BoardTypeRepository boardTypeRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
+    private final BoardLikeRepository boardLikeRepository;
 
     public BoardDTO save(BoardDTO boardDTO, Integer userNo) {
 
@@ -173,4 +174,41 @@ public class BoardService {
   public void deleteBoard(Integer boardNo) {
     boardRepository.deleteByBoardNo(boardNo);
   }
+
+public void boardLike(Integer userNo, Integer boardNo) {
+    // User와 Board 엔티티 조회
+    User user = userRepository.findById(userNo)
+                             .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
+    
+    Board board = boardRepository.findById(boardNo)
+                                 .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
+    
+    // BoardLike 엔티티 생성 및 저장
+    BoardLike boardLike = BoardLike.builder()
+                                   .user(user)
+                                   .board(board)
+                                   .build();
+
+    board.setBoardLike(board.getBoardLike()+1);
+    boardRepository.save(board);
+    boardLikeRepository.save(boardLike);
+}
+
+public void boardUnlike(Integer userNo, Integer boardNo) {
+    // User와 Board 엔티티 조회
+    User user = userRepository.findById(userNo)
+                             .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
+    
+    Board board = boardRepository.findById(boardNo)
+                                 .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
+    board.setBoardLike(board.getBoardLike()-1);
+    boardRepository.save(board);
+    boardLikeRepository.deleteByUserNoAndBoardNo(userNo, boardNo);
+}
+
+public Boolean isLike(Integer userNo, Integer boardNo) {
+    return boardLikeRepository.existsByUserNoAndBoardNo(userNo, boardNo);
+}
+
+
 }

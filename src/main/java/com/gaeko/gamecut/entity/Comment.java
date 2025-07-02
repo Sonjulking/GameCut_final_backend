@@ -36,6 +36,10 @@ public class Comment {
     @JoinColumn(name = "PARENT_COMMENT_NO", referencedColumnName = "COMMENT_NO")
     private Comment parentComment;
 
+    @Column(name = "COMMENT_LIKE", nullable = false)
+    @Builder.Default
+    private Integer commentLike = 0;
+
     @Column(name = "COMMENT_CONTENT", nullable = false, length = 200)
     private String commentContent;
 

@@ -107,7 +107,8 @@ public class UserService {
                 "refreshToken", refreshToken,
                 "userId", user.getUserId(),
                 "userNickname", user.getUserNickname(),
-                "userNo", user.getUserNo()
+                "userNo", user.getUserNo(),
+                "userPoint", user.getUserPoint()
         );
     }
 
