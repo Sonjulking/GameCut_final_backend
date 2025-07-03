@@ -39,6 +39,7 @@ public class BoardController {
     private final TagService tagService;
     private final TagByVideoService tagByVideoService;
 
+// 2025-07-03 생성됨
     //게시글 상세페이지
     @GetMapping("/detail/{boardNo}")
     public ResponseEntity<BoardDTO> getBoardDetail(@PathVariable int boardNo) {
