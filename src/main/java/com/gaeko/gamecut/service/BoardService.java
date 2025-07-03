@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 // 2025-07-03 생성됨
@@ -74,21 +75,21 @@ public class BoardService {
         return boardMapper.toDTO(board);
     }
 
-// 2025-07-03 생성됨
+    // 2025-07-03 생성됨
     public List<BoardDTO> getAllBoards() {
         List<Board> boards = boardRepository.findRandom5BoardType3NotDeleted();
 
         // 게시글 번호 리스트 추출
         List<Integer> boardNos = boards.stream()
-                .map(Board::getBoardNo)
-                .collect(Collectors.toList());
+                                       .map(Board::getBoardNo)
+                                       .collect(Collectors.toList());
 
         // 모든 게시글의 상위 5개 댓글을 배치로 조회
         List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNos(boardNos);
-        
+
         // 게시글별로 댓글 그룹핑
         Map<Integer, List<Comment>> commentsByBoardNo = top5Comments.stream()
-                .collect(Collectors.groupingBy(comment -> comment.getBoard().getBoardNo()));
+                                                                    .collect(Collectors.groupingBy(comment -> comment.getBoard().getBoardNo()));
 
         for (Board board : boards) {
             Video video = board.getVideo();
@@ -114,27 +115,27 @@ public class BoardService {
             BoardDTO dto = boardMapper.toDTO(board);
             List<Comment> boardComments = commentsByBoardNo.getOrDefault(board.getBoardNo(), List.of());
             dto.setComments(boardComments.stream()
-                    .map(commentMapper::toDTO)
-                    .collect(Collectors.toList()));
+                                         .map(commentMapper::toDTO)
+                                         .collect(Collectors.toList()));
             return dto;
         }).collect(Collectors.toList());
     }
 
-// 2025-07-03 생성됨
+    // 2025-07-03 생성됨
     public List<BoardDTO> getOneBoard() {
         List<Board> boards = boardRepository.findRandomOneBoard(PageRequest.of(0, 1));
 
         // 게시글 번호 리스트 추출
         List<Integer> boardNos = boards.stream()
-                .map(Board::getBoardNo)
-                .collect(Collectors.toList());
+                                       .map(Board::getBoardNo)
+                                       .collect(Collectors.toList());
 
         // 모든 게시글의 상위 5개 댓글을 배치로 조회
         List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNos(boardNos);
-        
+
         // 게시글별로 댓글 그룹핑
         Map<Integer, List<Comment>> commentsByBoardNo = top5Comments.stream()
-                .collect(Collectors.groupingBy(comment -> comment.getBoard().getBoardNo()));
+                                                                    .collect(Collectors.groupingBy(comment -> comment.getBoard().getBoardNo()));
 
         for (Board board : boards) {
             Video video = board.getVideo();
@@ -151,13 +152,13 @@ public class BoardService {
             BoardDTO dto = boardMapper.toDTO(board);
             List<Comment> boardComments = commentsByBoardNo.getOrDefault(board.getBoardNo(), List.of());
             dto.setComments(boardComments.stream()
-                    .map(commentMapper::toDTO)
-                    .collect(Collectors.toList()));
+                                         .map(commentMapper::toDTO)
+                                         .collect(Collectors.toList()));
             return dto;
         }).collect(Collectors.toList());
     }
 
-// 2025-07-03 생성됨
+    // 2025-07-03 생성됨
     public Page<BoardDTO> getAll(int page, int size, Integer boardTypeNo) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "boardNo")); // 최신순 정렬
         Page<Board> boardPage;
@@ -170,71 +171,73 @@ public class BoardService {
 
         // 게시글 번호 리스트 추출
         List<Integer> boardNos = boardPage.getContent().stream()
-                .map(Board::getBoardNo)
-                .collect(Collectors.toList());
+                                          .map(Board::getBoardNo)
+                                          .collect(Collectors.toList());
 
         // 모든 게시글의 상위 5개 댓글을 배치로 조회
         List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNos(boardNos);
-        
+
         // 게시글별로 댓글 그룹핑
         Map<Integer, List<Comment>> commentsByBoardNo = top5Comments.stream()
-                .collect(Collectors.groupingBy(comment -> comment.getBoard().getBoardNo()));
+                                                                    .collect(Collectors.groupingBy(comment -> comment.getBoard().getBoardNo()));
 
         return boardPage.map(board -> {
             BoardDTO dto = boardMapper.toDTO(board);
             // 해당 게시글의 상위 5개 댓글만 설정
             List<Comment> boardComments = commentsByBoardNo.getOrDefault(board.getBoardNo(), List.of());
             dto.setComments(boardComments.stream()
-                    .map(commentMapper::toDTO)
-                    .collect(Collectors.toList()));
+                                         .map(commentMapper::toDTO)
+                                         .collect(Collectors.toList()));
             return dto;
         });
     }
 
-// 2025-07-03 생성됨
+    // 2025-07-03 생성됨
     public List<BoardDTO> getOneBoardExcluding(List<Long> excludeBoardNos) {
-        log.info(excludeBoardNos.toString());
-        List<Board> boards;
-        if (excludeBoardNos == null || excludeBoardNos.isEmpty()) {
-            boards = boardRepository.findRandomOneBoard((PageRequest.of(0, 1)));
-        } else {
-            boards = boardRepository.findRandomOneBoardExclude(excludeBoardNos, (PageRequest.of(0, 1)));
+        log.info("❗ excludeBoardNos = {}", excludeBoardNos);
+
+        // 1. 랜덤 게시글 1개 조회
+        List<Board> boards = (excludeBoardNos == null || excludeBoardNos.isEmpty())
+                ? boardRepository.findRandomOneBoard(PageRequest.of(0, 1))
+                : boardRepository.findRandomOneBoardExclude(excludeBoardNos, PageRequest.of(0, 1));
+
+        // 2. 더 이상 가져올 게시글이 없다면 → 빈 리스트 반환 (예외 방지)
+        if (boards.isEmpty()) {
+            log.info("📭 더 이상 보여줄 게시글이 없습니다.");
+            return List.of(); // ✅ 빈 리스트 반환
         }
 
-        // 게시글 번호 리스트 추출
-        List<Integer> boardNos = boards.stream()
-                .map(Board::getBoardNo)
-                .collect(Collectors.toList());
+        // 3. 게시글 번호 추출
+        Integer boardNo = boards.get(0).getBoardNo();
 
-        // 모든 게시글의 상위 5개 댓글을 배치로 조회
-        List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNos(boardNos);
-        
-        // 게시글별로 댓글 그룹핑
-        Map<Integer, List<Comment>> commentsByBoardNo = top5Comments.stream()
-                .collect(Collectors.groupingBy(comment -> comment.getBoard().getBoardNo()));
+        // 4. 해당 게시글의 상위 5개 댓글 조회
+        Page<Comment> top5Comments = commentRepository.findTop5Comment(boardNo, PageRequest.of(0, 5));
 
+        // 5. Lazy 로딩 방지
         for (Board board : boards) {
             Video video = board.getVideo();
             if (video != null) {
                 if (video.getAttachFile() != null) {
-                    video.getAttachFile().getFileUrl(); // Lazy 로딩 유도
+                    video.getAttachFile().getFileUrl(); // lazy 로딩 유도
                 }
-                video.getBoard(); // boardNo도 채워줌
+                video.getBoard(); // boardNo 보장
             }
         }
 
-        // BoardDTO로 변환하면서 상위 5개 댓글만 설정
+        // 6. BoardDTO로 변환 + 댓글 DTO 세팅
         return boards.stream().map(board -> {
             BoardDTO dto = boardMapper.toDTO(board);
-            List<Comment> boardComments = commentsByBoardNo.getOrDefault(board.getBoardNo(), List.of());
-            dto.setComments(boardComments.stream()
-                    .map(commentMapper::toDTO)
-                    .collect(Collectors.toList()));
+            dto.setComments(
+                    top5Comments.stream()
+                                .map(commentMapper::toDTO)
+                                .toList()
+            );
             return dto;
         }).collect(Collectors.toList());
     }
 
-// 2025-07-03 생성됨
+
+    // 2025-07-03 생성됨
     public BoardDTO findByNo(int boardNo) {
         Board b = boardRepository.findBoardByBoardNo(boardNo);
 
@@ -245,11 +248,11 @@ public class BoardService {
     @Transactional(readOnly = true)
     public BoardDTO findByNoWithAllComments(int boardNo) {
         Board board = boardRepository.findById(boardNo)
-                .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
-        
+                                     .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+
         // 댓글들의 Lazy Loading을 강제로 초기화
         board.getComments().size(); // 댓글 리스트를 실제로 로드
-        
+
         // 각 댓글의 좋아요 수도 확실히 로드되도록 함
         board.getComments().forEach(comment -> {
             comment.getCommentLike(); // 좋아요 수 강제 로드
@@ -257,67 +260,69 @@ public class BoardService {
                 comment.getUser().getUserNickname(); // 유저 정보도 로드
             }
         });
-        
+
         BoardDTO boardDTO = boardMapper.toDTO(board);
         return boardDTO;
     }
 
-    /** 모든 영상 게시물 가져오기 **/
-  @Transactional(readOnly = true)
-  public List<VideoDTO> findAllVideoBoards() {
-    return boardRepository.findByBoardType_BoardTypeNo(3).stream()
-      .filter(b -> b.getVideo() != null && b.getVideo().getAttachFile() != null)
-      .map(b -> {
-        VideoDTO dto = new VideoDTO();
-        dto.setBoardNo(b.getBoardNo());
-        // realPath 에서 /upload/** 이하만 잘라서 담아둔다
-        String rp = b.getVideo().getAttachFile().getRealPath();
-        int idx = rp.indexOf("/upload/");
-        dto.setUrl(idx >= 0 ? rp.substring(idx) : "");
-        return dto;
-      })
-      .collect(Collectors.toList());
-  }
+    /**
+     * 모든 영상 게시물 가져오기
+     **/
+    @Transactional(readOnly = true)
+    public List<VideoDTO> findAllVideoBoards() {
+        return boardRepository.findByBoardType_BoardTypeNo(3).stream()
+                              .filter(b -> b.getVideo() != null && b.getVideo().getAttachFile() != null)
+                              .map(b -> {
+                                  VideoDTO dto = new VideoDTO();
+                                  dto.setBoardNo(b.getBoardNo());
+                                  // realPath 에서 /upload/** 이하만 잘라서 담아둔다
+                                  String rp = b.getVideo().getAttachFile().getRealPath();
+                                  int idx = rp.indexOf("/upload/");
+                                  dto.setUrl(idx >= 0 ? rp.substring(idx) : "");
+                                  return dto;
+                              })
+                              .collect(Collectors.toList());
+    }
 
-  @Transactional
-  public void deleteBoard(Integer boardNo) {
-    boardRepository.deleteByBoardNo(boardNo);
-  }
+    @Transactional
+    public void deleteBoard(Integer boardNo) {
+        boardRepository.deleteByBoardNo(boardNo);
+    }
 
-public void boardLike(Integer userNo, Integer boardNo) {
-    // User와 Board 엔티티 조회
-    User user = userRepository.findById(userNo)
-                             .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
-    
-    Board board = boardRepository.findById(boardNo)
-                                 .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
-    
-    // BoardLike 엔티티 생성 및 저장
-    BoardLike boardLike = BoardLike.builder()
-                                   .user(user)
-                                   .board(board)
-                                   .build();
+    public void boardLike(Integer userNo, Integer boardNo) {
+        // User와 Board 엔티티 조회
+        User user = userRepository.findById(userNo)
+                                  .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
 
-    board.setBoardLike(board.getBoardLike()+1);
-    boardRepository.save(board);
-    boardLikeRepository.save(boardLike);
-}
+        Board board = boardRepository.findById(boardNo)
+                                     .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
 
-public void boardUnlike(Integer userNo, Integer boardNo) {
-    // User와 Board 엔티티 조회
-    User user = userRepository.findById(userNo)
-                             .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
-    
-    Board board = boardRepository.findById(boardNo)
-                                 .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
-    board.setBoardLike(board.getBoardLike()-1);
-    boardRepository.save(board);
-    boardLikeRepository.deleteByUserNoAndBoardNo(userNo, boardNo);
-}
+        // BoardLike 엔티티 생성 및 저장
+        BoardLike boardLike = BoardLike.builder()
+                                       .user(user)
+                                       .board(board)
+                                       .build();
 
-public Boolean isLike(Integer userNo, Integer boardNo) {
-    return boardLikeRepository.existsByUserNoAndBoardNo(userNo, boardNo);
-}
+        board.setBoardLike(board.getBoardLike() + 1);
+        boardRepository.save(board);
+        boardLikeRepository.save(boardLike);
+    }
+
+    public void boardUnlike(Integer userNo, Integer boardNo) {
+        // User와 Board 엔티티 조회
+        User user = userRepository.findById(userNo)
+                                  .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
+
+        Board board = boardRepository.findById(boardNo)
+                                     .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
+        board.setBoardLike(board.getBoardLike() - 1);
+        boardRepository.save(board);
+        boardLikeRepository.deleteByUserNoAndBoardNo(userNo, boardNo);
+    }
+
+    public Boolean isLike(Integer userNo, Integer boardNo) {
+        return boardLikeRepository.existsByUserNoAndBoardNo(userNo, boardNo);
+    }
 
 
 }

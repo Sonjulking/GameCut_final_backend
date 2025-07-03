@@ -107,7 +107,7 @@ public class CommentController {
     public ResponseEntity<List<CommentDTO>> getCommentsByBoard(
             @PathVariable Integer boardNo,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "5") int size,
             @AuthenticationPrincipal UserDetails loginUser
     ) {
         log.info("댓글 조회 API 호출 - boardNo: {}, page: {}, size: {}, loginUser: {}", 

@@ -7,6 +7,8 @@ import com.gaeko.gamecut.entity.Comment;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -37,16 +39,33 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
             nativeQuery = true)
     List<Comment> findTop5CommentsByBoardNo(@Param("boardNo") Integer boardNo);
 
-    // 여러 게시글의 상위 5개 댓글을 배치로 조회 (N+1 문제 해결)
-    @Query(value = "SELECT * FROM (" +
-            "    SELECT c.*, " +
-            "           ROW_NUMBER() OVER (PARTITION BY c.board_no ORDER BY c.comment_create_date DESC) as rn " +
-            "    FROM comment_tb c " +
-            "    WHERE c.board_no IN (:boardNos) " +
-            "    AND c.comment_delete_date IS NULL" +
-            ") WHERE rn <= 5 " +
-            "ORDER BY board_no, comment_create_date DESC",
-            nativeQuery = true)
+    // 좋아요 ↓, 작성일 ↓ 로 정렬 후 상위 5개만
+    @Query("""
+            SELECT c FROM Comment c
+            WHERE c.board.boardNo = :boardNo
+              AND c.commentDeleteDate IS NULL
+            ORDER BY c.commentLike DESC, c.commentCreateDate DESC
+            """)
+    Page<Comment> findTop5Comment(@Param("boardNo") Integer boardNo, Pageable pageable);
+
+
+    @Query(value = """
+    SELECT * FROM (
+        SELECT  c.*,
+                ROW_NUMBER() OVER (
+                    PARTITION BY c.board_no
+                    ORDER BY c.comment_like DESC,
+                             c.comment_create_date DESC
+                ) AS rn
+        FROM comment_tb c
+        WHERE c.board_no IN (:boardNos)
+          AND c.comment_delete_date IS NULL
+    ) sub
+    WHERE rn <= 5
+    ORDER BY board_no,
+             comment_like DESC,
+             comment_create_date DESC
+    """, nativeQuery = true)
     List<Comment> findTop5CommentsByBoardNos(@Param("boardNos") List<Integer> boardNos);
 
     // 특정 게시글의 댓글 페이징 조회 (최신순)
