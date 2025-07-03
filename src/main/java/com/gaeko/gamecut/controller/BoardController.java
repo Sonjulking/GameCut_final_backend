@@ -39,7 +39,7 @@ public class BoardController {
     private final TagService tagService;
     private final TagByVideoService tagByVideoService;
 
-// 2025-07-03 생성됨
+    // 2025-07-03 생성됨
     //게시글 상세페이지
     @GetMapping("/detail/{boardNo}")
     public ResponseEntity<BoardDTO> getBoardDetail(@PathVariable int boardNo) {
@@ -248,7 +248,7 @@ public class BoardController {
     public void deleteBoard(@PathVariable Integer boardNo) {
         boardService.deleteBoard(boardNo);
     }
-    
+
     @PostMapping("/like/{boardNo}")
     public void boardLike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser){
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
@@ -259,7 +259,7 @@ public class BoardController {
     public void boardUnlike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser){
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         boardService.boardUnlike(userNo, boardNo);
-    }   
+    }
 
     @PostMapping("/isLike/{boardNo}")
     public Boolean isLike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser) {

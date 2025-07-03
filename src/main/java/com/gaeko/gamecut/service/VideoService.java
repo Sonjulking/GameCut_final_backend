@@ -56,7 +56,7 @@ public class VideoService {
         return videoMapper.toDTO(video);
     }
 
-     /** 모든 영상 조회 */
+    /** 모든 영상 조회 */
     @Transactional(readOnly = true)
     public List<VideoDTO> findAllVideos() {
         return videoRepository.findAll().stream().map(entity -> {
@@ -65,8 +65,8 @@ public class VideoService {
             // "/upload/" 이후만 URL로 사용
             int idx = rp.indexOf("/upload/");
             dto.setUrl(idx >= 0 ? rp.substring(idx) : "");
-        return dto;
-    }).collect(Collectors.toList());
-}
+            return dto;
+        }).collect(Collectors.toList());
+    }
 
 }

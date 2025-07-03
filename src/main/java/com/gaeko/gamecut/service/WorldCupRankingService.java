@@ -27,12 +27,12 @@ public class WorldCupRankingService {
 
         // “현재 영상 게시판” 에 남아 있는 videoNo 집합
         Set<Integer> activeVideoNos = boardRepo
-            .findByBoardType_BoardTypeNo(VIDEO_BOARD_TYPE)
-            .stream()
-            .map(Board::getVideo)
-            .filter(Objects::nonNull)
-            .map(Video::getVideoNo)
-            .collect(Collectors.toSet());
+                .findByBoardType_BoardTypeNo(VIDEO_BOARD_TYPE)
+                .stream()
+                .map(Board::getVideo)
+                .filter(Objects::nonNull)
+                .map(Video::getVideoNo)
+                .collect(Collectors.toSet());
 
         List<Object[]> rows = resultRepo.countWinsAll();
         List<VideoRankingDTO> dtos = new ArrayList<>();
@@ -46,15 +46,15 @@ public class WorldCupRankingService {
             }
 
             Video v = videoRepo.findById(videoNo)
-                       .orElseThrow(() -> new IllegalArgumentException("Invalid videoNo: " + videoNo));
+                               .orElseThrow(() -> new IllegalArgumentException("Invalid videoNo: " + videoNo));
 
             dtos.add(VideoRankingDTO.builder()
-                .videoNo       (videoNo)
-                .winCount      (winCount)
-                .totalRuns     (totalRuns)
-                .winRate       ( totalRuns>0 ? winCount/(double)totalRuns : 0.0 )
-                .videoRealPath (v.getAttachFile().getRealPath())
-                .build());
+                                    .videoNo       (videoNo)
+                                    .winCount      (winCount)
+                                    .totalRuns     (totalRuns)
+                                    .winRate       ( totalRuns>0 ? winCount/(double)totalRuns : 0.0 )
+                                    .videoRealPath (v.getAttachFile().getRealPath())
+                                    .build());
         }
 
         return dtos;
