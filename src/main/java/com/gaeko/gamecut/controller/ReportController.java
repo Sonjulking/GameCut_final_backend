@@ -38,6 +38,12 @@ public class ReportController {
         }
         return reportService.getAllReports();
     }
+    
+    @GetMapping("/my")
+    public List<ReportDTO> getMyReports() {
+        User currentUser = userService.getCurrentUser();
+        return reportService.getMyReports(currentUser.getUserNo());
+    }
 
 
 }

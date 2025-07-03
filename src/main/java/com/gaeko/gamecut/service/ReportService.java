@@ -52,4 +52,22 @@ public class ReportService {
                         .build())
                 .collect(Collectors.toList());
     }
+    
+    public List<ReportDTO> getMyReports(Integer userNo) {
+        return reportRepository.findByUser_UserNo(userNo).stream()
+                .map(report -> ReportDTO.builder()
+                        .reportNo(report.getReportNo())
+                        .userNo(report.getUser().getUserNo())
+                        .boardNo(report.getBoard().getBoardNo())
+                        .reportContent(report.getReportContent())
+                        .reportType(report.getReportType())
+                        .reportDate(report.getReportDate())
+                        .userNickname(report.getUser().getUserNickname())
+                        .boardTitle(report.getBoard().getBoardTitle())
+                        .userDeleteDate(report.getUser().getUserDeleteDate())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    
 }
