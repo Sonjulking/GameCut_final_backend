@@ -69,4 +69,20 @@ public class VideoService {
     }).collect(Collectors.toList());
 }
 
+    @Transactional
+public VideoDTO saveGameVideo(Integer attachNo) {
+    File file = fileRepository.findFileByAttachNo(attachNo);
+    if (file == null) {
+        throw new IllegalArgumentException("파일 첨부내역이 없습니다: " + attachNo);
+    }
+
+    Video video = Video.builder()
+        .attachFile(file)
+        .build();
+
+    Video saved = videoRepository.save(video);
+
+    return videoMapper.toDTO(saved);
+}
+
 }
