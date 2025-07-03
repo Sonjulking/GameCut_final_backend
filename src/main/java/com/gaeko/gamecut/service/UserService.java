@@ -13,7 +13,7 @@ import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.util.EmailUtil;
 
 import lombok.RequiredArgsConstructor;
-
+//ㅇㅇ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.*;
@@ -86,7 +86,7 @@ public class UserService {
                 .phone(dto.getPhone())
                 .email(dto.getEmail())
                 .isSocial("basic")
-                .role("USER")
+                .role("ROLE_USER")
                 .userPoint(1000)
                 .build();
         userRepository.save(user);
