@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class WorldCupRankingService {
 
     private final MadmovieWorldCupResultRepository resultRepo;
-    private final VideoRepository               videoRepo;
-    private final BoardRepository               boardRepo;
+    private final VideoRepository videoRepo;
+    private final BoardRepository boardRepo;
 
     private static final int VIDEO_BOARD_TYPE = 3;
 
@@ -46,7 +46,7 @@ public class WorldCupRankingService {
             }
 
             Video v = videoRepo.findById(videoNo)
-                       .orElseThrow(() -> new IllegalArgumentException("Invalid videoNo: " + videoNo));
+                       .orElseThrow(() -> new IllegalArgumentException("올바르지 않은 videoNo: " + videoNo));
 
             dtos.add(VideoRankingDTO.builder()
                 .videoNo       (videoNo)
