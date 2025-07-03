@@ -71,7 +71,15 @@ public class CommentController {
     // 댓글 좋아요 취소
     @PostMapping("/unlike/{commentNo}")
     public void commentUnlike(@PathVariable Integer commentNo, @AuthenticationPrincipal UserDetails loginUser) {
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         // 댓글 좋아요 취소 로직
+        commentService.commentUnlike(commentNo, userNo);
+    }
+
+    @PostMapping("/isLike/{commentNo}") 
+    public boolean isLike(@PathVariable Integer commentNo, @AuthenticationPrincipal UserDetails loginUser) {
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        return commentService.isCommentLiked(commentNo, userNo);
     }
 
     // 특정 게시글의 댓글 페이징 조회
