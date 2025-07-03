@@ -39,17 +39,18 @@ public class BoardController {
     private final TagService tagService;
     private final TagByVideoService tagByVideoService;
 
+// 2025-07-03 생성됨
     //게시글 상세페이지
     @GetMapping("/detail/{boardNo}")
     public ResponseEntity<BoardDTO> getBoardDetail(@PathVariable int boardNo) {
-        System.out.println("컨트롤러 넘어옴");
         try {
             // 게시글 상세조회 및 조회수 증가
             BoardDTO boardDTO = boardService.findByNo(boardNo);
             if (boardDTO == null) {
                 return ResponseEntity.notFound().build();
             }
-
+            boardDTO.setBoardCount(boardDTO.getBoardCount() + 1);
+            boardService.save(boardDTO, boardDTO.getUser().getUserNo());
             return ResponseEntity.ok(boardDTO);
 
         } catch (Exception e) {
