@@ -87,7 +87,7 @@ public class CommentController {
     public ResponseEntity<List<CommentDTO>> getCommentsByBoard(
             @PathVariable Integer boardNo,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "5") int size
     ) {
         List<CommentDTO> comments = commentService.getCommentsByBoardNo(boardNo, page, size);
         return ResponseEntity.ok(comments);
