@@ -101,7 +101,7 @@ public class BoardController {
             photoService.deleteByBoardNo(boardDTO);
             fileUploadService.thumbnailChange(boardDTO);
         } else {
-            log.info("board attach : " + boardDTO.getVideo());
+            log.warn("board attach : " + boardDTO.getVideo());
             int clientExistingVideoNo = 0;
             if (existingVideoNo == null || existingVideoNo.equals("null")) {
                 existingVideoNo = null;
@@ -110,7 +110,7 @@ public class BoardController {
             }
 
             if (existingVideoNo != null) {
-                log.info("board existingVideoNo : " + existingVideoNo);
+                log.warn("board existingVideoNo : " + existingVideoNo);
                 videoDTO = videoService.findByVideoNo(clientExistingVideoNo);
                 boardDTO.setVideo(videoDTO);
             } else {
@@ -124,14 +124,18 @@ public class BoardController {
                     boardDTO.setVideo(videoDTO);
                 }
 
-                if (thumbnail != null && !thumbnail.isEmpty()) {
-                    FileDTO thisFileDTO = fileUploadService.store(thumbnail);
-                    thisFileDTO.setUserNo(userNo);
-                    thisFileDTO = fileService.save(thisFileDTO);
-                    photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), 1);
-                }
+
             }
             //
+            if (thumbnail != null && !thumbnail.isEmpty()) {
+                FileDTO thisFileDTO = fileUploadService.store(thumbnail);
+                thisFileDTO.setUserNo(userNo);
+                thisFileDTO = fileService.save(thisFileDTO);
+                photoService.deleteByBoardNo(boardDTO);
+                photoService.save(boardDTO.getBoardNo(), thisFileDTO.getAttachNo(), 1);
+            }
+
+
             if (videoTags != null && !videoTags.isEmpty()) {
                 Integer vId = boardDTO.getVideo().getVideoNo();
                 tagByVideoService.deleteByVideo(vId);  // 한 번만 전체 삭제

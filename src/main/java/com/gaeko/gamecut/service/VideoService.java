@@ -40,15 +40,21 @@ public class VideoService {
 
     @Transactional
     public VideoDTO save(Integer boardNo, Integer attachNo) {
-        // 이미 해당 board에 video가 연결되어 있으면 insert 막기
-        Video video = new Video();
+        // 기존 Video 삭제
+        videoRepository.deleteByBoardNo(boardNo);
+
+        // 새 객체 생성 (주의: 기존 객체를 재사용하면 안 됨!)
         File file = fileRepository.findFileByAttachNo(attachNo);
         Board board = boardRepository.findBoardByBoardNo(boardNo);
-        video.setAttachFile(file);
-        video.setBoard(board);
-        video = videoRepository.save(video);
-        return videoMapper.toDTO(video);
+
+        Video newVideo = new Video(); // 여기서 꼭 새로 생성해야 함
+        newVideo.setAttachFile(file);
+        newVideo.setBoard(board);
+        Video savedVideo = videoRepository.save(newVideo); // save 전에 병합되지 않은 객체만 넘겨야 함
+
+        return videoMapper.toDTO(savedVideo);
     }
+
 
     public VideoDTO findByVideoNo(Integer videoNo) {
 
