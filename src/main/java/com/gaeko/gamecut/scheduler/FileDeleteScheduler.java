@@ -18,6 +18,8 @@ public class FileDeleteScheduler {
 
     //월요일 새벽 4시 30분마다 실행
     @Scheduled(cron = "0 30 4 ? * MON")
+    //@Scheduled(cron = "*/10 * * * * *")
+
     public void fileDelete() {
         fileUploadService.NotUsedFileDelete();
         fileUploadService.NotUsedDbDelete();

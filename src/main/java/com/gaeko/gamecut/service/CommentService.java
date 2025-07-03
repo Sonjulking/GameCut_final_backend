@@ -1,3 +1,4 @@
+// 2025-07-03 생성됨
 package com.gaeko.gamecut.service;
 
 import com.gaeko.gamecut.dto.BoardDTO;
@@ -10,6 +11,7 @@ import com.gaeko.gamecut.entity.User;
 import com.gaeko.gamecut.mapper.CommentMapper;
 import com.gaeko.gamecut.repository.BoardRepository;
 import com.gaeko.gamecut.repository.CommentRepository;
+import com.gaeko.gamecut.repository.CommentLikeRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
+    private final CommentLikeRepository commentLikeRepository;
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
@@ -47,7 +50,7 @@ public class CommentService {
         comment = commentRepository.save(comment);
         return commentMapper.toDTO(comment);
     }
-    
+
     //추가
     public List<CommentDTO> getCommentsByUser(Integer userNo) {
         List<Comment> comments = commentRepository.findByUserNo(userNo);
@@ -64,24 +67,75 @@ public class CommentService {
         commentRepository.updateComment(commentNo, commentDTO);
     }
 
+    // 2025-07-03 생성됨
     public void commentLike(Integer commentNo, Integer userNo) {
-        // User와 Board 엔티티 조회
+        // User와 Comment 엔티티 조회
         User user = userRepository.findById(userNo)
-                                .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
-        
-        Comment comment = commentRepository.findById(commentNo)
-                                    .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
-        
-        // BoardLike 엔티티 생성 및 저장
-        CommentLike commentLike = CommentLike.builder()
-                                    .user(user)
-                                    .comment(comment)
-                                    .build();
+                                  .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
 
-        
+        Comment comment = commentRepository.findById(commentNo)
+                                           .orElseThrow(() -> new RuntimeException("해당 댓글이 존재하지 않습니다."));
+
+        // 이미 좋아요를 눌렀는지 확인
+        if (!commentLikeRepository.existsByUserUserNoAndCommentCommentNo(userNo, commentNo)) {
+            // CommentLike 엔티티 생성 및 저장
+            CommentLike commentLike = CommentLike.builder()
+                                                 .user(user)
+                                                 .comment(comment)
+                                                 .build();
+
+            commentLikeRepository.save(commentLike);
+
+            // 댓글 좋아요 수 증가
+            comment.setCommentLike(comment.getCommentLike() + 1);
+            commentRepository.save(comment);
+        }
     }
 
+    // 댓글 좋아요 취소
+    @Transactional
+    public void commentUnlike(Integer commentNo, Integer userNo) {
+        // User와 Comment 엔티티 조회
+        User user = userRepository.findById(userNo)
+                                  .orElseThrow(() -> new RuntimeException("해당 사용자가 존재하지 않습니다."));
 
+        Comment comment = commentRepository.findById(commentNo)
+                                           .orElseThrow(() -> new RuntimeException("해당 댓글이 존재하지 않습니다."));
 
-    
+        // 좋아요를 눌렀는지 확인
+        if (commentLikeRepository.existsByUserUserNoAndCommentCommentNo(userNo, commentNo)) {
+            // 좋아요 삭제
+            commentLikeRepository.deleteByUserNoAndCommentNo(userNo, commentNo);
+
+            // 댓글 좋아요 수 감소
+            comment.setCommentLike(Math.max(0, comment.getCommentLike() - 1));
+            commentRepository.save(comment);
+        }
+    }
+
+    // 댓글 좋아요 상태 확인
+    public Boolean isCommentLiked(Integer commentNo, Integer userNo) {
+        return commentLikeRepository.existsByUserUserNoAndCommentCommentNo(userNo, commentNo);
+    }
+
+    // 특정 게시글의 댓글 페이징 조회
+    public List<CommentDTO> getCommentsByBoardNo(Integer boardNo, int page, int size) {
+        // 전체 댓글 조회 후 페이징 적용 (간단한 방법)
+        List<Comment> allComments = commentRepository.findCommentsByBoardNo(boardNo);
+
+        int start = page * size;
+        int end = Math.min(start + size, allComments.size());
+
+        if (start >= allComments.size()) {
+            return List.of(); // 빈 리스트 반환
+        }
+
+        List<Comment> pagedComments = allComments.subList(start, end);
+        return pagedComments.stream().map(commentMapper::toDTO).toList();
+    }
+
+    // 특정 게시글의 댓글 총 개수 조회
+    public Long getCommentCountByBoardNo(Integer boardNo) {
+        return commentRepository.countCommentsByBoardNo(boardNo);
+    }
 }
