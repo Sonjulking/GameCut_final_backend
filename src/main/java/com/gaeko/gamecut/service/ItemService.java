@@ -1,6 +1,8 @@
 package com.gaeko.gamecut.service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,10 +26,41 @@ public class ItemService {
     private final UserRepository userRepository;
     private final FileUploadService fileUploadService;
     private final FileRepository fileRepository;
+    
+    // 아이템 전체 조회
+    private ItemDTO convertToDTO(Item item) {
+        File file = item.getItemImage();
+
+        FileDTO fileDTO = FileDTO.builder()
+                .attachNo(file.getAttachNo())
+                .fileUrl(file.getFileUrl())
+                .realPath(file.getRealPath())
+                .mimeType(file.getMimeType())
+                .uploadTime(file.getUploadTime())
+                .originalFileName(file.getOriginalFileName())
+                .uuid(file.getUuid())
+                .userNo(file.getUser().getUserNo())
+                .build();
+
+        return ItemDTO.builder()
+                .itemNo(item.getItemNo())
+                .itemName(item.getItemName())
+                .itemPrice(item.getItemPrice())
+                .itemDeleteDate(item.getItemDeleteDate())
+                .itemImage(fileDTO)
+                .build();
+    }
+    public List<ItemDTO> getAllItems() {
+        List<Item> itemList = itemRepository.findAll(); 
+        return itemList.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
     // 아이템 업로드 
     public ItemDTO uploadItem(ItemDTO itemDTO, MultipartFile file, String username) throws IOException {
-        // 1. 파일 업로드 (FileDTO 반환)
+        
+    	// 1. 파일 업로드 (FileDTO 반환)
         FileDTO savedFileDTO = fileUploadService.store(file);
 
         // 2. 업로더 정보로 User 엔티티 조회

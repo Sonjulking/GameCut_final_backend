@@ -1,4 +1,3 @@
-
 package com.gaeko.gamecut.entity;
 
 import jakarta.persistence.*;
@@ -17,21 +16,10 @@ public class CommentLike {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMENT_NO", nullable = false)
-    private Comment comment; // 좋아요 받은 댓글
+    private Comment comment;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_NO", nullable = false)
-    private User user; // 좋아요 누른 사용자
-}
-
-// 복합키 ID 클래스
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-class CommentLikeId implements java.io.Serializable {
-    private Integer comment;
-    private Integer user;
+    private User user;
 }
