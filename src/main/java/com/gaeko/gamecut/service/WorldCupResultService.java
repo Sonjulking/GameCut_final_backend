@@ -2,7 +2,7 @@
 package com.gaeko.gamecut.service;
 
 import com.gaeko.gamecut.dto.MadmovieWorldCupResultDTO;
-import com.gaeko.gamecut.dto.SaveWorldCupResultRequest;
+//import com.gaeko.gamecut.dto.SaveWorldCupResultRequest;
 import com.gaeko.gamecut.entity.MadmovieWorldCupResult;
 import com.gaeko.gamecut.entity.User;
 import com.gaeko.gamecut.entity.Video;
@@ -11,7 +11,6 @@ import com.gaeko.gamecut.repository.VideoRepository;
 import com.gaeko.gamecut.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +24,9 @@ public class WorldCupResultService {
         throw new IllegalArgumentException("videoNo must not be null");
     }
     Video video = videoRepo.findById(videoNo)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid videoNo: " + videoNo));
+        .orElseThrow(() -> new IllegalArgumentException("올바르지 않은 videoNo: " + videoNo));
     User user = userRepo.findById(userNo)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid userNo: " + userNo));
+        .orElseThrow(() -> new IllegalArgumentException("올바르지 않은 userNo: " + userNo));
 
     MadmovieWorldCupResult saved = repo.save(
         MadmovieWorldCupResult.builder()

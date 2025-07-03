@@ -61,4 +61,9 @@ public class GuessTheRankService {
 
         return correct;
     }
+
+    @Transactional(readOnly=true)
+    public List<GuessTheRank> getAll() {
+        return rankRepo.findAll();
+    }
 }
