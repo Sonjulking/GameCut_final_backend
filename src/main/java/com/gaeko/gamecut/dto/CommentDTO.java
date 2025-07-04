@@ -26,4 +26,7 @@ public class CommentDTO {
     private String commentContent;
     private Date commentCreateDate;
     private Date commentDeleteDate;
+    
+    // 현재 로그인한 사용자가 이 댓글에 좋아요를 눌렀는지 여부
+    private Boolean isLikedByCurrentUser;
 }

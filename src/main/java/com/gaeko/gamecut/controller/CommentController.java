@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -81,15 +83,51 @@ public class CommentController {
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         return commentService.isCommentLiked(commentNo, userNo);
     }
+    
+    // 여러 댓글의 좋아요 상태 일괄 조회
+    @PostMapping("/isLike/batch")
+    public ResponseEntity<Map<Integer, Boolean>> isLikeBatch(
+            @RequestBody List<Integer> commentNos, 
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
+        if (loginUser == null) {
+            // 비로그인 사용자는 모든 댓글에 대해 false 반환
+            Map<Integer, Boolean> result = commentNos.stream()
+                .collect(Collectors.toMap(commentNo -> commentNo, commentNo -> false));
+            return ResponseEntity.ok(result);
+        }
+        
+        Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+        Map<Integer, Boolean> likeStatus = commentService.getCommentsLikeStatus(commentNos, userNo);
+        return ResponseEntity.ok(likeStatus);
+    }
 
-    // 특정 게시글의 댓글 페이징 조회
+    // 특정 게시글의 댓글 페이징 조회 (좋아요 상태 포함)
     @GetMapping("/board/{boardNo}")
     public ResponseEntity<List<CommentDTO>> getCommentsByBoard(
             @PathVariable Integer boardNo,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
+            @RequestParam(defaultValue = "5") int size,
+            @AuthenticationPrincipal UserDetails loginUser
     ) {
-        List<CommentDTO> comments = commentService.getCommentsByBoardNo(boardNo, page, size);
+        log.info("댓글 조회 API 호출 - boardNo: {}, page: {}, size: {}, loginUser: {}", 
+                 boardNo, page, size, loginUser != null ? loginUser.getUsername() : "비로그인");
+        
+        Integer currentUserNo = null;
+        if (loginUser != null) {
+            currentUserNo = userService.userNoFindByUserName(loginUser.getUsername());
+            log.info("현재 사용자 번호: {}", currentUserNo);
+        }
+        
+        List<CommentDTO> comments = commentService.getCommentsByBoardNoWithLikeStatus(
+            boardNo, page, size, currentUserNo);
+        
+        log.info("조회된 댓글 수: {}", comments.size());
+        if (!comments.isEmpty()) {
+            CommentDTO firstComment = comments.get(0);
+            log.info("첫 번째 댓글 좋아요 상태: {}", firstComment.getIsLikedByCurrentUser());
+        }
+        
         return ResponseEntity.ok(comments);
     }
 
