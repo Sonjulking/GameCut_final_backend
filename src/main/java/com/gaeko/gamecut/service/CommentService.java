@@ -16,6 +16,8 @@ import com.gaeko.gamecut.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -117,10 +119,24 @@ public class CommentService {
     public Boolean isCommentLiked(Integer commentNo, Integer userNo) {
         return commentLikeRepository.existsByUserUserNoAndCommentCommentNo(userNo, commentNo);
     }
+    
+    // 여러 댓글의 좋아요 상태 일괄 조회
+    public Map<Integer, Boolean> getCommentsLikeStatus(List<Integer> commentNos, Integer userNo) {
+        return commentNos.stream()
+            .collect(Collectors.toMap(
+                commentNo -> commentNo,
+                commentNo -> commentLikeRepository.existsByUserUserNoAndCommentCommentNo(userNo, commentNo)
+            ));
+    }
 
-    // 특정 게시글의 댓글 페이징 조회
+    // 특정 게시글의 댓글 페이징 조회 (좋아요 상태 포함)
     public List<CommentDTO> getCommentsByBoardNo(Integer boardNo, int page, int size) {
-        // 전체 댓글 조회 후 페이징 적용 (간단한 방법)
+        return getCommentsByBoardNoWithLikeStatus(boardNo, page, size, null);
+    }
+    
+    // 특정 게시글의 댓글 페이징 조회 (좋아요 상태 포함) - 로그인 사용자용
+    public List<CommentDTO> getCommentsByBoardNoWithLikeStatus(Integer boardNo, int page, int size, Integer currentUserNo) {
+        // 전체 댓글 조회 후 페이징 적용
         List<Comment> allComments = commentRepository.findCommentsByBoardNo(boardNo);
 
         int start = page * size;
@@ -131,7 +147,24 @@ public class CommentService {
         }
 
         List<Comment> pagedComments = allComments.subList(start, end);
-        return pagedComments.stream().map(commentMapper::toDTO).toList();
+        
+        // 댓글을 DTO로 변환하면서 좋아요 상태 설정
+        return pagedComments.stream()
+                .map(comment -> {
+                    CommentDTO dto = commentMapper.toDTO(comment);
+                    
+                    // 로그인한 사용자가 있는 경우에만 좋아요 상태 확인
+                    if (currentUserNo != null) {
+                        boolean isLiked = commentLikeRepository.existsByUserUserNoAndCommentCommentNo(
+                            currentUserNo, comment.getCommentNo());
+                        dto.setIsLikedByCurrentUser(isLiked);
+                    } else {
+                        dto.setIsLikedByCurrentUser(false);
+                    }
+                    
+                    return dto;
+                })
+                .toList();
     }
 
     // 특정 게시글의 댓글 총 개수 조회
