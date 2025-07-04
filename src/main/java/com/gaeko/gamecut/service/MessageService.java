@@ -74,4 +74,10 @@ public class MessageService {
                 .messageDeleteDate(message.getMessageDeleteDate())
                 .build();
     }
+    public long getReceivedMessageCount(User user) {
+        return messageRepository.countByReceiveUser(user);
+    }
+
+
+
 }

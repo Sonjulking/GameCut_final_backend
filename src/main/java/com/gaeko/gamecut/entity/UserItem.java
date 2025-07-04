@@ -24,13 +24,5 @@ public class UserItem {
     private Item item;
 }
 
-// 복합키 ID 클래스
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-class UserItemId implements java.io.Serializable {
-    private Integer user;
-    private Integer item;
-}
+
+

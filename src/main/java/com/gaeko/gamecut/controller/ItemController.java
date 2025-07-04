@@ -60,4 +60,12 @@ public class ItemController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    
+    
+    @GetMapping("/my")
+    public ResponseEntity<List<ItemDTO>> getMyItems(Principal principal) {
+        List<ItemDTO> myItems = itemService.getMyItems(principal.getName());
+        return ResponseEntity.ok(myItems);
+    }
+
 }
