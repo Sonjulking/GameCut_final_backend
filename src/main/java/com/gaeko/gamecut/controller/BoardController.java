@@ -94,7 +94,7 @@ public class BoardController {
             @RequestParam(value = "existingVideoNo", required = false) String existingVideoNo,
             @RequestParam(value = "videoTags", required = false) List<String> videoTags
     ) throws IOException {
-
+        Integer oldVideoNo = boardService.getBoard(boardNo).getVideo().getVideoNo();
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         VideoDTO videoDTO = null;
         if (boardDTO.getBoardTypeNo() != 3) {
@@ -120,6 +120,9 @@ public class BoardController {
 
                 String mimeType = file.getContentType();
                 if (mimeType != null && mimeType.contains("video")) {
+
+                    log.warn("board videoNo : " + oldVideoNo);
+                    tagByVideoService.deleteByVideo(oldVideoNo);  // 한 번만 전체 삭제
                     videoDTO = videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
                     boardDTO.setVideo(videoDTO);
                 }
@@ -137,8 +140,12 @@ public class BoardController {
 
 
             if (videoTags != null && !videoTags.isEmpty()) {
+                log.warn("board videoTags : " + videoTags);
+                log.warn("board videoNo : " + videoDTO.getVideoNo());
+                log.warn("board attachNo : " + boardDTO.getVideo().getVideoNo());
+                log.warn("existingVideoNo : " + existingVideoNo);
                 Integer vId = boardDTO.getVideo().getVideoNo();
-                tagByVideoService.deleteByVideo(vId);  // 한 번만 전체 삭제
+                tagByVideoService.deleteByVideo(oldVideoNo);  // 한 번만 전체 삭제
                 System.out.println("videoTags = " + videoTags);
                 log.info("videoTags = " + videoTags);
                 log.info("videoNo = " + videoDTO.getVideoNo());
@@ -248,25 +255,35 @@ public class BoardController {
             return ResponseEntity.status(500).body("이미지 업로드 실패");
         }
     }
+
     @DeleteMapping("/{boardNo}")
     public void deleteBoard(@PathVariable Integer boardNo) {
         boardService.deleteBoard(boardNo);
     }
 
     @PostMapping("/like/{boardNo}")
-    public void boardLike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser){
+    public void boardLike(
+            @PathVariable Integer boardNo,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         boardService.boardLike(userNo, boardNo);
     }
 
     @PostMapping("/unlike/{boardNo}")
-    public void boardUnlike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser){
+    public void boardUnlike(
+            @PathVariable Integer boardNo,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         boardService.boardUnlike(userNo, boardNo);
     }
 
     @PostMapping("/isLike/{boardNo}")
-    public Boolean isLike(@PathVariable Integer boardNo, @AuthenticationPrincipal UserDetails loginUser) {
+    public Boolean isLike(
+            @PathVariable Integer boardNo,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         System.out.println("좋아요체크들어옴");
         return boardService.isLike(userNo, boardNo);
