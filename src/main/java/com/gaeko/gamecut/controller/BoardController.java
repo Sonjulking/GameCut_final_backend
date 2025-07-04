@@ -94,7 +94,7 @@ public class BoardController {
             @RequestParam(value = "existingVideoNo", required = false) String existingVideoNo,
             @RequestParam(value = "videoTags", required = false) List<String> videoTags
     ) throws IOException {
-        Integer oldVideoNo = boardService.getBoard(boardNo).getVideo().getVideoNo();
+        Integer oldVideoNo = null;
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         VideoDTO videoDTO = null;
         if (boardDTO.getBoardTypeNo() != 3) {
@@ -120,7 +120,7 @@ public class BoardController {
 
                 String mimeType = file.getContentType();
                 if (mimeType != null && mimeType.contains("video")) {
-
+                    oldVideoNo = boardService.getBoard(boardNo).getVideo().getVideoNo();
                     log.warn("board videoNo : " + oldVideoNo);
                     tagByVideoService.deleteByVideo(oldVideoNo);  // 한 번만 전체 삭제
                     videoDTO = videoService.save(boardDTO.getBoardNo(), fileDTO.getAttachNo());
@@ -145,6 +145,7 @@ public class BoardController {
                 log.warn("board attachNo : " + boardDTO.getVideo().getVideoNo());
                 log.warn("existingVideoNo : " + existingVideoNo);
                 Integer vId = boardDTO.getVideo().getVideoNo();
+                oldVideoNo = boardService.getBoard(boardNo).getVideo().getVideoNo();
                 tagByVideoService.deleteByVideo(oldVideoNo);  // 한 번만 전체 삭제
                 System.out.println("videoTags = " + videoTags);
                 log.info("videoTags = " + videoTags);
