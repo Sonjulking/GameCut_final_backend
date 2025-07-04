@@ -105,7 +105,13 @@ public class ItemService {
                 .orElseThrow(() -> new IllegalArgumentException("유저 없음"));
         Item item = itemRepository.findById(itemNo)
                 .orElseThrow(() -> new IllegalArgumentException("아이템 없음"));
-
+        
+        // 아이템 중복 구매 방지 
+        boolean alreadyOwned = userItemRepository.existsByUserAndItem(user, item);
+        if (alreadyOwned) {
+            throw new IllegalArgumentException("이미 구매한 아이템입니다.");
+        }
+        
         if (user.getUserPoint() < item.getItemPrice()) {
             throw new IllegalArgumentException("포인트 부족");
         }
@@ -114,14 +120,14 @@ public class ItemService {
         user.setUserPoint(user.getUserPoint() - item.getItemPrice());
         userRepository.save(user);
 
-        // 🔥 유저가 구매한 아이템 저장
+        // 유저가 구매한 아이템 저장
         UserItem userItem = UserItem.builder()
                 .user(user)
                 .item(item)
                 .build();
         userItemRepository.save(userItem);
 
-        // 🔥 포인트 사용 기록 추가
+        // 포인트 사용 기록 추가
         PointHistory pointHistory = PointHistory.builder()
                 .user(user)
                 .pointAmount(-item.getItemPrice()) // 마이너스 값
