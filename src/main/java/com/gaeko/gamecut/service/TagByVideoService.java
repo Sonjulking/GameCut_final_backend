@@ -41,10 +41,11 @@ public class TagByVideoService {
      * 전체 태그 관계 삭제
      **/
     public void deleteByVideo(Integer videoId) {
-        Video video = videoRepository.findById(videoId)
-                                     .orElseThrow(() -> new IllegalArgumentException("Video not found: " + videoId));
-        tagByVideoRepository.deleteTagByVideo(video);
-        video.getTagByVideoList().clear();
+        // 1. 자식 먼저 삭제
+        tagByVideoRepository.deleteTagByVideo(videoId);
+
+        // 2. 영속성 연관관계 클리어 (선택사항, cascade 쓰는 경우)
+        videoRepository.findById(videoId).ifPresent(v -> v.getTagByVideoList().clear());
     }
 
     /**
