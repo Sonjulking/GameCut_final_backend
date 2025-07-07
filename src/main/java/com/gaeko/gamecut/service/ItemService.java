@@ -14,6 +14,7 @@ import com.gaeko.gamecut.entity.Item;
 import com.gaeko.gamecut.entity.PointHistory;
 import com.gaeko.gamecut.entity.User;
 import com.gaeko.gamecut.entity.UserItem;
+import com.gaeko.gamecut.entity.UserItemId;
 import com.gaeko.gamecut.repository.FileRepository;
 import com.gaeko.gamecut.repository.ItemRepository;
 import com.gaeko.gamecut.repository.PointHistoryRepository;
@@ -167,5 +168,28 @@ public class ItemService {
                 .map(userItem -> convertToDTO(userItem.getItem()))
                 .collect(Collectors.toList());
     }
+    
+    public void deleteUserItem(Integer itemNo, String username) {
+        User user = userRepository.findByUserId(username)
+                .orElseThrow(() -> new IllegalArgumentException("유저 없음"));
+
+        Item item = itemRepository.findById(itemNo)
+                .orElseThrow(() -> new IllegalArgumentException("아이템 없음"));
+
+        UserItemId id = new UserItemId(user.getUserNo(), item.getItemNo());
+
+        if (!userItemRepository.existsById(id)) {
+            throw new IllegalArgumentException("해당 아이템은 사용자에게 존재하지 않습니다.");
+        }
+
+        userItemRepository.deleteById(id);
+    }
+    
+    
+
+
 
 }
+
+
+
