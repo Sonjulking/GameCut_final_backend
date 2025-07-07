@@ -63,15 +63,15 @@ public class BoardController {
     }
 
 
-    @GetMapping("/listAll")
-    public Page<BoardDTO> listAll(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(value = "boardTypeNo", required = false) Integer boardTypeNo
-    ) {
-        log.info("boardTypeNo : " + boardTypeNo);
-        return boardService.getAll(page, size, boardTypeNo); // 전체 Page 객체 반환
-    }
+    // @GetMapping("/listAll")
+    // public Page<BoardDTO> listAll(
+    //         @RequestParam(defaultValue = "0") int page,
+    //         @RequestParam(defaultValue = "10") int size,
+    //         @RequestParam(value = "boardTypeNo", required = false) Integer boardTypeNo
+    // ) {
+    //     log.info("boardTypeNo : " + boardTypeNo);
+    //     return boardService.getAll(page, size, boardTypeNo); // 전체 Page 객체 반환
+    // }
 
     @GetMapping("/list")
     public List<BoardDTO> list() {
@@ -288,5 +288,26 @@ public class BoardController {
         Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
         System.out.println("좋아요체크들어옴");
         return boardService.isLike(userNo, boardNo);
+    }
+
+    /**
+     * 게시판 리스트 조회
+     * @param page         0-based 페이지 번호 (default 0)
+     * @param size         페이지 사이즈 (default 10)
+     * @param boardTypeNo  타입 필터 (optional)
+     * @param keyword      제목/내용 검색어 (optional)
+     */
+    @GetMapping("/listAll")
+    public Page<BoardDTO> listAll(
+        @RequestParam(defaultValue = "0")                   int    page,
+        @RequestParam(defaultValue = "10")                  int    size,
+        @RequestParam(value = "boardTypeNo", required = false) Integer boardTypeNo,
+        @RequestParam(value = "keyword",    required = false) String  keyword
+    ) {
+        // 빈 문자열은 null 처리하여 전체 조회
+        if (keyword != null && keyword.trim().isEmpty()) {
+            keyword = null;
+        }
+        return boardService.search(page, size, boardTypeNo, keyword);
     }
 }
