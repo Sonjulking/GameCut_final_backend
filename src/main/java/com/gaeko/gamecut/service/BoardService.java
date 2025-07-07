@@ -324,5 +324,13 @@ public class BoardService {
         return boardLikeRepository.existsByUserNoAndBoardNo(userNo, boardNo);
     }
 
+    // 페이지, 사이즈, 타입, 키워드로 검색된 BoardDTO 페이지를 반환.
+     
+    public Page<BoardDTO> search(int page, int size, Integer boardTypeNo, String keyword) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "boardNo"));
+        Page<Board> boardPage = boardRepository.search(boardTypeNo, keyword, pageable);
+        return boardPage.map(boardMapper::toDTO);
+    }
+
 
 }
