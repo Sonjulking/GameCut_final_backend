@@ -1,4 +1,5 @@
 // 2025년 7월 8일 수정됨 - DTO + Mapper 패턴으로 리팩터링
+// 2025년 7월 8일 수정됨 - realPath를 fileUrl로 변경하여 웹 접근 가능한 URL 반환
 package com.gaeko.gamecut.controller;
 
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class GuessTheRankController {
     // DTO에서 파일 URL 꺼내서 전달
     Map<String,Object> body = Map.of(
       "gtrNo", q.getGtrNo(),
-      "videoUrl", q.getVideo().getAttachFile().getRealPath(), 
+      "videoUrl", q.getVideo().getAttachFile().getFileUrl(), 
       "options", List.of("아이언","브론즈","골드","다이아")
     );
     return ResponseEntity.ok(body);
@@ -71,7 +72,7 @@ public class GuessTheRankController {
         .map(q -> {
             Map<String, Object> m = new HashMap<>();
             m.put("gtrNo", q.getGtrNo());
-            m.put("videoUrl", q.getVideo().getAttachFile().getRealPath());
+            m.put("videoUrl", q.getVideo().getAttachFile().getFileUrl());
             m.put("tier", q.getTier());
             m.put("gameType", q.getGameType());
             return m;
@@ -117,7 +118,7 @@ public class GuessTheRankController {
           return Map.<String,Object>of(
             "gtrNo",    gtr.getGtrNo(),
             "videoNo",  gtr.getVideoNo(),
-            "videoUrl", v.getAttachFile().getRealPath(),
+            "videoUrl", v.getAttachFile().getFileUrl(),
             "tier",     gtr.getTier(),
             "gameType", gtr.getGameType()
           );
