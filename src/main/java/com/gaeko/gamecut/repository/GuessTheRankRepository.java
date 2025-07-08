@@ -12,6 +12,7 @@ import com.gaeko.gamecut.entity.GuessTheRank;
 public interface GuessTheRankRepository extends JpaRepository<GuessTheRank, Integer> {
   @Query("SELECT g FROM GuessTheRank g ORDER BY function('dbms_random.value')")
   List<GuessTheRank> findRandomOne(Pageable pageable);
+  
+  // 2025년 7월 8일 수정됨 - 게임 종류별 조회
+  List<GuessTheRank> findByGameType(String gameType);
 }
-
-
