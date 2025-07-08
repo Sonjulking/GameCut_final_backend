@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,6 +67,20 @@ public class ItemController {
     public ResponseEntity<List<ItemDTO>> getMyItems(Principal principal) {
         List<ItemDTO> myItems = itemService.getMyItems(principal.getName());
         return ResponseEntity.ok(myItems);
+    }
+    
+    
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUserItem(
+            @RequestParam Integer itemNo,
+            Principal principal
+    ) {
+        try {
+            itemService.deleteUserItem(itemNo, principal.getName());
+            return ResponseEntity.ok("삭제 성공");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
