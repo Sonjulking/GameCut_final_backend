@@ -40,15 +40,21 @@ public class VideoService {
 
     @Transactional
     public VideoDTO save(Integer boardNo, Integer attachNo) {
-        // 이미 해당 board에 video가 연결되어 있으면 insert 막기
-        Video video = new Video();
+        // 기존 Video 삭제
+        videoRepository.deleteByBoardNo(boardNo);
+
+        // 새 객체 생성 (주의: 기존 객체를 재사용하면 안 됨!)
         File file = fileRepository.findFileByAttachNo(attachNo);
         Board board = boardRepository.findBoardByBoardNo(boardNo);
-        video.setAttachFile(file);
-        video.setBoard(board);
-        video = videoRepository.save(video);
-        return videoMapper.toDTO(video);
+
+        Video newVideo = new Video(); // 여기서 꼭 새로 생성해야 함
+        newVideo.setAttachFile(file);
+        newVideo.setBoard(board);
+        Video savedVideo = videoRepository.save(newVideo); // save 전에 병합되지 않은 객체만 넘겨야 함
+
+        return videoMapper.toDTO(savedVideo);
     }
+
 
     public VideoDTO findByVideoNo(Integer videoNo) {
 
@@ -56,7 +62,7 @@ public class VideoService {
         return videoMapper.toDTO(video);
     }
 
-     /** 모든 영상 조회 */
+    /** 모든 영상 조회 */
     @Transactional(readOnly = true)
     public List<VideoDTO> findAllVideos() {
         return videoRepository.findAll().stream().map(entity -> {
@@ -65,8 +71,25 @@ public class VideoService {
             // "/upload/" 이후만 URL로 사용
             int idx = rp.indexOf("/upload/");
             dto.setUrl(idx >= 0 ? rp.substring(idx) : "");
-        return dto;
-    }).collect(Collectors.toList());
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    @Transactional
+public VideoDTO saveGameVideo(Integer attachNo) {
+    File file = fileRepository.findFileByAttachNo(attachNo);
+    if (file == null) {
+        throw new IllegalArgumentException("파일 첨부내역이 없습니다: " + attachNo);
+    }
+
+    Video video = Video.builder()
+        .attachFile(file)
+        // 2025-07-08 수정됨 - tempBoard 제거, board는 null로 설정 (필요시 별도로 설정)
+        .build();
+
+    Video saved = videoRepository.save(video);
+
+    return videoMapper.toDTO(saved);
 }
 
 }

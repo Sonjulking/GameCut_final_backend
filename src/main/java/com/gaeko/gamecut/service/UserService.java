@@ -13,7 +13,7 @@ import com.gaeko.gamecut.repository.UserRepository;
 import com.gaeko.gamecut.util.EmailUtil;
 
 import lombok.RequiredArgsConstructor;
-
+//ㅇㅇ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.*;
@@ -44,11 +44,18 @@ public class UserService {
     private final Map<String, String> emailVerificationMap = new HashMap<>();
     private FileUploadService fileUploadService;
     private final FileRepository fileRepository;
+    private FileService fileService; // 2025년 7월 7일 수정됨 - @Lazy로 변경
 
     // 이 세터 주입으로 순환 참조 깨기
     @Autowired
     public void setFileUploadService(@Lazy FileUploadService fileUploadService) {
         this.fileUploadService = fileUploadService;
+    }
+    
+    // 2025년 7월 7일 수정됨 - FileService 순환 참조 깨기
+    @Autowired
+    public void setFileService(@Lazy FileService fileService) {
+        this.fileService = fileService;
     }
 
     public String getRefreshTokenForUser(String userId) {
@@ -86,7 +93,7 @@ public class UserService {
                 .phone(dto.getPhone())
                 .email(dto.getEmail())
                 .isSocial("basic")
-                .role("USER")
+                .role("ROLE_USER")
                 .userPoint(1000)
                 .build();
         userRepository.save(user);
@@ -393,6 +400,7 @@ public class UserService {
 
     /**
      * 프로필 사진만 업데이트하거나 삭제
+     * 2025년 7월 8일 수정됨 - 기존 파일 삭제 기능 추가
      *
      * @param userId        JWT에서 추출된 로그인된 사용자 ID
      * @param deletePhoto   true면 사진 삭제, false면 업로드 처리
@@ -408,11 +416,29 @@ public class UserService {
         User user = userRepository.findByUserId(userId)
             .orElseThrow(() -> new NoSuchElementException("유저를 찾을 수 없습니다: " + userId));
 
+        // 2025년 7월 8일 수정됨 - 기존 프로필 사진 정보 백업 (삭제를 위해)
+        Photo oldPhoto = user.getPhoto();
+        String oldFilePath = null;
+        if (oldPhoto != null && oldPhoto.getAttachFile() != null) {
+            oldFilePath = oldPhoto.getAttachFile().getRealPath();
+        }
+
         if (profileImage != null && !profileImage.isEmpty()) {
+            // 2025년 7월 7일 수정됨 - DB 저장 로직 추가
+            
+            // 1. 파일을 물리적으로 저장 (기존 코드)
             FileDTO dto = fileUploadService.store(profileImage);
-            File   savedFile = fileRepository.findById(dto.getAttachNo())
+            
+            // 2. 사용자 정보 설정 (새로 추가)
+            dto.setUserNo(user.getUserNo());
+            
+            // 3. DB에 저장하여 ID 생성 (새로 추가)
+            FileDTO savedFileDTO = fileService.save(dto);
+            
+            // 4. 이제 savedFileDTO.getAttachNo()가 null이 아님! (수정됨)
+            File savedFile = fileRepository.findById(savedFileDTO.getAttachNo())
                 .orElseThrow(() ->
-                    new NoSuchElementException("저장된 파일을 찾을 수 없습니다: " + dto.getAttachNo())
+                    new NoSuchElementException("저장된 파일을 찾을 수 없습니다: " + savedFileDTO.getAttachNo())
                 );
 
             Photo photo = Photo.builder()
@@ -420,9 +446,48 @@ public class UserService {
                                .build();
             photoRepository.save(photo);
             user.setPhoto(photo);
+            
+            // 2025년 7월 8일 수정됨 - 새 파일 업로드 후 기존 파일 삭제
+            if (oldFilePath != null) {
+                boolean deleteSuccess = fileUploadService.deleteFile(oldFilePath);
+                if (!deleteSuccess) {
+                    // 로그만 찍고 전체 업데이트는 계속 진행
+                    System.out.println("기존 파일 삭제 실패: " + oldFilePath);
+                }
+                
+                // 기존 Photo 및 File 레코드도 DB에서 제거
+                if (oldPhoto != null) {
+                    try {
+                        Integer oldAttachNo = oldPhoto.getAttachFile().getAttachNo();
+                        photoRepository.delete(oldPhoto);
+                        fileRepository.deleteById(oldAttachNo);
+                    } catch (Exception e) {
+                        System.out.println("기존 DB 레코드 삭제 실패: " + e.getMessage());
+                    }
+                }
+            }
 
         } else if (deletePhoto) {
             user.setPhoto(null);
+            
+            // 2025년 7월 8일 수정됨 - 프로필 사진 삭제 시 기존 파일 삭제
+            if (oldFilePath != null) {
+                boolean deleteSuccess = fileUploadService.deleteFile(oldFilePath);
+                if (!deleteSuccess) {
+                    System.out.println("기존 파일 삭제 실패: " + oldFilePath);
+                }
+                
+                // 기존 Photo 및 File 레코드도 DB에서 제거
+                if (oldPhoto != null) {
+                    try {
+                        Integer oldAttachNo = oldPhoto.getAttachFile().getAttachNo();
+                        photoRepository.delete(oldPhoto);
+                        fileRepository.deleteById(oldAttachNo);
+                    } catch (Exception e) {
+                        System.out.println("기존 DB 레코드 삭제 실패: " + e.getMessage());
+                    }
+                }
+            }
         }
 
         userRepository.save(user);

@@ -47,4 +47,23 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Modifying
     @Query("UPDATE Board b SET b.boardDeleteDate = SYSDATE WHERE b.boardNo = :boardNo")
     void deleteByBoardNo(@Param("boardNo") Integer boardNo);
+
+    // 검색어 기반 게시물 조회 
+    @Query(
+      "SELECT b FROM Board b " +
+      " WHERE b.boardDeleteDate IS NULL" +
+      "   AND (:boardTypeNo IS NULL OR b.boardType.boardTypeNo = :boardTypeNo)" +
+      "   AND ( :keyword IS NULL" +
+      "      OR ( b.boardTitle   LIKE CONCAT('%',:keyword,'%')" +
+      "        OR b.boardContent LIKE CONCAT('%',:keyword,'%')" +
+      "        OR b.user.userNickname LIKE CONCAT('%',:keyword,'%')" +
+      "      )" +
+      "   )" +
+      " ORDER BY b.boardNo DESC"
+    )
+    Page<Board> search(
+      @Param("boardTypeNo") Integer boardTypeNo,
+      @Param("keyword")    String  keyword,
+      Pageable             pageable
+    );
 }

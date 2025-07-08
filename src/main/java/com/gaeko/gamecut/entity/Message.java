@@ -21,12 +21,12 @@ public class Message {
     @Column(name = "MESSAGE_NO")
     private Integer messageNo;
 
-    // 외래키 연관관계 매핑 - 메시지 발신자
+    // 메시지 발신자 (외래키)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SEND_USER_NO", nullable = false)
     private User sendUser;
 
-    // 외래키 연관관계 매핑 - 메시지 수신자
+    // 메시지 수신자 (외래키)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RECEIVE_USER_NO", nullable = false)
     private User receiveUser;
@@ -40,4 +40,6 @@ public class Message {
 
     @Column(name = "MESSAGE_DELETE_DATE")
     private Date messageDeleteDate;
+
+
 }

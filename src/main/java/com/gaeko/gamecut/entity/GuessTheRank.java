@@ -26,4 +26,8 @@ public class GuessTheRank {
 
     @Column(name = "TIER", length = 20)
     private String tier;
+    
+    // 2025년 7월 8일 수정됨 - 게임 종류 필드 추가
+    @Column(name = "GAME_TYPE", length = 30)
+    private String gameType; // "롤", "발로란트", "배그" 등
 }
