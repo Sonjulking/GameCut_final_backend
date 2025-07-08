@@ -28,7 +28,7 @@ public class Video {
 
     // 외래키 연관관계 매핑 - 게시글 (ERD에서 추가 확인)
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BOARD_NO", nullable = false, unique = false)
+    @JoinColumn(name = "BOARD_NO", nullable = true, unique = false) // 2025년 7월 8일 수정됨 - nullable=true로 변경
     private Board board;
 
     @OneToMany(mappedBy = "video")

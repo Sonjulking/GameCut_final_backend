@@ -84,6 +84,7 @@ public VideoDTO saveGameVideo(Integer attachNo) {
 
     Video video = Video.builder()
         .attachFile(file)
+        // 2025-07-08 수정됨 - tempBoard 제거, board는 null로 설정 (필요시 별도로 설정)
         .build();
 
     Video saved = videoRepository.save(video);

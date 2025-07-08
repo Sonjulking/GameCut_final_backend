@@ -1,3 +1,4 @@
+// 2025년 7월 8일 수정됨 - DTO + Mapper 패턴으로 리팩터링
 package com.gaeko.gamecut.controller;
 
 import java.io.IOException;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gaeko.gamecut.dto.FileDTO;
+import com.gaeko.gamecut.dto.GuessTheRankDTO;
 import com.gaeko.gamecut.dto.VideoDTO;
-import com.gaeko.gamecut.entity.GuessTheRank;
 import com.gaeko.gamecut.service.FileService;
 import com.gaeko.gamecut.service.FileUploadService;
 import com.gaeko.gamecut.service.GuessTheRankService;
@@ -39,10 +40,11 @@ public class GuessTheRankController {
   private final FileService fileService; 
   private final VideoService videoService; 
 
+  // 2025년 7월 8일 수정됨 - DTO 기반으로 변경
   @GetMapping("/question")
   public ResponseEntity<?> getQuestion() {
-    GuessTheRank q = gameService.getRandomQuestion();
-    // VideoDTO 에서 파일 URL 꺼내서 전달
+    GuessTheRankDTO q = gameService.getRandomQuestion();
+    // DTO에서 파일 URL 꺼내서 전달
     Map<String,Object> body = Map.of(
       "gtrNo", q.getGtrNo(),
       "videoUrl", q.getVideo().getAttachFile().getRealPath(), 
@@ -61,14 +63,17 @@ public class GuessTheRankController {
     return ResponseEntity.ok(Map.of("correct", correct));
   }
 
+  // 2025년 7월 8일 수정됨 - DTO 기반으로 변경
   @GetMapping("/all")
-  public ResponseEntity<List<Map<String, Object>>> getAllQuestions() {
-    List<Map<String, Object>> list = gameService.getAll().stream()
+  public ResponseEntity<List<Map<String, Object>>> getAllQuestions(
+      @RequestParam(value = "gameType", required = false) String gameType) {
+    List<Map<String, Object>> list = gameService.getAllByGameType(gameType).stream()
         .map(q -> {
             Map<String, Object> m = new HashMap<>();
             m.put("gtrNo", q.getGtrNo());
             m.put("videoUrl", q.getVideo().getAttachFile().getRealPath());
             m.put("tier", q.getTier());
+            m.put("gameType", q.getGameType());
             return m;
         })
         .collect(Collectors.toList());
@@ -77,14 +82,15 @@ public class GuessTheRankController {
   }
 
 
-  // 3) 새 게임 생성: files[] + tiers[]
+  // 2025년 7월 8일 수정됨 - DTO 기반으로 변경
   @PostMapping(
     path     = "/create",
     consumes = MediaType.MULTIPART_FORM_DATA_VALUE
   )
   public ResponseEntity<List<Map<String,Object>>> createGame(
       @RequestPart("files") List<MultipartFile> files,
-      @RequestParam("tiers") List<String> tiers
+      @RequestParam("tiers") List<String> tiers,
+      @RequestParam("gameType") String gameType
   ) throws IOException {
     if (files.size() != tiers.size()) {
       return ResponseEntity.badRequest()
@@ -95,18 +101,25 @@ public class GuessTheRankController {
       .mapToObj(i -> {
         try {
           FileDTO f = fileUploadService.store(files.get(i));
-          f.setUserNo(userService.getCurrentUser().getUserNo());
+          // 2025년 7월 8일 수정됨 - 인증 사용자 없을 때 기본값 사용
+          try {
+            f.setUserNo(userService.getCurrentUser().getUserNo());
+          } catch (Exception e) {
+            // 인증되지 않은 사용자인 경우 기본값 사용
+            f.setUserNo(1); // 기본 사용자 번호
+          }
           f = fileService.save(f);
 
           VideoDTO v = videoService.saveGameVideo(f.getAttachNo());
 
-          GuessTheRank gtr = gameService.saveTier(v.getVideoNo(), tiers.get(i));
+          GuessTheRankDTO gtr = gameService.saveTier(v.getVideoNo(), tiers.get(i), gameType);
 
           return Map.<String,Object>of(
             "gtrNo",    gtr.getGtrNo(),
-            "videoNo",  v.getVideoNo(),
+            "videoNo",  gtr.getVideoNo(),
             "videoUrl", v.getAttachFile().getRealPath(),
-            "tier",     gtr.getTier()
+            "tier",     gtr.getTier(),
+            "gameType", gtr.getGameType()
           );
         } catch (Exception ex) {
           throw new RuntimeException(ex);

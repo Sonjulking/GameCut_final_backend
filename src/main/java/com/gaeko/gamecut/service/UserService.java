@@ -400,6 +400,7 @@ public class UserService {
 
     /**
      * 프로필 사진만 업데이트하거나 삭제
+     * 2025년 7월 8일 수정됨 - 기존 파일 삭제 기능 추가
      *
      * @param userId        JWT에서 추출된 로그인된 사용자 ID
      * @param deletePhoto   true면 사진 삭제, false면 업로드 처리
@@ -414,6 +415,13 @@ public class UserService {
     ) throws IOException {
         User user = userRepository.findByUserId(userId)
             .orElseThrow(() -> new NoSuchElementException("유저를 찾을 수 없습니다: " + userId));
+
+        // 2025년 7월 8일 수정됨 - 기존 프로필 사진 정보 백업 (삭제를 위해)
+        Photo oldPhoto = user.getPhoto();
+        String oldFilePath = null;
+        if (oldPhoto != null && oldPhoto.getAttachFile() != null) {
+            oldFilePath = oldPhoto.getAttachFile().getRealPath();
+        }
 
         if (profileImage != null && !profileImage.isEmpty()) {
             // 2025년 7월 7일 수정됨 - DB 저장 로직 추가
@@ -438,9 +446,48 @@ public class UserService {
                                .build();
             photoRepository.save(photo);
             user.setPhoto(photo);
+            
+            // 2025년 7월 8일 수정됨 - 새 파일 업로드 후 기존 파일 삭제
+            if (oldFilePath != null) {
+                boolean deleteSuccess = fileUploadService.deleteFile(oldFilePath);
+                if (!deleteSuccess) {
+                    // 로그만 찍고 전체 업데이트는 계속 진행
+                    System.out.println("기존 파일 삭제 실패: " + oldFilePath);
+                }
+                
+                // 기존 Photo 및 File 레코드도 DB에서 제거
+                if (oldPhoto != null) {
+                    try {
+                        Integer oldAttachNo = oldPhoto.getAttachFile().getAttachNo();
+                        photoRepository.delete(oldPhoto);
+                        fileRepository.deleteById(oldAttachNo);
+                    } catch (Exception e) {
+                        System.out.println("기존 DB 레코드 삭제 실패: " + e.getMessage());
+                    }
+                }
+            }
 
         } else if (deletePhoto) {
             user.setPhoto(null);
+            
+            // 2025년 7월 8일 수정됨 - 프로필 사진 삭제 시 기존 파일 삭제
+            if (oldFilePath != null) {
+                boolean deleteSuccess = fileUploadService.deleteFile(oldFilePath);
+                if (!deleteSuccess) {
+                    System.out.println("기존 파일 삭제 실패: " + oldFilePath);
+                }
+                
+                // 기존 Photo 및 File 레코드도 DB에서 제거
+                if (oldPhoto != null) {
+                    try {
+                        Integer oldAttachNo = oldPhoto.getAttachFile().getAttachNo();
+                        photoRepository.delete(oldPhoto);
+                        fileRepository.deleteById(oldAttachNo);
+                    } catch (Exception e) {
+                        System.out.println("기존 DB 레코드 삭제 실패: " + e.getMessage());
+                    }
+                }
+            }
         }
 
         userRepository.save(user);
