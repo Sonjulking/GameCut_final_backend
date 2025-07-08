@@ -44,11 +44,18 @@ public class UserService {
     private final Map<String, String> emailVerificationMap = new HashMap<>();
     private FileUploadService fileUploadService;
     private final FileRepository fileRepository;
+    private FileService fileService; // 2025년 7월 7일 수정됨 - @Lazy로 변경
 
     // 이 세터 주입으로 순환 참조 깨기
     @Autowired
     public void setFileUploadService(@Lazy FileUploadService fileUploadService) {
         this.fileUploadService = fileUploadService;
+    }
+    
+    // 2025년 7월 7일 수정됨 - FileService 순환 참조 깨기
+    @Autowired
+    public void setFileService(@Lazy FileService fileService) {
+        this.fileService = fileService;
     }
 
     public String getRefreshTokenForUser(String userId) {
@@ -409,10 +416,21 @@ public class UserService {
             .orElseThrow(() -> new NoSuchElementException("유저를 찾을 수 없습니다: " + userId));
 
         if (profileImage != null && !profileImage.isEmpty()) {
+            // 2025년 7월 7일 수정됨 - DB 저장 로직 추가
+            
+            // 1. 파일을 물리적으로 저장 (기존 코드)
             FileDTO dto = fileUploadService.store(profileImage);
-            File   savedFile = fileRepository.findById(dto.getAttachNo())
+            
+            // 2. 사용자 정보 설정 (새로 추가)
+            dto.setUserNo(user.getUserNo());
+            
+            // 3. DB에 저장하여 ID 생성 (새로 추가)
+            FileDTO savedFileDTO = fileService.save(dto);
+            
+            // 4. 이제 savedFileDTO.getAttachNo()가 null이 아님! (수정됨)
+            File savedFile = fileRepository.findById(savedFileDTO.getAttachNo())
                 .orElseThrow(() ->
-                    new NoSuchElementException("저장된 파일을 찾을 수 없습니다: " + dto.getAttachNo())
+                    new NoSuchElementException("저장된 파일을 찾을 수 없습니다: " + savedFileDTO.getAttachNo())
                 );
 
             Photo photo = Photo.builder()

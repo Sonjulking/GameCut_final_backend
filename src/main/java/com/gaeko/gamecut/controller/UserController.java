@@ -27,7 +27,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest; // 2025년 7월 7일 수정됨 - HttpServletRequest import 추가
 
 import java.io.IOException;
 import java.util.List;
@@ -85,7 +85,7 @@ public class UserController {
     public UserDTO getUserInfo() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userId = auth.getName();  // 현재 로그인된 유저의 아이디
-
+        
         return userService.findUserByUserId(userId);
     }
     
@@ -252,64 +252,65 @@ public class UserController {
     }
 
 
-    @PutMapping("/user")
-    public ResponseEntity<Map<String, Object>> updateUserId(
-            Authentication auth,
-            @RequestBody Map<String, String> body
-    ) {
-        String oldUserId   = auth.getName();
-        String newUserId   = body.get("userId");
-        String newNickname = body.get("userNickname");
-
-        // 1) ID·닉네임 업데이트
-        userService.updateUserIdNickname(oldUserId, newUserId, newNickname);
-
-        // 2) 새 토큰 생성
-        String newAccessToken  = jwtUtil.createToken(newUserId, "USER");
-        String newRefreshToken = jwtUtil.createRefreshToken(newUserId);
-
-        // 3) 서비스 메서드로 refreshTokenStore 갱신
-        userService.replaceRefreshToken(oldUserId, newUserId, newRefreshToken);
-
-        // 4) 쿠키에 새 토큰 세팅
-        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", newRefreshToken)
-            .httpOnly(true).path("/").maxAge(7 * 24 * 3600).sameSite("Lax").build();
-        ResponseCookie accessCookie = ResponseCookie.from("accessToken", newAccessToken)
-            .httpOnly(false).path("/").maxAge(15 * 60).sameSite("Lax").build();
-
-        return ResponseEntity
-            .ok()
-            .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
-            .header(HttpHeaders.SET_COOKIE, accessCookie.toString())
-            .body(Map.of("success", true, "accessToken", newAccessToken));
-    }
-
-
-     /**
-     * 프로필 사진만 업데이트하거나 삭제
-     *
-     * @param auth          JWT 인증 정보
-     * @param deletePhoto   프로필 삭제 여부 (true → 삭제)
-     * @param profileImage  새로 업로드된 파일 (없으면 null)
-     * @return              { "success": true } 또는 오류
-     * @throws IOException  파일 저장 중 I/O 오류 발생 시
-     */
     @PutMapping(
-        value    = "/user/photo",
-        consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+        value = "/user",
+        consumes = MediaType.MULTIPART_FORM_DATA_VALUE // 2025년 7월 7일 수정됨 - multipart 지원 추가
     )
-    public ResponseEntity<Map<String, Object>> updateProfilePhoto(
-            Authentication auth,
-            @RequestPart(value = "deletePhoto",   required = false) Boolean deletePhoto,
-            @RequestPart(value = "profileImage",  required = false) MultipartFile profileImage
-    ) throws IOException {
-        String userId = auth.getName();
-        boolean success = userService.updateProfilePhoto(
-            userId,
-            Boolean.TRUE.equals(deletePhoto),
-            profileImage
-        );
-        return ResponseEntity
-            .ok(Map.of("success", success));
+    public ResponseEntity<Map<String, Object>> updateUser(
+            @RequestParam(value = "userId", required = false) String newUserId, // 2025년 7월 7일 수정됨 - RequestParam으로 변경 (문자열 매개변수)
+            @RequestParam(value = "userNickname", required = false) String newNickname,
+            @RequestParam(value = "deletePhoto", required = false) Boolean deletePhoto, // 2025년 7월 7일 수정됨 - RequestParam으로 변경
+            @RequestPart(value = "profileImage", required = false) MultipartFile profileImage // 2025년 7월 7일 수정됨 - 파일만 RequestPart 유지
+    ) throws IOException { // 2025년 7월 7일 수정됨 - IOException 추가
+        
+        // 2025년 7월 7일 수정됨 - SecurityContextHolder에서 Authentication 가져오기 (getUserInfo()와 동일 방식)
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String oldUserId = auth.getName();
+        
+        // 2025년 7월 7일 수정됨 - 프로필 이미지 업데이트 (변경사항이 있는 경우만)
+        if (profileImage != null || Boolean.TRUE.equals(deletePhoto)) {
+            userService.updateProfilePhoto(
+                oldUserId,
+                Boolean.TRUE.equals(deletePhoto),
+                profileImage
+            );
+        }
+        
+        // 기본 정보 업데이트 (둘 중 하나라도 있으면)
+        if (newUserId != null || newNickname != null) {
+            // 기본값 설정 (변경하지 않으면 기존 값 유지)
+            if (newUserId == null) newUserId = oldUserId;
+            if (newNickname == null) {
+                // 기존 닉네임 가져오기
+                UserDTO currentUser = userService.findUserByUserId(oldUserId);
+                newNickname = currentUser.getUserNickname();
+            }
+            
+            // ID·닉네임 업데이트
+            userService.updateUserIdNickname(oldUserId, newUserId, newNickname);
+
+            // 새 토큰 생성 (ID가 변경된 경우만)
+            if (!oldUserId.equals(newUserId)) {
+                String newAccessToken = jwtUtil.createToken(newUserId, "USER");
+                String newRefreshToken = jwtUtil.createRefreshToken(newUserId);
+
+                // 서비스 메서드로 refreshTokenStore 갱신
+                userService.replaceRefreshToken(oldUserId, newUserId, newRefreshToken);
+
+                // 쿠키에 새 토큰 세팅
+                ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", newRefreshToken)
+                    .httpOnly(true).path("/").maxAge(7 * 24 * 3600).sameSite("Lax").build();
+                ResponseCookie accessCookie = ResponseCookie.from("accessToken", newAccessToken)
+                    .httpOnly(false).path("/").maxAge(15 * 60).sameSite("Lax").build();
+
+                return ResponseEntity
+                    .ok()
+                    .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
+                    .header(HttpHeaders.SET_COOKIE, accessCookie.toString())
+                    .body(Map.of("success", true, "accessToken", newAccessToken));
+            }
+        }
+        
+        return ResponseEntity.ok(Map.of("success", true));
     }
 }

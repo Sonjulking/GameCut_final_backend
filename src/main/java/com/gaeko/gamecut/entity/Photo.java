@@ -23,9 +23,9 @@ public class Photo {
     @JoinColumn(name = "ATTACH_NO", nullable = false)
     private File attachFile;
 
-    // 외래키 연관관계 매핑 - 게시글
+    // 외래키 연관관계 매핑 - 게시글 (2025년 7월 7일 수정됨 - 프로필 사진 지원을 위해 nullable = true로 변경)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BOARD_NO", nullable = false)
+    @JoinColumn(name = "BOARD_NO", nullable = true)
     private Board board;
 
     @Column(name = "PHOTO_ORDER", nullable = false)
