@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,7 +62,30 @@ public class GuessTheRankController {
     Integer gtrNo = (Integer)req.get("gtrNo");
     String selected = (String)req.get("tier");
     boolean correct = gameService.submitAnswer(gtrNo, selected);
+    
+    // 2025-07-09 수정됨 - 내 게임 기록 저장 추가
+    try {
+      Integer userNo = userService.getCurrentUser().getUserNo();
+      gameService.saveUserGameHistory(userNo, gtrNo, selected, correct);
+    } catch (Exception e) {
+      // 인증되지 않은 사용자인 경우 기록 저장 생략
+      System.out.println("비로그인 사용자의 게임 기록 저장 생략");
+    }
+    
     return ResponseEntity.ok(Map.of("correct", correct));
+  }
+
+  // 2025-07-09 수정됨 - 내 게스더랭크 기록 조회 API 추가
+  @GetMapping("/my-history")
+  public ResponseEntity<List<Map<String, Object>>> getMyHistory() {
+    try {
+      Integer userNo = userService.getCurrentUser().getUserNo();
+      List<Map<String, Object>> history = gameService.getUserGameHistory(userNo);
+      return ResponseEntity.ok(history);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+        .body(List.of(Map.of("error", "로그인이 필요합니다.")));
+    }
   }
 
   // 2025년 7월 8일 수정됨 - DTO 기반으로 변경
