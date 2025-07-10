@@ -12,6 +12,7 @@
     <groupId>com.gaeko</groupId>
     <artifactId>gamecut</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging> <!-- ✅ 이 줄 추가 -->
     <name>gamecut_backend</name>
     <description>gamecut_backend</description>
     <url/>
