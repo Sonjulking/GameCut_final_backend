@@ -10,7 +10,7 @@ import com.gaeko.gamecut.entity.User;
 
 public interface PointHistoryRepository extends JpaRepository<PointHistory, Integer> {
 
-    @Query(value = """
+	@Query(value = """
         SELECT ph.USER_NO, SUM(ph.POINT_AMOUNT) AS total_points
         FROM POINT_HISTORY ph
         WHERE ph.POINT_DATE >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m-01')
@@ -18,23 +18,23 @@ public interface PointHistoryRepository extends JpaRepository<PointHistory, Inte
         GROUP BY ph.USER_NO
         ORDER BY total_points DESC
         """, nativeQuery = true)
-    List<Object[]> findMonthlyRanking();
-    
-    
-    
-    
-    @Query(value = """
+	List<Object[]> findMonthlyRanking();
+
+
+
+
+	@Query(value = """
     	    SELECT ph.USER_NO, SUM(ph.POINT_AMOUNT) AS total_points
     	    FROM POINT_HISTORY ph
     	    GROUP BY ph.USER_NO
     	    ORDER BY total_points DESC
     	    """, nativeQuery = true)
-    	List<Object[]> findTotalRanking();
-    	
-    	
-    	
-    	List<PointHistory> findByUser(User user);
+	List<Object[]> findTotalRanking();
 
-    	
+
+
+	List<PointHistory> findByUser(User user);
+
+
 
 }

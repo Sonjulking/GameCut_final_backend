@@ -1,3 +1,4 @@
+// 2025-07-11 생성됨
 package com.gaeko.gamecut;
 
 import org.springframework.boot.SpringApplication;
