@@ -22,3 +22,4 @@ ALTER TABLE "C##GAMECUT".VIDEO DROP CONSTRAINT SYS_C0010316;
 MAC에서 docker 사용시
 docker run -d --restart unless-stopped -p 6379:6379 --name redis redis
 입력하셔야 ai채팅 잘됩니다.!
+.
