@@ -330,7 +330,7 @@ public class UserController {
             @AuthenticationPrincipal UserDetails loginUser,
             @RequestParam Integer point,  // 직접 음수/양수로 받음
             @RequestParam String reason,
-            @RequestParam Integer recievedUserNo
+            @RequestParam(required = false) Integer recievedUserNo
     ) {
         UserDTO user;
         String action;
