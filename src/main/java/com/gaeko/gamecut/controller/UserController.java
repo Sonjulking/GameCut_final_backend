@@ -1,8 +1,11 @@
 package com.gaeko.gamecut.controller;
 
+import com.gaeko.gamecut.dto.CommentDTO;
 import com.gaeko.gamecut.dto.UserDTO;
 import com.gaeko.gamecut.jwt.JwtUtil;
 import com.gaeko.gamecut.repository.UserRepository;
+import com.gaeko.gamecut.service.GuessTheRankService;
+import com.gaeko.gamecut.service.PointService;
 import com.gaeko.gamecut.service.SmsService;
 import com.gaeko.gamecut.service.UserService;
 
@@ -11,7 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +45,7 @@ public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
     private final SmsService smsService;
-
+    private final PointService pointService;
     @GetMapping("/user/listUser")
     public List<UserDTO> findAll() {
         return userService.findAll();
@@ -258,8 +263,11 @@ public class UserController {
         consumes = MediaType.MULTIPART_FORM_DATA_VALUE // 2025년 7월 7일 수정됨 - multipart 지원 추가
     )
     public ResponseEntity<Map<String, Object>> updateUser(
+            @RequestParam(value = "userName", required = false) String newUserName, // 2025-07-10 추가됨 - userName 파라미터 추가
             @RequestParam(value = "userId", required = false) String newUserId, // 2025년 7월 7일 수정됨 - RequestParam으로 변경 (문자열 매개변수)
             @RequestParam(value = "userNickname", required = false) String newNickname,
+            @RequestParam(value = "phone", required = false) String newPhone, // 2025-07-10 추가됨 - phone 파라미터 추가
+            @RequestParam(value = "email", required = false) String newEmail, // 2025-07-10 추가됨 - email 파라미터 추가
             @RequestParam(value = "deletePhoto", required = false) Boolean deletePhoto, // 2025년 7월 7일 수정됨 - RequestParam으로 변경
             @RequestPart(value = "profileImage", required = false) MultipartFile profileImage // 2025년 7월 7일 수정됨 - 파일만 RequestPart 유지
     ) throws IOException { // 2025년 7월 7일 수정됨 - IOException 추가
@@ -277,18 +285,20 @@ public class UserController {
             );
         }
         
-        // 기본 정보 업데이트 (둘 중 하나라도 있으면)
-        if (newUserId != null || newNickname != null) {
-            // 기본값 설정 (변경하지 않으면 기존 값 유지)
-            if (newUserId == null) newUserId = oldUserId;
-            if (newNickname == null) {
-                // 기존 닉네임 가져오기
-                UserDTO currentUser = userService.findUserByUserId(oldUserId);
-                newNickname = currentUser.getUserNickname();
-            }
+        // 2025-07-10 수정됨 - 사용자 기본 정보 업데이트 (변경사항이 있는 경우만)
+        if (newUserName != null || newUserId != null || newNickname != null || newPhone != null || newEmail != null) {
+            // 기존 사용자 정보 가져오기
+            UserDTO currentUser = userService.findUserByUserId(oldUserId);
             
-            // ID·닉네임 업데이트
-            userService.updateUserIdNickname(oldUserId, newUserId, newNickname);
+            // 기본값 설정 (변경하지 않으면 기존 값 유지)
+            if (newUserName == null) newUserName = currentUser.getUserName();
+            if (newUserId == null) newUserId = oldUserId;
+            if (newNickname == null) newNickname = currentUser.getUserNickname();
+            if (newPhone == null) newPhone = currentUser.getPhone();
+            if (newEmail == null) newEmail = currentUser.getEmail();
+            
+            // 사용자 정보 업데이트
+            userService.updateUserInfo(oldUserId, newUserName, newUserId, newNickname, newPhone, newEmail);
 
             // 새 토큰 생성 (ID가 변경된 경우만)
             if (!oldUserId.equals(newUserId)) {
@@ -313,5 +323,44 @@ public class UserController {
         }
         
         return ResponseEntity.ok(Map.of("success", true));
+    }
+
+    @PostMapping("/user/updatePoint")
+    public ResponseEntity<?> updatePoint(
+            @AuthenticationPrincipal UserDetails loginUser,
+            @RequestParam Integer point,  // 직접 음수/양수로 받음
+            @RequestParam String reason,
+            @RequestParam Integer recievedUserNo
+    ) {
+        UserDTO user;
+        String action;
+        if(recievedUserNo != null && recievedUserNo != 0) {
+            user = userService.findUserByUserNo(recievedUserNo);
+            // 포인트 변동 (직접 더하기)
+            user.setUserPoint(user.getUserPoint() + point);
+            userService.updateUser(user);
+            
+            // 이력 저장 (그대로 저장)
+            pointService.insertHistory(user, point, reason);
+            
+            action = point > 0 ? "획득" : "사용";
+        } else {
+            Integer userNo = userService.userNoFindByUserName(loginUser.getUsername());
+            user = userService.findUserByUserNo(userNo);
+            // 포인트 변동 (직접 더하기)
+            user.setUserPoint(user.getUserPoint() + point);
+            userService.updateUser(user);
+            
+            // 이력 저장 (그대로 저장)
+            pointService.insertHistory(user, point, reason);
+            
+            action = point > 0 ? "획득" : "사용";
+        }
+        return ResponseEntity.ok(Map.of(
+            "success", true, 
+            "message", "포인트 " + action + " 완료",
+            "changedPoint", Math.abs(point),
+            "currentPoint", user.getUserPoint()
+        ));
     }
 }

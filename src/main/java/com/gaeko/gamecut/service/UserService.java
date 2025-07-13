@@ -66,7 +66,10 @@ public class UserService {
         User user = userRepository.findUserByUserNo(userNo);
         return userMapper.toDTO(user);
     }
-
+    public void updateUser(UserDTO userDTO) {
+        User user = userMapper.toEntity(userDTO);
+        userRepository.save(user);
+    }
     public List<UserDTO> findAll() {
         List<User> users = userRepository.findAll();
         return userMapper.toDTOs(users);
@@ -385,6 +388,39 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
+    
+    // 2025-07-10 추가됨 - 사용자 전체 정보 업데이트 메서드
+    public boolean updateUserInfo(
+        String currentUserId,
+        String newUserName,
+        String newUserId,
+        String newNickname,
+        String newPhone,
+        String newEmail
+    ) {
+        User user = userRepository.findByUserId(currentUserId)
+                .orElseThrow(() -> new NoSuchElementException("User not found: " + currentUserId));
+
+        // userId 중복 검사 (변경된 경우만)
+        if (!currentUserId.equals(newUserId) && isUserIdExists(newUserId)) {
+            throw new IllegalArgumentException("User ID already in use: " + newUserId);
+        }
+        
+        // 닉네임 중복 검사 (변경된 경우만)
+        if (!user.getUserNickname().equals(newNickname) && isUserNicknameExists(newNickname)) {
+            throw new IllegalArgumentException("Nickname already in use: " + newNickname);
+        }
+
+        // 사용자 정보 업데이트
+        user.setUserName(newUserName);
+        user.setUserId(newUserId);
+        user.setUserNickname(newNickname);
+        user.setPhone(newPhone);
+        user.setEmail(newEmail);
+        
+        userRepository.save(user);
+        return true;
+    }
 
     /**
      * 기존 userId 키로 저장된 refreshToken을 삭제하고,
@@ -493,6 +529,4 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
-
-
 }

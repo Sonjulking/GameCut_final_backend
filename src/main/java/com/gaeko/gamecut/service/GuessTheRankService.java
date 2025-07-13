@@ -147,4 +147,5 @@ public class GuessTheRankService {
             return "아이언"; // 임시값
         }
     }
+
 }

@@ -171,4 +171,28 @@ public class CommentService {
     public Long getCommentCountByBoardNo(Integer boardNo) {
         return commentRepository.countCommentsByBoardNo(boardNo);
     }
+
+    // 2025년 7월 10일 추가됨 - 특정 게시글의 모든 댓글 조회 (페이징 없이)
+    public List<CommentDTO> getAllCommentsByBoardNoWithLikeStatus(Integer boardNo, Integer currentUserNo) {
+        // 전체 댓글 조회 (페이징 없이)
+        List<Comment> allComments = commentRepository.findCommentsByBoardNo(boardNo);
+        
+        // 댓글을 DTO로 변환하면서 좋아요 상태 설정
+        return allComments.stream()
+                .map(comment -> {
+                    CommentDTO dto = commentMapper.toDTO(comment);
+                    
+                    // 로그인한 사용자가 있는 경우에만 좋아요 상태 확인
+                    if (currentUserNo != null) {
+                        boolean isLiked = commentLikeRepository.existsByUserUserNoAndCommentCommentNo(
+                            currentUserNo, comment.getCommentNo());
+                        dto.setIsLikedByCurrentUser(isLiked);
+                    } else {
+                        dto.setIsLikedByCurrentUser(false);
+                    }
+                    
+                    return dto;
+                })
+                .toList();
+    }
 }
