@@ -138,4 +138,26 @@ public class CommentController {
         return ResponseEntity.ok(count);
     }
 
+    // 2025년 7월 10일 추가됨 - 특정 게시글의 모든 댓글 조회 (pages용)
+    @GetMapping("/board/{boardNo}/all")
+    public ResponseEntity<List<CommentDTO>> getAllCommentsByBoard(
+            @PathVariable Integer boardNo,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
+        log.info("모든 댓글 조회 API 호출 - boardNo: {}, loginUser: {}", 
+                 boardNo, loginUser != null ? loginUser.getUsername() : "비로그인");
+        
+        Integer currentUserNo = null;
+        if (loginUser != null) {
+            currentUserNo = userService.userNoFindByUserName(loginUser.getUsername());
+        }
+        
+        List<CommentDTO> allComments = commentService.getAllCommentsByBoardNoWithLikeStatus(
+            boardNo, currentUserNo);
+        
+        log.info("조회된 전체 댓글 수: {}", allComments.size());
+        
+        return ResponseEntity.ok(allComments);
+    }
+
 }
