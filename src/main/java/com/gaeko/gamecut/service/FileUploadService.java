@@ -130,7 +130,7 @@ public class FileUploadService {
             fileRepository.deleteByAttachNo(notUserAttachNo);
         }
     }
-    
+
     // 2025년 7월 8일 수정됨 - 프로필 사진 삭제를 위한 파일 삭제 메서드 추가
     /**
      * 실제 파일을 물리적으로 삭제합니다.
@@ -143,20 +143,20 @@ public class FileUploadService {
             log.warn("삭제할 파일 경로가 null이거나 비어있습니다.");
             return false;
         }
-        
+
         File file = new File(realPath);
         if (!file.exists()) {
             log.warn("삭제하려는 파일이 존재하지 않습니다: {}", realPath);
             return false;
         }
-        
+
         boolean deleted = file.delete();
         if (deleted) {
             log.info("파일 삭제 성공: {}", realPath);
         } else {
             log.error("파일 삭제 실패: {}", realPath);
         }
-        
+
         return deleted;
     }
 }

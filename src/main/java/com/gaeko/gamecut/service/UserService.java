@@ -51,7 +51,7 @@ public class UserService {
     public void setFileUploadService(@Lazy FileUploadService fileUploadService) {
         this.fileUploadService = fileUploadService;
     }
-    
+
     // 2025년 7월 7일 수정됨 - FileService 순환 참조 깨기
     @Autowired
     public void setFileService(@Lazy FileService fileService) {
@@ -86,16 +86,16 @@ public class UserService {
             return false;
         }
         User user = User.builder()
-                .userId(dto.getUserId())
-                .userPwd(passwordEncoder.encode(dto.getUserPwd()))
-                .userName(dto.getUserName())
-                .userNickname(dto.getUserNickname())
-                .phone(dto.getPhone())
-                .email(dto.getEmail())
-                .isSocial("basic")
-                .role("ROLE_USER")
-                .userPoint(1000)
-                .build();
+                        .userId(dto.getUserId())
+                        .userPwd(passwordEncoder.encode(dto.getUserPwd()))
+                        .userName(dto.getUserName())
+                        .userNickname(dto.getUserNickname())
+                        .phone(dto.getPhone())
+                        .email(dto.getEmail())
+                        .isSocial("basic")
+                        .role("ROLE_USER")
+                        .userPoint(1000)
+                        .build();
         userRepository.save(user);
         return true;
     }
@@ -109,7 +109,7 @@ public class UserService {
         Optional<User> userOpt = userRepository.findByUserId(userId);
         if (userOpt.isEmpty()) return Map.of("success", false);
         User user = userOpt.get();
-        
+
         // 🔒 탈퇴한 유저인지 확인
         if (user.getUserDeleteDate() != null) {
             return Map.of("success", false, "message", "탈퇴한 사용자입니다.");
@@ -197,16 +197,16 @@ public class UserService {
             User user;
             if (userOpt.isEmpty()) {
                 user = User.builder()
-                        .userId(googleId)
-                        .userPwd("SOCIAL_LOGIN")
-                        .userName(name)
-                        .userNickname(name)
-                        .email(email)
-                        .phone(phone)
-                        .isSocial("google")
-                        .role("USER")
-                        .userPoint(1000)
-                        .build();
+                           .userId(googleId)
+                           .userPwd("SOCIAL_LOGIN")
+                           .userName(name)
+                           .userNickname(name)
+                           .email(email)
+                           .phone(phone)
+                           .isSocial("google")
+                           .role("USER")
+                           .userPoint(1000)
+                           .build();
                 userRepository.save(user);
             } else {
                 user = userOpt.get();
@@ -259,16 +259,16 @@ public class UserService {
             User user;
             if (userOpt.isEmpty()) {
                 user = User.builder()
-                        .userId(naverId)
-                        .userPwd("SOCIAL_LOGIN")
-                        .userName(name)
-                        .userNickname(nickname)
-                        .email(email)
-                        .phone(phone)
-                        .isSocial("naver")
-                        .role("USER")
-                        .userPoint(1000)
-                        .build();
+                           .userId(naverId)
+                           .userPwd("SOCIAL_LOGIN")
+                           .userName(name)
+                           .userNickname(nickname)
+                           .email(email)
+                           .phone(phone)
+                           .isSocial("naver")
+                           .role("USER")
+                           .userPoint(1000)
+                           .build();
                 userRepository.save(user);
             } else {
                 user = userOpt.get();
@@ -311,9 +311,9 @@ public class UserService {
     public void userDelete(String userid) {
         userRepository.userDelete(userid);
     }
-    
-    
-    
+
+
+
     public boolean changePassword(String userId, String currentPassword, String newPassword) {
         Optional<User> userOpt = userRepository.findByUserId(userId);
         if (userOpt.isEmpty()) return false;
@@ -327,8 +327,8 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
-    
-    
+
+
     public void removeRefreshToken(String userId) {
         refreshTokenStore.remove(userId);
     }
@@ -338,8 +338,8 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getCurrentUser() {
         Authentication auth = SecurityContextHolder
-            .getContext()
-            .getAuthentication();
+                .getContext()
+                .getAuthentication();
 
         if (auth == null || !auth.isAuthenticated()) {
             throw new UsernameNotFoundException("인증된 사용자가 없습니다.");
@@ -356,19 +356,19 @@ public class UserService {
 
         // Repository의 findByUserId를 호출
         return userRepository.findByUserId(userId)
-            .orElseThrow(() ->
-                new UsernameNotFoundException("해당 사용자 없음: " + userId)
-            );
+                             .orElseThrow(() ->
+                                     new UsernameNotFoundException("해당 사용자 없음: " + userId)
+                             );
     }
 
     // [내 정보 수정] 닉네임, 이름 바꾸기 
     public boolean updateUserIdNickname(
-        String currentUserId,
-        String newUserId,
-        String newNickname
+            String currentUserId,
+            String newUserId,
+            String newNickname
     ) {
         User user = userRepository.findByUserId(currentUserId)
-                .orElseThrow(() -> new NoSuchElementException("User not found: " + currentUserId));
+                                  .orElseThrow(() -> new NoSuchElementException("User not found: " + currentUserId));
 
         // userId 중복 검사
         if (!currentUserId.equals(newUserId) && isUserIdExists(newUserId)) {
@@ -409,12 +409,12 @@ public class UserService {
      * @throws IOException  파일 저장 중 I/O 오류 발생 시
      */
     public boolean updateProfilePhoto(
-        String userId,
-        boolean deletePhoto,
-        MultipartFile profileImage
+            String userId,
+            boolean deletePhoto,
+            MultipartFile profileImage
     ) throws IOException {
         User user = userRepository.findByUserId(userId)
-            .orElseThrow(() -> new NoSuchElementException("유저를 찾을 수 없습니다: " + userId));
+                                  .orElseThrow(() -> new NoSuchElementException("유저를 찾을 수 없습니다: " + userId));
 
         // 2025년 7월 8일 수정됨 - 기존 프로필 사진 정보 백업 (삭제를 위해)
         Photo oldPhoto = user.getPhoto();
@@ -425,28 +425,28 @@ public class UserService {
 
         if (profileImage != null && !profileImage.isEmpty()) {
             // 2025년 7월 7일 수정됨 - DB 저장 로직 추가
-            
+
             // 1. 파일을 물리적으로 저장 (기존 코드)
             FileDTO dto = fileUploadService.store(profileImage);
-            
+
             // 2. 사용자 정보 설정 (새로 추가)
             dto.setUserNo(user.getUserNo());
-            
+
             // 3. DB에 저장하여 ID 생성 (새로 추가)
             FileDTO savedFileDTO = fileService.save(dto);
-            
+
             // 4. 이제 savedFileDTO.getAttachNo()가 null이 아님! (수정됨)
             File savedFile = fileRepository.findById(savedFileDTO.getAttachNo())
-                .orElseThrow(() ->
-                    new NoSuchElementException("저장된 파일을 찾을 수 없습니다: " + savedFileDTO.getAttachNo())
-                );
+                                           .orElseThrow(() ->
+                                                   new NoSuchElementException("저장된 파일을 찾을 수 없습니다: " + savedFileDTO.getAttachNo())
+                                           );
 
             Photo photo = Photo.builder()
                                .attachFile(savedFile)
                                .build();
             photoRepository.save(photo);
             user.setPhoto(photo);
-            
+
             // 2025년 7월 8일 수정됨 - 새 파일 업로드 후 기존 파일 삭제
             if (oldFilePath != null) {
                 boolean deleteSuccess = fileUploadService.deleteFile(oldFilePath);
@@ -454,7 +454,7 @@ public class UserService {
                     // 로그만 찍고 전체 업데이트는 계속 진행
                     System.out.println("기존 파일 삭제 실패: " + oldFilePath);
                 }
-                
+
                 // 기존 Photo 및 File 레코드도 DB에서 제거
                 if (oldPhoto != null) {
                     try {
@@ -469,14 +469,14 @@ public class UserService {
 
         } else if (deletePhoto) {
             user.setPhoto(null);
-            
+
             // 2025년 7월 8일 수정됨 - 프로필 사진 삭제 시 기존 파일 삭제
             if (oldFilePath != null) {
                 boolean deleteSuccess = fileUploadService.deleteFile(oldFilePath);
                 if (!deleteSuccess) {
                     System.out.println("기존 파일 삭제 실패: " + oldFilePath);
                 }
-                
+
                 // 기존 Photo 및 File 레코드도 DB에서 제거
                 if (oldPhoto != null) {
                     try {
@@ -493,6 +493,6 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
-    
+
 
 }

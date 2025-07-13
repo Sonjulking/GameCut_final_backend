@@ -24,8 +24,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query(value = "SELECT * FROM board b " +
             "WHERE b.board_type_no = 3 " +
-            "AND b.BOARD_DELETE_DATE IS NULL " +
-            "AND b.BOARD_NO NOT IN (:excludeIds) " +
+            "AND b.board_delete_date IS NULL " +
+            "AND b.board_no NOT IN (:excludeIds) " +
             "ORDER BY RAND()", nativeQuery = true)
     List<Board> findRandomOneBoardExclude(
             @Param("excludeIds") List<Long> excludeIds,
@@ -35,13 +35,13 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
 
     Page<Board> findAllByBoardType(Pageable pageable, BoardType boardType);
-    
+
     List<Board> findByBoardType_BoardTypeNo(int boardTypeNo);
 
     // 🔥 삭제되지 않은 전체 게시글 (페이징 자동 적용)
     Page<Board> findByBoardDeleteDateIsNull(Pageable pageable);
-    
-    // 🔥 삭제되지 않은 특정 타입 게시글 (페이징 자동 적용)  
+
+    // 🔥 삭제되지 않은 특정 타입 게시글 (페이징 자동 적용)
     Page<Board> findByBoardDeleteDateIsNullAndBoardType(Pageable pageable, BoardType boardType);
 
     @Modifying
@@ -50,20 +50,20 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     // 검색어 기반 게시물 조회 
     @Query(
-      "SELECT b FROM Board b " +
-      " WHERE b.boardDeleteDate IS NULL" +
-      "   AND (:boardTypeNo IS NULL OR b.boardType.boardTypeNo = :boardTypeNo)" +
-      "   AND ( :keyword IS NULL" +
-      "      OR ( b.boardTitle   LIKE CONCAT('%',:keyword,'%')" +
-      "        OR b.boardContent LIKE CONCAT('%',:keyword,'%')" +
-      "        OR b.user.userNickname LIKE CONCAT('%',:keyword,'%')" +
-      "      )" +
-      "   )" +
-      " ORDER BY b.boardNo DESC"
+            "SELECT b FROM Board b " +
+                    " WHERE b.boardDeleteDate IS NULL" +
+                    "   AND (:boardTypeNo IS NULL OR b.boardType.boardTypeNo = :boardTypeNo)" +
+                    "   AND ( :keyword IS NULL" +
+                    "      OR ( b.boardTitle   LIKE CONCAT('%',:keyword,'%')" +
+                    "        OR b.boardContent LIKE CONCAT('%',:keyword,'%')" +
+                    "        OR b.user.userNickname LIKE CONCAT('%',:keyword,'%')" +
+                    "      )" +
+                    "   )" +
+                    " ORDER BY b.boardNo DESC"
     )
     Page<Board> search(
-      @Param("boardTypeNo") Integer boardTypeNo,
-      @Param("keyword")    String  keyword,
-      Pageable             pageable
+            @Param("boardTypeNo") Integer boardTypeNo,
+            @Param("keyword")    String  keyword,
+            Pageable             pageable
     );
 }
