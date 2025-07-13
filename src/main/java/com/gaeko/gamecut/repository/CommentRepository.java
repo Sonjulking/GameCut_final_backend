@@ -22,7 +22,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> findByUserNo(@Param("userNo") Integer userNo);
 
     @Modifying
-    @Query(value = "UPDATE COMMENT_TB SET COMMENT_DELETE_DATE = SYSDATE WHERE COMMENT_NO = :commentNo", nativeQuery = true)
+    @Query(value = "UPDATE COMMENT_TB SET COMMENT_DELETE_DATE = NOW() WHERE COMMENT_NO = :commentNo", nativeQuery = true)
     void deleteByCommentNo(@Param("commentNo") Integer commentNo);
 
     @Modifying
@@ -35,7 +35,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
             "    WHERE c.board_no = :boardNo " +
             "    AND c.comment_delete_date IS NULL " +
             "    ORDER BY c.comment_create_date DESC" +
-            ") WHERE ROWNUM <= 5",
+            ") sub LIMIT 5",
             nativeQuery = true)
     List<Comment> findTop5CommentsByBoardNo(@Param("boardNo") Integer boardNo);
 

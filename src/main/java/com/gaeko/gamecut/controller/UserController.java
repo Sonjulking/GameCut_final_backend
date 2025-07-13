@@ -33,13 +33,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletRequest; // 2025년 7월 7일 수정됨 - HttpServletRequest import 추가
-
+import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;

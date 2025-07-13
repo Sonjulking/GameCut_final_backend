@@ -33,7 +33,7 @@ import com.gaeko.gamecut.service.VideoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/game")
+@RequestMapping("/api/game")
 @RequiredArgsConstructor
 public class GuessTheRankController {
   private final GuessTheRankService gameService;
