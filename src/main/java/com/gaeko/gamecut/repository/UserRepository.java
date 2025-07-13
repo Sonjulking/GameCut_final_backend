@@ -23,6 +23,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Modifying  // 이게 핵심!
     @Transactional  // 트랜잭션 추가
+
     @Query(value = "UPDATE user_tb SET user_delete_date = NOW() WHERE user_id = :userId", nativeQuery = true)
     void userDelete(@Param("userId") String userId);
 

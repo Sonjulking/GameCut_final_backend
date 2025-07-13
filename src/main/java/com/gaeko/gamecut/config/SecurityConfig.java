@@ -71,9 +71,10 @@ public class SecurityConfig {
         configuration.addAllowedOrigin("http://localhost:5173");      // Vite 개발 서버
         configuration.addAllowedOrigin("http://192.168.0.88:5173");   // 기존 IP 유지
         configuration.addAllowedOrigin("http://127.0.0.1:5173");      // 로컬 IP
-        configuration.addAllowedOrigin("http://3.34.17.203"); // 기존 IP도 유지
-        configuration.addAllowedOrigin("http://3.34.17.203:80"); // 기존 IP도 유지
+        configuration.addAllowedOrigin("http://3.37.238.85"); // 기존 IP도 유지
+        configuration.addAllowedOrigin("http://3.37.238.85:80"); // 기존 IP도 유지
         configuration.addAllowedOrigin("http://www.gamecut.net"); // 기존 IP도 유지
+        configuration.addAllowedOrigin("http://gamecut.net"); // 기존 IP도 유지
 
         // 허용할 HTTP 메서드
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
