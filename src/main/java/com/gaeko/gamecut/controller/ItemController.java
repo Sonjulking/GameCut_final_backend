@@ -21,7 +21,7 @@ import com.gaeko.gamecut.service.ItemService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/api/items")
 @RequiredArgsConstructor
 public class ItemController {
 

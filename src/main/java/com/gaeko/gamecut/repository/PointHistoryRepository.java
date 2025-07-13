@@ -13,8 +13,8 @@ public interface PointHistoryRepository extends JpaRepository<PointHistory, Inte
     @Query(value = """
         SELECT ph.USER_NO, SUM(ph.POINT_AMOUNT) AS total_points
         FROM POINT_HISTORY ph
-        WHERE ph.POINT_DATE >= TRUNC(ADD_MONTHS(SYSDATE, -1), 'MM')
-          AND ph.POINT_DATE < TRUNC(SYSDATE, 'MM')
+        WHERE ph.POINT_DATE >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m-01')
+          AND ph.POINT_DATE < DATE_FORMAT(NOW(), '%Y-%m-01')
         GROUP BY ph.USER_NO
         ORDER BY total_points DESC
         """, nativeQuery = true)

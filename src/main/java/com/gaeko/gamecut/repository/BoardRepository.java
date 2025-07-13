@@ -16,17 +16,17 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
     Board findBoardByBoardNo(Integer boardNo);
 
-    @Query(value = "SELECT * FROM board WHERE board_type_no = 3 AND board_delete_date IS NULL ORDER BY DBMS_RANDOM.VALUE FETCH FIRST 5 ROWS ONLY", nativeQuery = true)
+    @Query(value = "SELECT * FROM board WHERE board_type_no = 3 AND board_delete_date IS NULL ORDER BY RAND() LIMIT 5", nativeQuery = true)
     List<Board> findRandom5BoardType3NotDeleted();
 
-    @Query("SELECT b FROM Board b WHERE b.boardType.boardTypeNo = 3 AND b.boardDeleteDate IS NULL ORDER BY function('DBMS_RANDOM.VALUE')")
+    @Query("SELECT b FROM Board b WHERE b.boardType.boardTypeNo = 3 AND b.boardDeleteDate IS NULL ORDER BY function('RAND')")
     List<Board> findRandomOneBoard(Pageable pageable);
 
-    @Query(value = "SELECT * FROM BOARD b " +
-            "WHERE b.BOARD_TYPE_NO = 3 " +
+    @Query(value = "SELECT * FROM board b " +
+            "WHERE b.board_type_no = 3 " +
             "AND b.BOARD_DELETE_DATE IS NULL " +
             "AND b.BOARD_NO NOT IN (:excludeIds) " +
-            "ORDER BY DBMS_RANDOM.VALUE", nativeQuery = true)
+            "ORDER BY RAND()", nativeQuery = true)
     List<Board> findRandomOneBoardExclude(
             @Param("excludeIds") List<Long> excludeIds,
             Pageable pageable
@@ -45,7 +45,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     Page<Board> findByBoardDeleteDateIsNullAndBoardType(Pageable pageable, BoardType boardType);
 
     @Modifying
-    @Query("UPDATE Board b SET b.boardDeleteDate = SYSDATE WHERE b.boardNo = :boardNo")
+    @Query("UPDATE Board b SET b.boardDeleteDate = NOW() WHERE b.boardNo = :boardNo")
     void deleteByBoardNo(@Param("boardNo") Integer boardNo);
 
     // 검색어 기반 게시물 조회 
