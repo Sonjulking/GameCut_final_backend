@@ -136,8 +136,8 @@ public class CommentService {
     
     // 특정 게시글의 댓글 페이징 조회 (좋아요 상태 포함) - 로그인 사용자용
     public List<CommentDTO> getCommentsByBoardNoWithLikeStatus(Integer boardNo, int page, int size, Integer currentUserNo) {
-        // 전체 댓글 조회 후 페이징 적용
-        List<Comment> allComments = commentRepository.findCommentsByBoardNo(boardNo);
+        // 2025-07-14 수정됨 - 삭제된 댓글도 포함하여 전체 댓글 조회 후 페이징 적용
+        List<Comment> allComments = commentRepository.findAllCommentsByBoardNoIncludingDeleted(boardNo);
 
         int start = page * size;
         int end = Math.min(start + size, allComments.size());
@@ -194,5 +194,34 @@ public class CommentService {
                     return dto;
                 })
                 .toList();
+    }
+
+    // 2025-07-14 수정됨 - 삭제된 댓글도 포함하여 조회하는 새로운 메소드 (pages용)
+    public List<CommentDTO> getAllCommentsByBoardNoIncludingDeletedWithLikeStatus(Integer boardNo, Integer currentUserNo) {
+        // 삭제된 댓글도 포함하여 전체 댓글 조회
+        List<Comment> allComments = commentRepository.findAllCommentsByBoardNoIncludingDeleted(boardNo);
+        
+        // 댓글을 DTO로 변환하면서 좋아요 상태 설정
+        return allComments.stream()
+                .map(comment -> {
+                    CommentDTO dto = commentMapper.toDTO(comment);
+                    
+                    // 로그인한 사용자가 있는 경우에만 좋아요 상태 확인
+                    if (currentUserNo != null) {
+                        boolean isLiked = commentLikeRepository.existsByUserUserNoAndCommentCommentNo(
+                            currentUserNo, comment.getCommentNo());
+                        dto.setIsLikedByCurrentUser(isLiked);
+                    } else {
+                        dto.setIsLikedByCurrentUser(false);
+                    }
+                    
+                    return dto;
+                })
+                .toList();
+    }
+
+    // 2025-07-14 수정됨 - 삭제된 댓글도 포함한 총 개수 조회 (pages용)
+    public Long getAllCommentCountByBoardNo(Integer boardNo) {
+        return commentRepository.countAllCommentsByBoardNo(boardNo);
     }
 }

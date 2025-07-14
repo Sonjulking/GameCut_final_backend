@@ -160,4 +160,33 @@ public class CommentController {
         return ResponseEntity.ok(allComments);
     }
 
+    // 2025-07-14 수정됨 - 삭제된 댓글도 포함하여 모든 댓글 조회 (pages용)
+    @GetMapping("/board/{boardNo}/all-including-deleted")
+    public ResponseEntity<List<CommentDTO>> getAllCommentsByBoardIncludingDeleted(
+            @PathVariable Integer boardNo,
+            @AuthenticationPrincipal UserDetails loginUser
+    ) {
+        log.info("삭제된 댓글 포함 모든 댓글 조회 API 호출 - boardNo: {}, loginUser: {}", 
+                 boardNo, loginUser != null ? loginUser.getUsername() : "비로그인");
+        
+        Integer currentUserNo = null;
+        if (loginUser != null) {
+            currentUserNo = userService.userNoFindByUserName(loginUser.getUsername());
+        }
+        
+        List<CommentDTO> allComments = commentService.getAllCommentsByBoardNoIncludingDeletedWithLikeStatus(
+            boardNo, currentUserNo);
+        
+        log.info("조회된 전체 댓글 수 (삭제된 댓글 포함): {}", allComments.size());
+        
+        return ResponseEntity.ok(allComments);
+    }
+
+    // 2025-07-14 수정됨 - 삭제된 댓글도 포함한 총 개수 조회 (pages용)
+    @GetMapping("/board/{boardNo}/count-including-deleted")
+    public ResponseEntity<Long> getAllCommentCountByBoardIncludingDeleted(@PathVariable Integer boardNo) {
+        Long count = commentService.getAllCommentCountByBoardNo(boardNo);
+        return ResponseEntity.ok(count);
+    }
+
 }
