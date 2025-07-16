@@ -17,6 +17,7 @@ import java.util.Map;
 public class AdminController {
 
     private final AdminService adminService;
+    private final ItemService itemService;
 
     @PostMapping("/user/delete/{userNo}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -35,13 +36,12 @@ public class AdminController {
         }
     }
     
-    @DeleteMapping("/admin/delete")
+    @DeleteMapping("/deleteItem/{itemNo}")
     public ResponseEntity<?> deleteItemAsAdmin(
-            @RequestParam Integer itemNo,
-            Principal principal
+            @PathVariable Integer itemNo
     ) {
         try {
-        	adminService.adminDeleteItem(itemNo, principal.getName());
+        	adminService.adminDeleteItem(itemNo);
             return ResponseEntity.ok("아이템 삭제 성공");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

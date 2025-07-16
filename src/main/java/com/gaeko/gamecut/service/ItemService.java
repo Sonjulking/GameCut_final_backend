@@ -58,12 +58,12 @@ public class ItemService {
                 .build();
     }
 
-    public List<ItemDTO> getAllItems() {
-        List<Item> itemList = itemRepository.findAll();
+        public List<ItemDTO> getAllItems() {
+        List<Item> itemList = itemRepository.findByItemDeleteDateIsNull(); // 삭제되지 않은 아이템만
         return itemList.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
-    }
+        }
 
     // 아이템 업로드
     public ItemDTO uploadItem(ItemDTO itemDTO, MultipartFile file, String username) throws IOException {

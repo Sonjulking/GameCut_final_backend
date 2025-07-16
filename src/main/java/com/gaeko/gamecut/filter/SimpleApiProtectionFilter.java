@@ -21,7 +21,10 @@ public class SimpleApiProtectionFilter implements Filter {
         "http://localhost:5173",
         "http://3.37.238.85",
         "http://www.gamecut.net",
-        "http://gamecut.net"
+        "http://gamecut.net",
+        "http://localhost:80",
+        "http://localhost"
+
     );
 
     @Override
