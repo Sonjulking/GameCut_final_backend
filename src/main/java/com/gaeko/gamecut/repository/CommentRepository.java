@@ -71,14 +71,50 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     // 특정 게시글의 댓글 페이징 조회 (최신순)
     @Query("SELECT c FROM Comment c " +
             "WHERE c.board.boardNo = :boardNo " +
-            "AND c.commentDeleteDate IS NULL " +
             "ORDER BY c.commentCreateDate DESC")
     List<Comment> findCommentsByBoardNo(@Param("boardNo") Integer boardNo);
 
     // 특정 게시글의 댓글 총 개수 조회
     @Query("SELECT COUNT(c) FROM Comment c " +
-            "WHERE c.board.boardNo = :boardNo " +
-            "AND c.commentDeleteDate IS NULL")
+            "WHERE c.board.boardNo = :boardNo ")
     Long countCommentsByBoardNo(@Param("boardNo") Integer boardNo);
+
+    // 2025-07-14 수정됨 - 삭제된 댓글도 포함하여 조회하는 새로운 메소드 (pages용)
+    @Query("SELECT c FROM Comment c " +
+            "WHERE c.board.boardNo = :boardNo " +
+            "ORDER BY c.commentLike DESC, c.commentCreateDate DESC")
+    List<Comment> findAllCommentsByBoardNoIncludingDeleted(@Param("boardNo") Integer boardNo);
+
+    // 2025-07-14 수정됨 - 삭제된 댓글도 포함한 총 개수 조회 (pages용)
+    @Query("SELECT COUNT(c) FROM Comment c " +
+            "WHERE c.board.boardNo = :boardNo")
+    Long countAllCommentsByBoardNo(@Param("boardNo") Integer boardNo);
+
+    // 2025-07-14 수정됨 - 메인화면용: 삭제된 댓글 포함, 좋아요순 정렬 된 상위 5개 댓글 조회
+    @Query("""
+            SELECT c FROM Comment c
+            WHERE c.board.boardNo = :boardNo
+            ORDER BY c.commentLike DESC, c.commentCreateDate DESC
+            """)
+    Page<Comment> findTop5CommentIncludingDeleted(@Param("boardNo") Integer boardNo, Pageable pageable);
+
+    // 2025-07-14 수정됨 - 메인화면용: 삭제된 댓글 포함, 좋아요순 정렬
+    @Query(value = """
+    SELECT * FROM (
+        SELECT  c.*,
+                ROW_NUMBER() OVER (
+                    PARTITION BY c.board_no
+                    ORDER BY c.comment_like DESC,
+                             c.comment_create_date DESC
+                ) AS rn
+        FROM comment_tb c
+        WHERE c.board_no IN (:boardNos)
+    ) sub
+    WHERE rn <= 5
+    ORDER BY board_no,
+             comment_like DESC,
+             comment_create_date DESC
+    """, nativeQuery = true)
+    List<Comment> findTop5CommentsByBoardNosIncludingDeleted(@Param("boardNos") List<Integer> boardNos);
 
 }

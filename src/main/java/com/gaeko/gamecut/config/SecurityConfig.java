@@ -32,9 +32,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("Security 필터 체인을 설정합니다...");
 
-        http.csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
+        http.csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                     // API 경로에 맞게 수정
                     .requestMatchers("/api/user/**").permitAll()
@@ -51,9 +50,10 @@ public class SecurityConfig {
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             )
-            .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userDetailsService), UsernamePasswordAuthenticationFilter.class);
-
-        http.cors().configurationSource(corsConfigurationSource());
+            // 2025년 7월 14일 수정됨 - API 접근 필터를 JWT 필터 전에 추가 (임시 비활성화)
+            // .addFilterBefore(apiAccessFilter(), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userDetailsService), UsernamePasswordAuthenticationFilter.class)
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         log.info("Security 필터 체인 설정 완료");
         return http.build();

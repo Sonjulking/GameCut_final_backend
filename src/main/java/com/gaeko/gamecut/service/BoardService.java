@@ -84,8 +84,8 @@ public class BoardService {
                                        .map(Board::getBoardNo)
                                        .collect(Collectors.toList());
 
-        // 모든 게시글의 상위 5개 댓글을 배치로 조회
-        List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNos(boardNos);
+        // 2025-07-14 수정됨 - 삭제된 댓글도 포함한 모든 게시글의 상위 5개 댓글을 배치로 조회
+        List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNosIncludingDeleted(boardNos);
 
         // 게시글별로 댓글 그룹핑
         Map<Integer, List<Comment>> commentsByBoardNo = top5Comments.stream()
@@ -130,8 +130,8 @@ public class BoardService {
                                        .map(Board::getBoardNo)
                                        .collect(Collectors.toList());
 
-        // 모든 게시글의 상위 5개 댓글을 배치로 조회
-        List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNos(boardNos);
+        // 2025-07-14 수정됨 - 삭제된 댓글도 포함한 모든 게시글의 상위 5개 댓글을 배치로 조회
+        List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNosIncludingDeleted(boardNos);
 
         // 게시글별로 댓글 그룹핑
         Map<Integer, List<Comment>> commentsByBoardNo = top5Comments.stream()
@@ -174,8 +174,8 @@ public class BoardService {
                                           .map(Board::getBoardNo)
                                           .collect(Collectors.toList());
 
-        // 모든 게시글의 상위 5개 댓글을 배치로 조회
-        List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNos(boardNos);
+        // 2025-07-14 수정됨 - 삭제된 댓글도 포함한 모든 게시글의 상위 5개 댓글을 배치로 조회
+        List<Comment> top5Comments = commentRepository.findTop5CommentsByBoardNosIncludingDeleted(boardNos);
 
         // 게시글별로 댓글 그룹핑
         Map<Integer, List<Comment>> commentsByBoardNo = top5Comments.stream()
@@ -210,8 +210,9 @@ public class BoardService {
         // 3. 게시글 번호 추출
         Integer boardNo = boards.get(0).getBoardNo();
 
-        // 4. 해당 게시글의 상위 5개 댓글 조회
-        Page<Comment> top5Comments = commentRepository.findTop5Comment(boardNo, PageRequest.of(0, 5));
+        // 4. 해당 게시글의 상위 5개 댓글 조회 (삭제된 댓글 포함)
+        // 2025-07-14 수정됨 - 삭제된 댓글도 포함하도록 변경
+        Page<Comment> top5Comments = commentRepository.findTop5CommentIncludingDeleted(boardNo, PageRequest.of(0, 5));
 
         // 5. Lazy 로딩 방지
         for (Board board : boards) {
