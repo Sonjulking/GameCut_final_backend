@@ -23,7 +23,15 @@
 - **Backend Repository**: [GameCut_final_backend](https://github.com/Sonjulking/GameCut_final_backend)
 - **배포 URL**: [www.gamecut.net](http://www.gamecut.net)
 
+## 👥 팀원 구성
 
+| 이름 | 역할 | 담당 |
+|------|------|------|
+| **공우진** | 백엔드/프론트엔드 | |
+| **고강찬** | 백엔드/프론트엔드 | 메인화면, 파일처리, 게시글 작성, GPT API 연동 |
+| **조세창** | 백엔드/프론트엔드 | |
+| **전희재** | 백엔드/프론트엔드  |  |
+| **홍지완** | 백엔드/프론트엔드 ||
 
 ## 🛠️ 기술 스택
 
