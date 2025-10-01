@@ -22,6 +22,7 @@
 - **Frontend Repository**: [GameCut_final_frontend](https://github.com/Sonjulking/GameCut_final_frontend)
 - **Backend Repository**: [GameCut_final_backend](https://github.com/Sonjulking/GameCut_final_backend)
 - **배포 URL**: [www.gamecut.net](http://www.gamecut.net)
+- **PPTL**: [Gogole Sliders](https://docs.google.com/presentation/d/1Dw6ZlKbAHN2Lk2FWFULWNOAOHyDeA9nj5HJyU0aDYUo/edit?usp=sharing)
 
 ## 👥 팀원 구성
 
