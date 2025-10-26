@@ -1,10 +1,10 @@
-> 게임 명장면을 짧은 영상으로 공유하고, 커뮤니티로 소통하는 웹 플랫폼
+> 게임 명장면을 짧은 영상으로 공유하고, 커뮤니티로 소통하는 웹 플랫폼 (Web Platform for sharing gaming videos and communicating in a user-friendly community) 
 
-[![배포 URL](https://img.shields.io/badge/배포-www.gamecut.net-blue)](http://www.gamecut.net)
+[![배포 URL](https://img.shields.io/badge/배포-www.gamecut.net-blue)](http://www.gamecut.net) (Distribution URL) 
 
-## 📋 프로젝트 개요
+## 📋 프로젝트 개요 (Project Introduction) 
 
-**개발 기간**: 2025.06.25 ~ 2025.07.18 (24일)
+**개발 기간**: 2025.06.25 ~ 2025.07.18 (24일) (Project Duration) 
 
 **팀명**: 개코 (KOSTA Final Project)
 
@@ -17,24 +17,24 @@
 - 기존 커뮤니티의 불편함 개선 (텍스트 중심, 영상 업로드 불편)
 - **해결책**: 게임 명장면을 짧은 영상으로 공유하고, 댓글과 커뮤니티로 소통하는 웹 플랫폼 구현
 
-## 🔗 링크
+## 🔗 링크 (Links) 
 
 - **Frontend Repository**: [GameCut_final_frontend](https://github.com/Sonjulking/GameCut_final_frontend)
 - **Backend Repository**: [GameCut_final_backend](https://github.com/Sonjulking/GameCut_final_backend)
 - **배포 URL**: [www.gamecut.net](http://www.gamecut.net)
 - **PPTL**: [Gogole Sliders](https://docs.google.com/presentation/d/1Dw6ZlKbAHN2Lk2FWFULWNOAOHyDeA9nj5HJyU0aDYUo/edit?usp=sharing)
 
-## 👥 팀원 구성
+## 👥 팀원 구성 (Team Members) 
 
-| 이름 | 역할 | 담당 |
+| 이름(Name) | 역할(Roles) | 담당 (Duties) |
 |------|------|------|
 | **공우진** | 백엔드/프론트엔드 | 로그인, 회원가입 |
 | **고강찬** | 백엔드/프론트엔드 | 메인화면, 파일처리, 게시글 작성, GPT API 연동 |
 | **조세창** | 백엔드/프론트엔드 | 아이템 상점 |
 | **전희재** | 백엔드/프론트엔드  | 댓글 기능, 마이페이지, 게시글 목록, 게시글 상세, 웹게임 |
-| **홍지완** | 백엔드/프론트엔드 | 웹게임, 게시글 검색 |
+| **홍지완(Jiewan Hong)** | 백엔드/프론트엔드 (Backend/Frontend)| 웹게임, 게시글 검색 (Web game(Tier-guessing game) Implementation, Public Post Search)|
 
-## 🛠️ 기술 스택
+## 🛠️ 기술 스택 (Applied Technologies) 
 
 ### Frontend
 ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black)
@@ -62,35 +62,35 @@
 ![Visual Studio Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat-square&logo=VisualStudioCode&logoColor=white)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ-000000?style=flat-square&logo=IntelliJIDEA&logoColor=white)
 
-## ✨ 주요 기능
+## ✨ 주요 기능 (Main Functions) 
 
-### 1. 영상 공유 시스템
-- 📹 게임 명장면 영상 업로드 (릴스/숏츠 형식)
-- 🔀 랜덤 영상 재생
-- 🏷️ AI 기반 자동 태그 추천 (GPT API)
-- 🖼️ 자동 썸네일 생성
+### 1. 영상 공유 시스템 (Video-sharing System) 
+- 📹 게임 명장면 영상 업로드 (릴스/숏츠 형식) (Gaming video upload (Reels/Shorts form)) 
+- 🔀 랜덤 영상 재생 (Random Video Player) 
+- 🏷️ AI 기반 자동 태그 추천 (GPT API) 
+- 🖼️ 자동 썸네일 생성 (Automated Thumbnail Creator) 
 
-### 2. 커뮤니티 기능
-- 💬 댓글 시스템 (댓글, 대댓글)
-- ❤️ 좋아요 기능
-- 👥 팔로우/팔로워 관리
-- 📨 쪽지 시스템
-- 🚫 사용자 차단
+### 2. 커뮤니티 기능 (Community Function)
+- 💬 댓글 시스템 (댓글, 대댓글) (Comment System) 
+- ❤️ 좋아요 기능 (Like Function) 
+- 👥 팔로우/팔로워 관리 (Followers/Following Management)
+- 📨 쪽지 시스템 (Note System) 
+- 🚫 사용자 차단 (User Blocking System) 
 
-### 3. 게임화 요소
-- 🎮 웹 게임 (티어 맞추기)
-- 🏆 포인트 시스템 및 랭킹
-- 🛒 포인트 상점 (아이템 구매)
+### 3. 게임화 요소 (Gamification Factors) 
+- 🎮 웹 게임 (티어 맞추기) (Web game: Tier-guessing Game) 
+- 🏆 포인트 시스템 및 랭킹 (Point System and Rankings) 
+- 🛒 포인트 상점 (아이템 구매) (Point Shop (Item purchase))
 
-### 4. 사용자 관리
-- 🔐 소셜 로그인 (카카오, 네이버, 구글)
-- 👤 프로필 관리
-- 🎨 테마 설정 (다크 모드)
-- 📊 내 활동 통계
+### 4. 사용자 관리 (User Management) 
+- 🔐 소셜 로그인 (카카오, 네이버, 구글) (Social Login (Kakaotalk, Naver, Google))
+- 👤 프로필 관리 (Profile Management) 
+- 🎨 테마 설정 (다크 모드) (Theme Selection (Dark mode))
+- 📊 내 활동 통계 (My Activities Stats) 
 
-## 🗄️ 데이터베이스 설계
+## 🗄️ 데이터베이스 설계 (DB Structure) 
 
-주요 테이블:
+주요 테이블: (Main tables) 
 - **USER**: 사용자 정보
 - **BOARD**: 게시글 (일반/영상)
 - **COMMENT**: 댓글 및 대댓글
@@ -102,25 +102,25 @@
 - **MESSAGE**: 쪽지
 - **REPORT**: 신고
 
-## 📱 주요 화면
+## 📱 주요 화면 (Main Screen) 
 
-### 메인 화면
-- 무한 스크롤 방식의 영상 피드
-- 태그별 필터링
-- 좋아요, 댓글, 공유, 신고 기능
+### 메인 화면 (Main Screen)
+- 무한 스크롤 방식의 영상 피드 (Infinite scrolling for video feeds)
+- 태그별 필터링 (Theme-based filtering) 
+- 좋아요, 댓글, 공유, 신고 기능 (Like, Comment, Share, Report System) 
 
-### 게시판
-- 카드형/리스트형 보기 전환
-- 카테고리별 필터링
-- 영상/일반 게시글 구분
+### 게시판 (Public Board) 
+- 카드형/리스트형 보기 전환 (Card/List type viewer) 
+- 카테고리별 필터링 (Category-based Filtering) 
+- 영상/일반 게시글 구분 (Video/Post Separation) 
 
-### 게시글 작성
-- 일반 게시글: 에디터 기반
-- 영상 게시글: 태그 입력, 썸네일 지정
-- AI 태그 추천 기능
+### 게시글 작성 (Posting) 
+- 일반 게시글: 에디터 기반 (Regular Post: Editor-based) 
+- 영상 게시글: 태그 입력, 썸네일 지정 (Video Post: Input tag, Thumbnail Selection) 
+- AI 태그 추천 기능 (AI Tag Recommendation System) 
 
-### 마이페이지
-- 내 정보 관리
-- 내 게시글/댓글 조회
-- 팔로우/팔로워 관리
-- 포인트 내역
+### 마이페이지 (My Page) 
+- 내 정보 관리 (My Information Management) 
+- 내 게시글/댓글 조회 (My posts/comments search)
+- 팔로우/팔로워 관리 (Following/Followers Management) 
+- 포인트 내역 (My Points) 
